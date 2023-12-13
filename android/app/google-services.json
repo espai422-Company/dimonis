@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "685068771761",
+    "project_id": "appdimonis",
+    "storage_bucket": "appdimonis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685068771761:android:69a97e87489445980e9d90",
+        "android_client_info": {
+          "package_name": "com.example.app_dimonis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8IuPU65VoTDGU1GhK1Zp1Fw_xgvPGsYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
