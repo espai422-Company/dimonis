@@ -8,6 +8,8 @@ import 'package:app_dimonis/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../components/components.dart';
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -124,6 +126,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 //       Auth().loginWithGoogle();
                 //     },
                 //     child: Text('Google Sign In')),
+                GoogleSignInButton(),
               ],
             ),
           ),

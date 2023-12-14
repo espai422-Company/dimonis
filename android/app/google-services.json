@@ -1,29 +1,55 @@
 {
-  "project_info": {
-    "project_number": "685068771761",
-    "project_id": "appdimonis",
-    "storage_bucket": "appdimonis.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:685068771761:android:69a97e87489445980e9d90",
-        "android_client_info": {
-          "package_name": "com.example.app_dimonis"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
+    "project_info": {
+        "project_number": "685068771761",
+        "firebase_url": "https://appdimonis-default-rtdb.europe-west1.firebasedatabase.app",
+        "project_id": "appdimonis",
+        "storage_bucket": "appdimonis.appspot.com"
+    },
+    "client": [
         {
-          "current_key": "AIzaSyB8IuPU65VoTDGU1GhK1Zp1Fw_xgvPGsYM"
+            "client_info": {
+                "mobilesdk_app_id": "1:685068771761:android:69a97e87489445980e9d90",
+                "android_client_info": {
+                    "package_name": "com.example.app_dimonis"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "685068771761-cmo1o58f188t9fsfh7k46rohk54uvh4h.apps.googleusercontent.com",
+                    "client_type": 1,
+                    "android_info": {
+                        "package_name": "com.example.app_dimonis",
+                        "certificate_hash": "16201807176c0119b22fd752a34c43c9eac6e451"
+                    }
+                },
+                {
+                    "client_id": "685068771761-a7c9ph2lur7lqcl3kpspb08fej587kjq.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyB8IuPU65VoTDGU1GhK1Zp1Fw_xgvPGsYM"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "685068771761-a7c9ph2lur7lqcl3kpspb08fej587kjq.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "685068771761-79bgi1v2inl4q6euel9mb7c5udb38enl.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "com.example.appDimonis"
+                            }
+                        }
+                    ]
+                }
+            }
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+    ],
+    "configuration_version": "1"
 }
