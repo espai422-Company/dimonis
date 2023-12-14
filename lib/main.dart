@@ -29,35 +29,8 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/login',
+      // initialRoute: '/login',
       routes: routes,
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-        backgroundColor: Colors.black,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              //Use this to Log Out user
-              FirebaseAuth.instance.signOut();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-            ),
-            child: Text('Sign Out'),
-          ),
-        ),
-      ),
     );
   }
 }
