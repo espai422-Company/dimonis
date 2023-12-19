@@ -1,12 +1,5 @@
-import 'package:app_dimonis/firebase_options.dart';
-import 'package:app_dimonis/main.dart';
-import 'package:app_dimonis/screens/home_screen.dart';
-import 'package:app_dimonis/screens/verify_email.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:app_dimonis/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../components/components.dart';
 

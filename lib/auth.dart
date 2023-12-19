@@ -1,3 +1,4 @@
+import 'package:app_dimonis/api/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class Auth {
       email: email,
       password: password,
     );
+
     // you can also store the user in Database
   }
 
@@ -43,6 +45,19 @@ class Auth {
 
     // var userCredential = await _auth.signInWithCredential(credential);
     // print(userCredential.user?.displayName);
+  }
+
+  // return if current user is an admin or not
+  Future<bool> isAdmin() async {
+    var ref = SignleDBConn.getDatabase().ref('/admins');
+    ref.get().then((snapshot) {
+      if (snapshot.exists) {
+        var a = snapshot.value as Map;
+        Map<Object, dynamic> b = a.cast<String, dynamic>();
+        return b.containsValue(_auth.currentUser!.email);
+      }
+    });
+    return false;
   }
 }
 

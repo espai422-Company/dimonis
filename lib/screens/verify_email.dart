@@ -42,11 +42,11 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: const Text('Home Screen'),
         backgroundColor: Colors.black,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: Center(
           child: Text('Please verify your email address'),
         ),

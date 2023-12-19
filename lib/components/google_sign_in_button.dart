@@ -6,6 +6,8 @@ class GoogleSignInButton extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  GoogleSignInButton({super.key});
+
   Future<void> _signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
@@ -35,7 +37,7 @@ class GoogleSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: _signInWithGoogle,
-      child: Text('Sign in with Google'),
+      child: const Text('Sign in with Google'),
     );
   }
 }
