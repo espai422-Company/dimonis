@@ -3,6 +3,20 @@ import 'dart:convert';
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+/*
+Per utilitzar la classe dimoni, pode crear una classe normal amb el constructor,
+aquesta classe generara una id automaticament per si feim un save que es guardi 
+a la bdd. També opcionalment li podem passar una id si ja la tenim. per el 
+motiu que sigui.
+
+Dimoni dimoni = Dimoni(nom: 'Dimoni', image: 'image', description: 'description');
+
+Per altre banda tenim el metodes static que ens torna un dimoni a partir de una 
+id o una llista de dimonis. aquests dimonis ja tenen una id assignada. per tant 
+l' unic que hem de fer si modificam un dimoni es fer un save() i si volem que es 
+guarde a la bdd
+
+*/
 class Dimoni {
   String nom;
   String image;
@@ -33,10 +47,16 @@ class Dimoni {
       };
 
   void save() {
+    if (id == null) {
+      throw Exception('Can not save a Dimoni without an id');
+    }
     _ref.set(toMap());
   }
 
   void delete() {
+    if (id == null) {
+      throw Exception('Can not delete a Dimoni without an id');
+    }
     _ref.remove();
   }
 
@@ -44,12 +64,14 @@ class Dimoni {
   static Future<List<Dimoni>> getDimonis() async {
     final ref = SignleDBConn.getDatabase().ref('/dimonis');
     final snapshot = await ref.get();
+
     if (snapshot.exists) {
-      var a = snapshot.value as Map;
-      Map<Object, dynamic> b = a.cast<String, dynamic>();
+      var response = snapshot.value as Map;
+      Map<Object, dynamic> castedResponse = response.cast<String, dynamic>();
       List<Dimoni> dimonis = [];
-      b.forEach((key, value) {
-        Dimoni dimoni = Dimoni.fromMap(value);
+      castedResponse.forEach((key, value) {
+        Map<Object, dynamic> b = value.cast<String, dynamic>();
+        Dimoni dimoni = Dimoni.fromMap(b);
         dimoni.id = key.toString();
         dimonis.add(dimoni);
       });

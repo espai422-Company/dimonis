@@ -5,22 +5,27 @@ import 'package:firebase_core/firebase_core.dart';
 
 class Progress {
   static final path = '/progress';
-  late String gimcana_id;
+  final String gimcanaId;
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  void findDimoni(Dimoni dimoni) {
+  Progress({required this.gimcanaId});
+
+  findDimoni(Dimoni dimoni) async {
     if (dimoni.id == null) {
       throw Exception('Can not set as found a Dimoni that has no id');
     }
 
-    var ref = SignleDBConn.getDatabase().ref('$path/$gimcana_id/$uid');
-    ref.update({
+    var ref = SignleDBConn.getDatabase().ref('$path/$gimcanaId/$uid');
+    await ref.update({
       dimoni.id!: DateTime.now().toString(),
     });
   }
 
+  // Retorna un Map amb els dimonis trobats i la data en que es van trobar
+  // Si no hi ha cap dimoni trobat retorna un Map buit
+  // Per convertir la data en DateTime: DateTime.parse(value)
   Future<Map<String, DateTime>> getProgress() async {
-    var ref = SignleDBConn.getDatabase().ref('$path/$gimcana_id/$uid');
+    var ref = SignleDBConn.getDatabase().ref('$path/$gimcanaId/$uid');
     var snapshot = await ref.get();
     if (snapshot.exists) {
       var a = snapshot.value as Map;

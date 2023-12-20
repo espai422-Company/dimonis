@@ -30,23 +30,6 @@ class Auth {
     await _auth.signOut();
   }
 
-  Future<void> loginWithGoogle() async {
-    // var googleUser = await _auth.signInWithPopup(
-    //   GoogleAuthProvider(),
-    // );
-
-    // var googleUser = await GoogleSignIn().signIn();
-    // var googleAuth = await googleUser?.authentication;
-
-    // var credential = GoogleAuthProvider.credential(
-    //   accessToken: googleAuth?.accessToken,
-    //   idToken: googleAuth?.idToken,
-    // );
-
-    // var userCredential = await _auth.signInWithCredential(credential);
-    // print(userCredential.user?.displayName);
-  }
-
   // return if current user is an admin or not
   Future<bool> isAdmin() async {
     var ref = SignleDBConn.getDatabase().ref('/admins');
