@@ -1,4 +1,5 @@
 import 'package:app_dimonis/api/db_connection.dart';
+import 'package:app_dimonis/models/dimoni.dart';
 import 'package:flutter/material.dart' hide DatePickerTheme;
 
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as dtPicker;
@@ -16,13 +17,62 @@ class CreateGinkana extends StatelessWidget {
         children: [
           _nom('Nom de la gincana'),
           // _dataHora(context),
-        
+          Expanded(
+            child: _dimonis(),
+          ),
+          
         ],
       ),
       floatingActionButton: FloatingActionButton(onPressed: () => {}, child: Icon(Icons.save),),
     );
   }
 }
+
+Widget _dimonis() {
+  return FutureBuilder<List<Dimoni>>(
+    future: DBConnection().readDimonisFromDatabase(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        List<Dimoni> dimonis = snapshot.data ?? [];
+        List<Widget> cards = dimonis.map((d) => _card(d)).toList();
+        return ListView(
+          padding: const EdgeInsets.all(10.0),
+          children: cards,
+        );
+      }
+    },
+  );
+}
+
+
+Widget _card(Dimoni d) {
+    return Card(
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+      child: Column(
+        children: [
+          ListTile(
+            leading: Image(image: NetworkImage(d.image)),
+            title: Text(d.nom),
+            subtitle: Text(d.description),
+
+
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(onPressed: (){}, child: const Text('OK')),
+              TextButton(onPressed: (){}, child: const Text('Cancel·lar')),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
 Widget _nom(String text) {
   return TextField(
