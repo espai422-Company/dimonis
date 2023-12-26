@@ -86,6 +86,20 @@ class _CreateGinkanaState extends State<CreateGinkana> {
           Container(
             height: 25,
           ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Text("Dimonis"),
+              Expanded(child: SizedBox()),
+              Text("${dimonis.length}"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(onPressed: () => dimonis = [], child: Text("Buidar dimonis")),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
           _dimonis(),
         ],
       ),
