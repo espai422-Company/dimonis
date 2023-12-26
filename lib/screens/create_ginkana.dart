@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 String nom = '';
 DateTime dataInici = DateTime(2023, 12, 31, 0, 0);
 DateTime dataFinal = DateTime(2024, 12, 31, 0, 0);
+List<Dimoni> dimonis = [];
 
 class CreateGinkana extends StatefulWidget {
   const CreateGinkana({super.key});
@@ -78,7 +79,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                     });
                   },
                   child: Text(
-                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
               Expanded(child: SizedBox()),
             ],
           ),
@@ -131,8 +132,11 @@ class _Card extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'mapa_picker_dimoni',
-                arguments: dimoni),
+            onTap: () {
+              Dimoni dimoniTemporal = dimoni;
+              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal);
+              dimonis.add(dimoniTemporal);
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
