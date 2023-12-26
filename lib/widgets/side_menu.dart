@@ -62,6 +62,14 @@ class SideMenu extends StatelessWidget {
               Navigator.pushReplacementNamed(context, 'settings_screen');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.pages_outlined),
+            title: const Text('Crea Gincana'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/createGinkana');
+            },
+          ),
         ],
       ),
     );

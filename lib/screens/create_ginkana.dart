@@ -15,11 +15,12 @@ class CreateGinkana extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Container(height: 25,),
           _nom('Nom de la gincana'),
+          Container(height: 25,),
           // _dataHora(context),
-          Expanded(
-            child: _dimonis(),
-          ),
+          Container(height: 25,),
+          _dimonis(),
           
         ],
       ),
@@ -38,41 +39,86 @@ Widget _dimonis() {
         return Text('Error: ${snapshot.error}');
       } else {
         List<Dimoni> dimonis = snapshot.data ?? [];
-        List<Widget> cards = dimonis.map((d) => _card(d)).toList();
-        return ListView(
-          padding: const EdgeInsets.all(10.0),
-          children: cards,
-        );
+        return Expanded(
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: dimonis.length,
+                itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
+          );
       }
     },
   );
 }
 
+class _Card extends StatelessWidget {
 
-Widget _card(Dimoni d) {
-    return Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+  final Dimoni dimoni;
+
+  const _Card({
+    Key? key,
+    required this.dimoni
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 130,
+      height: 190,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          ListTile(
-            leading: Image(image: NetworkImage(d.image)),
-            title: Text(d.nom),
-            subtitle: Text(d.description),
-
-
+          GestureDetector(
+            // onTap: () => Navigator.pushNamed(context, 'details', arguments: album),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(dimoni.image),
+                width: 130,
+                height: 190,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(onPressed: (){}, child: const Text('OK')),
-              TextButton(onPressed: (){}, child: const Text('Cancel·lar')),
-            ],
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            dimoni.nom ,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
           )
         ],
       ),
     );
   }
+}
+
+
+// Widget _card(Dimoni d) {
+//     return Card(
+//       elevation: 10,
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+//       child: Column(
+//         children: [
+//           ListTile(
+//             leading: Image(image: NetworkImage(d.image)),
+//             title: Text(d.nom),
+//             subtitle: Text(d.description),
+
+
+//           ),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               TextButton(onPressed: (){}, child: const Text('Coloca')),
+//             ],
+//           )
+//         ],
+//       ),
+//     );
+//   }
 
 Widget _nom(String text) {
   return TextField(
