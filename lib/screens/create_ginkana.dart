@@ -156,8 +156,8 @@ Widget _nom(String text) {
         borderRadius: BorderRadius.circular(20.0),
       ),
     ),
-    onChanged: (value) => {
-      print(value)
+    onChanged: (value)  {
+      nom = value;
     },
   );
 }
