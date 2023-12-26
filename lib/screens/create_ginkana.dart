@@ -131,7 +131,8 @@ class _Card extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            // onTap: () => print(dimoni.x),
+            onTap: () => Navigator.pushNamed(context, 'mapa_picker_dimoni',
+                arguments: dimoni),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(

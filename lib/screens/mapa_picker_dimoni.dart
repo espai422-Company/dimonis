@@ -17,7 +17,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
   MapType _currentMapType = MapType.satellite;
 
-  late Marker _coordenadesDimoni;
+  Marker _coordenadesDimoni = const Marker(markerId: MarkerId(''));
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +99,8 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           markerId: const MarkerId('coordenadesDimoni'),
           infoWindow: InfoWindow(title: dimoni.nom),
           position: pos);
+      dimoni.x = pos.latitude.toString();
+      dimoni.y = pos.longitude.toString();
     });
   }
 }
