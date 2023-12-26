@@ -1,13 +1,26 @@
 import 'package:app_dimonis/firebase_options.dart';
+import 'package:app_dimonis/preferences/preferences.dart';
+import 'package:app_dimonis/providers/theme_provider.dart';
+import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  await Preferences.init();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
+        ChangeNotifierProvider(create: (_) => UIProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,11 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Firebase Auth',
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
-        primarySwatch: Colors.blue,
-      ),
+      title: 'DimonisGo',
+      theme: Provider.of<ThemeProvider>(context).currentTheme,
       // initialRoute: '/login',
       routes: routes,
     );
