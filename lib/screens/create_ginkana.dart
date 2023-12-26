@@ -24,58 +24,74 @@ class _CreateGinkanaState extends State<CreateGinkana> {
       ),
       body: Column(
         children: [
-          Container(height: 25,),
+          Container(
+            height: 25,
+          ),
           _nom('Nom de la gincana'),
-          Container(height: 25,),
-          Row(children: [
-            Expanded(child: SizedBox()),
-            Text("Data inici"),
-            Expanded(child: SizedBox()),
-            ElevatedButton(
-            onPressed: () async {
-              final date = await _datePicker(context);
-              if (date == null){
-                return;
-              }
-              final time = await _timePicker(context);
-              if (time == null){
-                return;
-              }
-              setState(() {
-                dataInici = _updateTime(date, time);
-              });
-            }, 
-            child: Text("${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-            Expanded(child: SizedBox()),
-          ],),
-          Container(height: 25,),
-          Row(children: [
-            Expanded(child: SizedBox()),
-            Text("Data final"),
-            Expanded(child: SizedBox()),
-            ElevatedButton(
-            onPressed: () async {
-              final date = await _datePicker(context);
-              if (date == null){
-                return;
-              }
-              final time = await _timePicker(context);
-              if (time == null){
-                return;
-              }
-              setState(() {
-                dataFinal = _updateTime(date, time);
-              });
-            }, 
-            child: Text("${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-            Expanded(child: SizedBox()),
-          ],),
-          Container(height: 25,),
+          Container(
+            height: 25,
+          ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Text("Data inici"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataInici = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Text("Data final"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataFinal = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
           _dimonis(),
-          
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () => {}, child: Icon(Icons.save),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        child: Icon(Icons.save),
+      ),
     );
   }
 }
@@ -91,24 +107,20 @@ Widget _dimonis() {
       } else {
         List<Dimoni> dimonis = snapshot.data ?? [];
         return Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dimonis.length,
-                itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
-          );
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: dimonis.length,
+              itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
+        );
       }
     },
   );
 }
 
 class _Card extends StatelessWidget {
-
   final Dimoni dimoni;
 
-  const _Card({
-    Key? key,
-    required this.dimoni
-  }) : super(key: key);
+  const _Card({Key? key, required this.dimoni}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +131,8 @@ class _Card extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            // onTap: () => print(dimoni.x),
+            onTap: () => Navigator.pushNamed(context, 'mapa_picker_dimoni',
+                arguments: dimoni),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
@@ -135,7 +148,7 @@ class _Card extends StatelessWidget {
             height: 5,
           ),
           Text(
-            dimoni.nom ,
+            dimoni.nom,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -162,18 +175,16 @@ Widget _nom(String text) {
   );
 }
 
-Future<DateTime?> _datePicker(context) =>
-  showDatePicker(
-    context: context, 
-    initialDate: dataInici, 
-    firstDate: DateTime(2023), 
+Future<DateTime?> _datePicker(context) => showDatePicker(
+    context: context,
+    initialDate: dataInici,
+    firstDate: DateTime(2023),
     lastDate: DateTime(2030));
 
-Future<TimeOfDay?> _timePicker(context) =>
-  showTimePicker(
-    context: context, 
+Future<TimeOfDay?> _timePicker(context) => showTimePicker(
+    context: context,
     initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
-DateTime _updateTime(DateTime date, TimeOfDay time){
+DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
 }
