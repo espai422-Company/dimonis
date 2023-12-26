@@ -15,16 +15,24 @@ class CreateGinkana extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(height: 25,),
+          Container(
+            height: 25,
+          ),
           _nom('Nom de la gincana'),
-          Container(height: 25,),
+          Container(
+            height: 25,
+          ),
           // _dataHora(context),
-          Container(height: 25,),
+          Container(
+            height: 25,
+          ),
           _dimonis(),
-          
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () => {}, child: Icon(Icons.save),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        child: Icon(Icons.save),
+      ),
     );
   }
 }
@@ -40,24 +48,20 @@ Widget _dimonis() {
       } else {
         List<Dimoni> dimonis = snapshot.data ?? [];
         return Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dimonis.length,
-                itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
-          );
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: dimonis.length,
+              itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
+        );
       }
     },
   );
 }
 
 class _Card extends StatelessWidget {
-
   final Dimoni dimoni;
 
-  const _Card({
-    Key? key,
-    required this.dimoni
-  }) : super(key: key);
+  const _Card({Key? key, required this.dimoni}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +72,12 @@ class _Card extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            // onTap: () => Navigator.pushNamed(context, 'details', arguments: album),
+            onTap: () => Navigator.pushNamed(context, 'mapa_picker_dimoni',
+                arguments: dimoni),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
+                placeholder: const AssetImage('assets/no-image.jpg'),
                 image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
@@ -84,7 +89,7 @@ class _Card extends StatelessWidget {
             height: 5,
           ),
           Text(
-            dimoni.nom ,
+            dimoni.nom,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -94,7 +99,6 @@ class _Card extends StatelessWidget {
     );
   }
 }
-
 
 // Widget _card(Dimoni d) {
 //     return Card(
@@ -106,7 +110,6 @@ class _Card extends StatelessWidget {
 //             leading: Image(image: NetworkImage(d.image)),
 //             title: Text(d.nom),
 //             subtitle: Text(d.description),
-
 
 //           ),
 //           Row(
