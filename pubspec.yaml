@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.6
   firebase_database: ^10.3.8
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

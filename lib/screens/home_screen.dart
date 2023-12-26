@@ -72,7 +72,7 @@ class HomeWidget extends StatelessWidget {
               // image url
 
               provesDimoni(),
-              provesGimcana(),
+              provesGimcana(context),
               provesProgres(),
             ],
           ),
@@ -110,7 +110,7 @@ class HomeWidget extends StatelessWidget {
     );
   }
 
-  Widget provesGimcana() {
+  Widget provesGimcana(context) {
     // exemple crear una gimaca nova i guardarla
     var gimcama = Gimcama(
       id: '-Nm5j494CRO4J5ir1DXE', // Comentar per crear una nova gimcama, aixo es per modificar una existent
@@ -131,6 +131,11 @@ class HomeWidget extends StatelessWidget {
             //     .removeDimoni(await Dimoni.getDimoni('-Nm5apaQ6dyOuRsSE66M'));
           },
           child: Text('Test Gimcana'),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          // => Navigator.pushNamed(context, '/createGinkana'),
+          child: Text('Crea Gimcana'),
         ),
       ],
     );

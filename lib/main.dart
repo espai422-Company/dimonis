@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
-      // initialRoute: '/login',
+      initialRoute: '/createGinkana',
       routes: routes,
     );
   }
