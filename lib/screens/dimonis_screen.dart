@@ -40,7 +40,7 @@ class DimonisScreen extends StatelessWidget {
               Text(FirebaseAuth.instance.currentUser!.email!),
               // image url
 
-              provesDimoni(),
+              // provesDimoni(),
               provesGimcana(),
               provesProgres(),
             ],
@@ -50,34 +50,34 @@ class DimonisScreen extends StatelessWidget {
     );
   }
 
-  Widget provesDimoni() {
-    var dimoni = Dimoni(
-      nom: 'Gay',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Besso2.jpg?alt=media&token=8eff69df-c8ce-4af1-b0d9-7021985158a5',
-      description: 'No desc',
-      id: '-Nm5_WSR-_xqOnBENWiO',
-    );
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        const Text('Proves Dimoni'),
-        ElevatedButton(
-          onPressed: () {
-            // dimoni.delete();
-            // dimoni.save();
-            Dimoni.getDimoni('-Nm5_neOWgKzWuFpQ3Ve')
-                .then((value) => print(value.nom));
+  // Widget provesDimoni() {
+  //   var dimoni = Dimoni(
+  //     nom: 'Gay',
+  //     image:
+  //         'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Besso2.jpg?alt=media&token=8eff69df-c8ce-4af1-b0d9-7021985158a5',
+  //     description: 'No desc',
+  //     id: '-Nm5_WSR-_xqOnBENWiO',
+  //   );
+  //   return Column(
+  //     children: [
+  //       SizedBox(
+  //         height: 20,
+  //       ),
+  //       const Text('Proves Dimoni'),
+  //       ElevatedButton(
+  //         onPressed: () {
+  //           // dimoni.delete();
+  //           // dimoni.save();
+  //           Dimoni.getDimoni('-Nm5_neOWgKzWuFpQ3Ve')
+  //               .then((value) => print(value.nom));
 
-            Dimoni.getDimonis().then((value) => print(value.length));
-          },
-          child: Text('Test Dimoni'),
-        ),
-      ],
-    );
-  }
+  //           Dimoni.getDimonis().then((value) => print(value.length));
+  //         },
+  //         child: Text('Test Dimoni'),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget provesGimcana() {
     // exemple crear una gimaca nova i guardarla
