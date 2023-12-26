@@ -1,5 +1,6 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart' hide DatePickerTheme;
 
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as dtPicker;
@@ -10,6 +11,7 @@ class CreateGinkana extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideMenu(),
       appBar: AppBar(
         title: Text("Crea una gincana"),
       ),
@@ -72,7 +74,7 @@ class _Card extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
+                placeholder: AssetImage('assets/dimoni_portada.png'),
                 image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
