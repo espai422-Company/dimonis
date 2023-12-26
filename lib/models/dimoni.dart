@@ -21,6 +21,8 @@ class Dimoni {
   String nom;
   String image;
   String description;
+  String x;
+  String y;
   String? id;
 
   late DatabaseReference _ref;
@@ -29,6 +31,8 @@ class Dimoni {
       {required this.nom,
       required this.image,
       required this.description,
+      required this.x,
+      required this.y,
       this.id}) {
     id ??= SignleDBConn.getDatabase().ref('/dimonis').push().key;
     _ref = SignleDBConn.getDatabase().ref('/dimonis/$id');
@@ -38,12 +42,16 @@ class Dimoni {
         nom: json["nom"],
         image: json["image"],
         description: json["description"],
+        x: json["x"],
+        y: json["y"],
       );
 
   Map<String, dynamic> toMap() => {
         "nom": nom,
         "image": image,
         "description": description,
+        "x": x,
+        "y": y,
       };
 
   void save() {

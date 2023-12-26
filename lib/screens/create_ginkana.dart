@@ -1,15 +1,24 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
-import 'package:flutter/material.dart' hide DatePickerTheme;
+import 'package:app_dimonis/widgets/side_menu.dart';
+import 'package:flutter/material.dart';
 
-// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as dtPicker;
+String nom = '';
+DateTime dataInici = DateTime(2023, 12, 31, 0, 0);
+DateTime dataFinal = DateTime(2024, 12, 31, 0, 0);
 
-class CreateGinkana extends StatelessWidget {
+class CreateGinkana extends StatefulWidget {
   const CreateGinkana({super.key});
 
   @override
+  State<CreateGinkana> createState() => _CreateGinkanaState();
+}
+
+class _CreateGinkanaState extends State<CreateGinkana> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideMenu(),
       appBar: AppBar(
         title: Text("Crea una gincana"),
       ),
@@ -22,7 +31,57 @@ class CreateGinkana extends StatelessWidget {
           Container(
             height: 25,
           ),
-          // _dataHora(context),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Text("Data inici"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataInici = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Text("Data final"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataFinal = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              Expanded(child: SizedBox()),
+            ],
+          ),
           Container(
             height: 25,
           ),
@@ -72,12 +131,11 @@ class _Card extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'mapa_picker_dimoni',
-                arguments: dimoni),
+            // onTap: () => print(dimoni.x),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image.jpg'),
+                placeholder: AssetImage('assets/LoadingDimonis.gif'),
                 image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
@@ -100,29 +158,6 @@ class _Card extends StatelessWidget {
   }
 }
 
-// Widget _card(Dimoni d) {
-//     return Card(
-//       elevation: 10,
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-//       child: Column(
-//         children: [
-//           ListTile(
-//             leading: Image(image: NetworkImage(d.image)),
-//             title: Text(d.nom),
-//             subtitle: Text(d.description),
-
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               TextButton(onPressed: (){}, child: const Text('Coloca')),
-//             ],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-
 Widget _nom(String text) {
   return TextField(
     decoration: InputDecoration(
@@ -133,65 +168,20 @@ Widget _nom(String text) {
         borderRadius: BorderRadius.circular(20.0),
       ),
     ),
+    onChanged: (value) => {print(value)},
   );
 }
 
-// Widget _dataHora(context) {
-//   DateTime selectedDate = DateTime.now();
+Future<DateTime?> _datePicker(context) => showDatePicker(
+    context: context,
+    initialDate: dataInici,
+    firstDate: DateTime(2023),
+    lastDate: DateTime(2030));
 
-//   return TextButton(
-//     onPressed: () async {
-//       DateTime? pickedDate = await dtPicker.DatePicker.showDatePicker(
-//         context,
-//         showTitleActions: true,
-//         minTime: DateTime(2023, 3, 5), 
-//         maxTime: DateTime(2030, 6, 7),
-//         theme: dtPicker.DatePickerTheme(
-//           headerColor: Color.fromARGB(255, 255, 0, 0),
-//           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-//           itemStyle: const TextStyle(
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 18,
-//           ),
-//           doneStyle: const TextStyle(color: Colors.white, fontSize: 16),
-//         ),
-//         onChanged: (date) {
-//           print('change $date in time zone ' +
-//               date.timeZoneOffset.inHours.toString());
-//         },
-//         onConfirm: (date) {
-//           print('confirm $date');
-//         },
-//         currentTime: selectedDate,
-//         locale: dtPicker.LocaleType.en,
-//       );
+Future<TimeOfDay?> _timePicker(context) => showTimePicker(
+    context: context,
+    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
-//       if (pickedDate != null && pickedDate != selectedDate) {
-//         selectedDate = pickedDate;
-//       }
-
-//       dtPicker.DatePicker.showTimePicker(
-//         context,
-//         showTitleActions: true,
-//         currentTime: selectedDate,
-//         theme: dtPicker.DatePickerTheme(
-//           headerColor: Colors.orange,
-//           backgroundColor: Colors.blue,
-//           itemStyle: const TextStyle(
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 18,
-//           ),
-//           doneStyle: const TextStyle(color: Colors.white, fontSize: 16),
-//         ),
-//         locale: dtPicker.LocaleType.es,
-//       );
-//     },
-//     child: Text(
-//       'Selecciona una data',
-//       style: TextStyle(color: Colors.blue),
-//     ),
-//   );
-// }
-
+DateTime _updateTime(DateTime date, TimeOfDay time) {
+  return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}

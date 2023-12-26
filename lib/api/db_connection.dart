@@ -43,7 +43,7 @@ class DBConnection {
     List<Dimoni> dimonis = [];
     final snapshot = await ref.child('dimonis').get();
     if (snapshot.exists) {
-      print(snapshot.value);
+      // print(snapshot.value);
       var a = snapshot.value as Map;
       a.forEach((key, value) { 
         Map<Object, dynamic> b = value.cast<String, dynamic>();
