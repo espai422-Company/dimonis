@@ -37,28 +37,6 @@ class DBConnection {
       'author': 'E2ve',
     });
   }
-
-  Future<List<Dimoni>> readDimonisFromDatabase() async {
-    final ref = database.ref();
-    List<Dimoni> dimonis = [];
-    final snapshot = await ref.child('dimonis').get();
-    if (snapshot.exists) {
-      // print(snapshot.value);
-      var a = snapshot.value as Map;
-      a.forEach((key, value) { 
-        Map<Object, dynamic> b = value.cast<String, dynamic>();
-        dimonis.add(Dimoni.fromMap(b));
-      });
-      return dimonis;
-    } else {
-      print('No data available.');
-      return dimonis;
-    }
-
-    // var snapshot = await ref.child('updates/id').update({
-    //   'author': 'E2ve',
-    // });
-  }
 }
 
 class SignleDBConn {

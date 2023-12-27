@@ -22,92 +22,93 @@ class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: SideMenu(),
-        appBar: AppBar(
-          title: Text("Crea una gincana"),
-        ),
-        body: ListView(
-          padding: EdgeInsets.all(25),
-          children: [
-            Container(
-              height: 15,
-            ),
-            _nom('Nom de la gincana'),
-            Container(
-              height: 25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Data inici"),
-                Expanded(child: SizedBox()),
-                ElevatedButton(
-                    onPressed: () async {
-                      final date = await _datePicker(context);
-                      if (date == null) {
-                        return;
-                      }
-                      final time = await _timePicker(context);
-                      if (time == null) {
-                        return;
-                      }
-                      setState(() {
-                        dataInici = _updateTime(date, time);
-                      });
-                    },
-                    child: Text(
-                        "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-              ],
-            ),
-            Container(
-              height: 25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Data final"),
-                Expanded(child: SizedBox()),
-                ElevatedButton(
-                    onPressed: () async {
-                      final date = await _datePicker(context);
-                      if (date == null) {
-                        return;
-                      }
-                      final time = await _timePicker(context);
-                      if (time == null) {
-                        return;
-                      }
-                      setState(() {
-                        dataFinal = _updateTime(date, time);
-                      });
-                    },
-                    child: Text(
-                        "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
-              ],
-            ),
-            Container(
-              height: 25,
-            ),
-            _dimonis(context),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
-            dimonis.forEach((element) {
-              gimcana.addDimoni(element, element.x, element.y);
-            });
-            gimcana.save();
-            nom = '';
-            dataInici = DateTime(2023, 12, 31, 0, 0);
-            dataFinal = DateTime(2024, 12, 31, 0, 0);
-            dimonis = [];
-            Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
-          },
-          child: Icon(Icons.save),
-        ),
+      drawer: SideMenu(),
+      appBar: AppBar(
+        title: Text("Crea una gincana"),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(25),
+        children: [
+          Container(
+            height: 15,
+          ),
+          _nom('Nom de la gincana'),
+          Container(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Data inici"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataInici = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Data final"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataFinal = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          _dimonis(context),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
+          dimonis.forEach((element) {
+            gimcana.addDimoni(element, element.x, element.y);
+          });
+          gimcana.save();
+          nom = '';
+          dataInici = DateTime(2023, 12, 31, 0, 0);
+          dataFinal = DateTime(2024, 12, 31, 0, 0);
+          dimonis = [];
+          Provider.of<TotalDimonisProvider>(context, listen: false)
+              .setDimoni(dimonis.length);
+        },
+        child: Icon(Icons.save),
+      ),
     );
   }
 }
@@ -115,45 +116,49 @@ class _CreateGinkanaState extends State<CreateGinkana> {
 Widget _dimonis(context) {
   return Column(
     children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Dimonis"),
-              Expanded(child: SizedBox()),
-              Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(onPressed: () {
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("Dimonis"),
+          Expanded(child: SizedBox()),
+          Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
+          Expanded(child: SizedBox()),
+          ElevatedButton(
+              onPressed: () {
                 dimonis = [];
-                Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
-              }, child: Text("Buidar dimonis")),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          Container(
-            height: 250,
-            child: FutureBuilder<List<Dimoni>>(
-              future: DBConnection().readDimonisFromDatabase(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Dimoni> dimonis = snapshot.data ?? [];
-                  return Container(
-                    height: 250,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: dimonis.length,
-                        itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
-                  );
-                }
+                Provider.of<TotalDimonisProvider>(context, listen: false)
+                    .setDimoni(dimonis.length);
               },
-            ),
-          ),
+              child: Text("Buidar dimonis")),
+        ],
+      ),
+      Container(
+        height: 25,
+      ),
+      Container(
+        height: 250,
+        child: FutureBuilder<List<Dimoni>>(
+          future: Dimoni.getDimonis(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              List<Dimoni> dimonis = snapshot.data ?? [];
+              return Container(
+                height: 250,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: dimonis.length,
+                    itemBuilder: (_, int index) =>
+                        _Card(dimoni: dimonis[index], context)),
+              );
+            }
+          },
+        ),
+      ),
     ],
   );
 }
@@ -177,15 +182,19 @@ class _Card extends StatelessWidget {
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
                       arguments: dimoniTemporal)
                   .then((value) => {
-                        if (value != null) {
-                          dimoniTemporal = value as Dimoni,
-                          dimoni.x = dimoniTemporal.x,
-                          dimoni.y = dimoniTemporal.y,
-                          dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
-                          dimonis.add(dimoniTemporal),
-                          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
-                        }
-                  });
+                        if (value != null)
+                          {
+                            dimoniTemporal = value as Dimoni,
+                            dimoni.x = dimoniTemporal.x,
+                            dimoni.y = dimoniTemporal.y,
+                            dimonis.removeWhere(
+                                (d) => d.nom == dimoniTemporal.nom),
+                            dimonis.add(dimoniTemporal),
+                            Provider.of<TotalDimonisProvider>(context,
+                                    listen: false)
+                                .setDimoni(dimonis.length),
+                          }
+                      });
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
