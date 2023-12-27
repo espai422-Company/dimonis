@@ -20,7 +20,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
   @override
   Widget build(BuildContext context) {
     final CameraPosition _puntInicial = CameraPosition(
-        target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
+        target: getLatLng('39.7701761,3.0222061'), zoom: 15, tilt: 50);
 
     final Dimoni dimoni = ModalRoute.of(context)!.settings.arguments as Dimoni;
 
@@ -37,7 +37,6 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('Mapa'),
         actions: [
           IconButton(

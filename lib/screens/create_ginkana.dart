@@ -93,7 +93,8 @@ class _CreateGinkanaState extends State<CreateGinkana> {
               Expanded(child: SizedBox()),
               Text("${dimonis.length}"),
               Expanded(child: SizedBox()),
-              ElevatedButton(onPressed: () => dimonis = [], child: Text("Buidar dimonis")),
+              ElevatedButton(
+                  onPressed: () => dimonis = [], child: Text("Buidar dimonis")),
               Expanded(child: SizedBox()),
             ],
           ),
@@ -151,8 +152,11 @@ class _Card extends StatelessWidget {
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
                       arguments: dimoniTemporal)
                   .then((value) => {
-                        dimoniTemporal = value as Dimoni,
-                        dimonis.add(dimoniTemporal),
+                        if (value != null)
+                          {
+                            dimoniTemporal = value as Dimoni,
+                            dimonis.add(dimoniTemporal),
+                          }
                       });
             },
             child: ClipRRect(

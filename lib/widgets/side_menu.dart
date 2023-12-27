@@ -70,6 +70,14 @@ class SideMenu extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/createGinkana');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.person_add_alt_outlined),
+            title: const Text('Crea Dimoni'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, 'crear_dimoni');
+            },
+          ),
         ],
       ),
     );
