@@ -149,16 +149,11 @@ Widget _dimonis(context) {
   );
 }
 
-class _Card extends StatefulWidget {
+class _Card extends StatelessWidget {
   final Dimoni dimoni;
 
   const _Card(context, {Key? key, required this.dimoni}) : super(key: key);
 
-  @override
-  State<_Card> createState() => _CardState();
-}
-
-class _CardState extends State<_Card> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -169,12 +164,14 @@ class _CardState extends State<_Card> {
         children: [
           GestureDetector(
             onTap: () {
-              Dimoni dimoniTemporal = widget.dimoni;
+              Dimoni dimoniTemporal = dimoni;
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
                       arguments: dimoniTemporal)
                   .then((value) => {
                         if (value != null) {
                           dimoniTemporal = value as Dimoni,
+                          dimoni.x = dimoniTemporal.x,
+                          dimoni.y = dimoniTemporal.y,
                           dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
                           dimonis.add(dimoniTemporal),
                           Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
@@ -185,7 +182,7 @@ class _CardState extends State<_Card> {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage('assets/LoadingDimonis.gif'),
-                image: NetworkImage(widget.dimoni.image),
+                image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -196,7 +193,7 @@ class _CardState extends State<_Card> {
             height: 5,
           ),
           Text(
-            widget.dimoni.nom,
+            dimoni.nom,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
