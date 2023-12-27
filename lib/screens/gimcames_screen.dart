@@ -1,3 +1,4 @@
+import 'package:app_dimonis/widgets/gimcama_list.dart';
 import 'package:flutter/material.dart';
 
 class GimcamaScreen extends StatelessWidget {
@@ -5,6 +6,6 @@ class GimcamaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return GimcamaList();
   }
 }
