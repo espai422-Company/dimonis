@@ -1,5 +1,6 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/models/gimcama.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,9 @@ class _CreateGinkanaState extends State<CreateGinkana> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () {
+            Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
+          },
           child: Icon(Icons.save),
         ),
     );
@@ -172,8 +175,9 @@ class _CardState extends State<_Card> {
                   .then((value) => {
                         if (value != null) {
                           dimoniTemporal = value as Dimoni,
+                          dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
                           dimonis.add(dimoniTemporal),
-                          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length)
+                          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
                         }
                   });
             },
