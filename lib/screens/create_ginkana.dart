@@ -134,8 +134,12 @@ class _Card extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Dimoni dimoniTemporal = dimoni;
-              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal);
-              dimonis.add(dimoniTemporal);
+              Navigator.pushNamed(context, 'mapa_picker_dimoni',
+                      arguments: dimoniTemporal)
+                  .then((value) => {
+                        dimoniTemporal = value as Dimoni,
+                        dimonis.add(dimoniTemporal),
+                      });
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -173,7 +177,7 @@ Widget _nom(String text) {
         borderRadius: BorderRadius.circular(20.0),
       ),
     ),
-    onChanged: (value)  {
+    onChanged: (value) {
       nom = value;
     },
   );

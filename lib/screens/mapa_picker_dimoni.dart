@@ -17,8 +17,6 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
   MapType _currentMapType = MapType.satellite;
 
-  Marker _coordenadesDimoni = const Marker(markerId: MarkerId(''));
-
   @override
   Widget build(BuildContext context) {
     final CameraPosition _puntInicial = CameraPosition(
@@ -26,13 +24,20 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
     final Dimoni dimoni = ModalRoute.of(context)!.settings.arguments as Dimoni;
 
+    Marker coordenadesDimoni = dimoni.x == '0'
+        ? const Marker(markerId: MarkerId(''))
+        : Marker(
+            markerId: const MarkerId('dimoniMarker'),
+            position: getLatLng('${dimoni.x},${dimoni.y}'));
+
     Set<Marker> markers = new Set<Marker>();
     markers.add(
-      _coordenadesDimoni,
+      coordenadesDimoni,
     );
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Mapa'),
         actions: [
           IconButton(
@@ -54,7 +59,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         myLocationButtonEnabled: false,
         mapType: _currentMapType,
         markers: markers,
-        onTap: (LatLng coor) => _addMarker(coor, dimoni),
+        onTap: (LatLng coor) => _addMarker(coor, dimoni, coordenadesDimoni),
         initialCameraPosition: _puntInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
@@ -65,7 +70,32 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         child: FloatingActionButton(
           elevation: 0,
           child: const Icon(Icons.save),
-          onPressed: () {},
+          onPressed: () {
+            if (dimoni.x != '0') {
+              Navigator.pop(context, dimoni);
+            } else {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    icon: const Icon(Icons.error_outline_outlined),
+                    title: const Text('ERROR COORDENADES'),
+                    content:
+                        const Text('No s\'han seleccionat les coordenades'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -93,9 +123,9 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     return LatLng(latitude, longitude);
   }
 
-  void _addMarker(LatLng pos, Dimoni dimoni) {
+  void _addMarker(LatLng pos, Dimoni dimoni, Marker coordenadesDimoni) {
     setState(() {
-      _coordenadesDimoni = Marker(
+      coordenadesDimoni = Marker(
           markerId: const MarkerId('coordenadesDimoni'),
           infoWindow: InfoWindow(title: dimoni.nom),
           position: pos);
