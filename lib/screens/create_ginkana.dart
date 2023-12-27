@@ -96,6 +96,15 @@ class _CreateGinkanaState extends State<CreateGinkana> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
+            dimonis.forEach((element) {
+              gimcana.addDimoni(element, element.x, element.y);
+            });
+            gimcana.save();
+            nom = '';
+            dataInici = DateTime(2023, 12, 31, 0, 0);
+            dataFinal = DateTime(2024, 12, 31, 0, 0);
+            dimonis = [];
+            Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
           },
           child: Icon(Icons.save),
         ),
