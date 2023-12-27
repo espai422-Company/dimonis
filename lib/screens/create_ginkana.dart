@@ -1,4 +1,3 @@
-import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
 import 'package:app_dimonis/models/gimcama.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
@@ -104,8 +103,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
           dataInici = DateTime(2023, 12, 31, 0, 0);
           dataFinal = DateTime(2024, 12, 31, 0, 0);
           dimonis = [];
-          Provider.of<TotalDimonisProvider>(context, listen: false)
-              .setDimoni(dimonis.length);
+          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
         },
         child: Icon(Icons.save),
       ),
@@ -127,8 +125,7 @@ Widget _dimonis(context) {
           ElevatedButton(
               onPressed: () {
                 dimonis = [];
-                Provider.of<TotalDimonisProvider>(context, listen: false)
-                    .setDimoni(dimonis.length);
+                Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
               },
               child: Text("Buidar dimonis")),
         ],
@@ -152,8 +149,7 @@ Widget _dimonis(context) {
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: dimonis.length,
-                    itemBuilder: (_, int index) =>
-                        _Card(dimoni: dimonis[index], context)),
+                    itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
               );
             }
           },
@@ -179,22 +175,19 @@ class _Card extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Dimoni dimoniTemporal = dimoni;
-              Navigator.pushNamed(context, 'mapa_picker_dimoni',
-                      arguments: dimoniTemporal)
-                  .then((value) => {
-                        if (value != null)
-                          {
-                            dimoniTemporal = value as Dimoni,
-                            dimoni.x = dimoniTemporal.x,
-                            dimoni.y = dimoniTemporal.y,
-                            dimonis.removeWhere(
-                                (d) => d.nom == dimoniTemporal.nom),
-                            dimonis.add(dimoniTemporal),
-                            Provider.of<TotalDimonisProvider>(context,
-                                    listen: false)
-                                .setDimoni(dimonis.length),
-                          }
-                      });
+              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal).then(
+                (value) => {
+                  if (value != null)
+                    {
+                      dimoniTemporal = value as Dimoni,
+                      dimoni.x = dimoniTemporal.x,
+                      dimoni.y = dimoniTemporal.y,
+                      dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
+                      dimonis.add(dimoniTemporal),
+                      Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
+                    }
+                },
+              );
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -238,15 +231,11 @@ Widget _nom(String text) {
   );
 }
 
-Future<DateTime?> _datePicker(context) => showDatePicker(
-    context: context,
-    initialDate: dataInici,
-    firstDate: DateTime(2023),
-    lastDate: DateTime(2030));
+Future<DateTime?> _datePicker(context) =>
+    showDatePicker(context: context, initialDate: dataInici, firstDate: DateTime(2023), lastDate: DateTime(2030));
 
-Future<TimeOfDay?> _timePicker(context) => showTimePicker(
-    context: context,
-    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
+Future<TimeOfDay?> _timePicker(context) =>
+    showTimePicker(context: context, initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);

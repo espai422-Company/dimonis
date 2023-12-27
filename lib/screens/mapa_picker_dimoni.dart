@@ -12,15 +12,13 @@ class MapaPickerScreen extends StatefulWidget {
 }
 
 class _MapaScreenState extends State<MapaPickerScreen> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  MapType _currentMapType = MapType.satellite;
+  MapType _currentMapType = MapType.normal;
 
   @override
   Widget build(BuildContext context) {
-    final CameraPosition _puntInicial = CameraPosition(
-        target: getLatLng('39.7701761,3.0222061'), zoom: 15, tilt: 50);
+    final CameraPosition _puntInicial = CameraPosition(target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
     final Dimoni dimoni = ModalRoute.of(context)!.settings.arguments as Dimoni;
 
