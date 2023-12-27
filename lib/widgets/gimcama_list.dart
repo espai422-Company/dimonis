@@ -4,21 +4,6 @@ import 'package:flutter/material.dart';
 
 class GimcamaList extends StatelessWidget {
   GimcamaList({super.key});
-  final List<Map<String, dynamic>> _data = [
-    {
-      'title': 'Card 1 Title',
-      'startDate': '2023-01-01',
-      'endDate': '2023-01-15',
-      'numItems': 10,
-    },
-    {
-      'title': 'Card 2 Title',
-      'startDate': '2023-02-05',
-      'endDate': '2023-02-20',
-      'numItems': 8,
-    },
-    // Add more data for additional cards as needed
-  ];
 
   @override
   Widget build(BuildContext context) {
