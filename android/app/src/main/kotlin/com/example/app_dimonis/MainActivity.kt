@@ -1,4 +1,4 @@
-package cat.paucasesnovescifp.apps.dimonisgo
+package com.example.app_dimonis
 
 import io.flutter.embedding.android.FlutterActivity
 
