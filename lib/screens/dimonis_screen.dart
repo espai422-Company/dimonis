@@ -16,33 +16,8 @@ class DimonisScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              // ElevatedButton(
-              //   onPressed: () {
-              //     //Use this to Log Out user
-              //     FirebaseAuth.instance.signOut();
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: Colors.black,
-              //   ),
-              //   child: const Text('Sign Out'),
-              // ),
-              ElevatedButton(
-                onPressed: () {
-                  DBConnection().readFromDatabase();
-                  // DBConnection().writeToDatabase();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                ),
-                child: const Text('Print dimonis'),
-              ),
-              Text(FirebaseAuth.instance.currentUser!.uid),
-              Text(FirebaseAuth.instance.currentUser!.email!),
-              // image url
-
-              // provesDimoni(),
-              provesGimcana(),
-              provesProgres(),
+              Text('Gimcama Screen'),
+              Text('Gimcama Screen'),
             ],
           ),
         ),
