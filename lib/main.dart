@@ -20,7 +20,7 @@ void main() async {
         ChangeNotifierProvider(
             create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
         ChangeNotifierProvider(create: (_) => UIProvider()),
-        ChangeNotifierProvider(create: (_) => PlayinGimcamaProvider()),
+        ChangeNotifierProvider(create: (_) => PlayingGimcanaProvider()),
       ],
       child: const MyApp(),
     ),
