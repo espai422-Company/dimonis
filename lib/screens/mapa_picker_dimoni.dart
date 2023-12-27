@@ -37,7 +37,6 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('Mapa'),
         actions: [
           IconButton(

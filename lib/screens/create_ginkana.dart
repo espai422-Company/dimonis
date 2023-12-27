@@ -1,7 +1,9 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 String nom = '';
 DateTime dataInici = DateTime(2023, 12, 31, 0, 0);
@@ -19,124 +21,141 @@ class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideMenu(),
-      appBar: AppBar(
-        title: Text("Crea una gincana"),
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: 25,
-          ),
-          _nom('Nom de la gincana'),
-          Container(
-            height: 25,
-          ),
-          Row(
-            children: [
-              Expanded(child: SizedBox()),
-              Text("Data inici"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(
-                  onPressed: () async {
-                    final date = await _datePicker(context);
-                    if (date == null) {
-                      return;
-                    }
-                    final time = await _timePicker(context);
-                    if (time == null) {
-                      return;
-                    }
-                    setState(() {
-                      dataInici = _updateTime(date, time);
-                    });
-                  },
-                  child: Text(
-                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-              Expanded(child: SizedBox()),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          Row(
-            children: [
-              Expanded(child: SizedBox()),
-              Text("Data final"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(
-                  onPressed: () async {
-                    final date = await _datePicker(context);
-                    if (date == null) {
-                      return;
-                    }
-                    final time = await _timePicker(context);
-                    if (time == null) {
-                      return;
-                    }
-                    setState(() {
-                      dataFinal = _updateTime(date, time);
-                    });
-                  },
-                  child: Text(
-                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
-              Expanded(child: SizedBox()),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          Row(
-            children: [
-              Expanded(child: SizedBox()),
-              Text("Dimonis"),
-              Expanded(child: SizedBox()),
-              Text("${dimonis.length}"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(onPressed: () => dimonis = [], child: Text("Buidar dimonis")),
-              Expanded(child: SizedBox()),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          _dimonis(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        child: Icon(Icons.save),
-      ),
+        drawer: SideMenu(),
+        appBar: AppBar(
+          title: Text("Crea una gincana"),
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(25),
+          children: [
+            Container(
+              height: 15,
+            ),
+            _nom('Nom de la gincana'),
+            Container(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Data inici"),
+                Expanded(child: SizedBox()),
+                ElevatedButton(
+                    onPressed: () async {
+                      final date = await _datePicker(context);
+                      if (date == null) {
+                        return;
+                      }
+                      final time = await _timePicker(context);
+                      if (time == null) {
+                        return;
+                      }
+                      setState(() {
+                        dataInici = _updateTime(date, time);
+                      });
+                    },
+                    child: Text(
+                        "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              ],
+            ),
+            Container(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Data final"),
+                Expanded(child: SizedBox()),
+                ElevatedButton(
+                    onPressed: () async {
+                      final date = await _datePicker(context);
+                      if (date == null) {
+                        return;
+                      }
+                      final time = await _timePicker(context);
+                      if (time == null) {
+                        return;
+                      }
+                      setState(() {
+                        dataFinal = _updateTime(date, time);
+                      });
+                    },
+                    child: Text(
+                        "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+              ],
+            ),
+            Container(
+              height: 25,
+            ),
+            _dimonis(context),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          child: Icon(Icons.save),
+        ),
     );
   }
 }
 
-Widget _dimonis() {
-  return FutureBuilder<List<Dimoni>>(
-    future: DBConnection().readDimonisFromDatabase(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return CircularProgressIndicator();
-      } else if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
-      } else {
-        List<Dimoni> dimonis = snapshot.data ?? [];
-        return Expanded(
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: dimonis.length,
-              itemBuilder: (_, int index) => _Card(dimoni: dimonis[index])),
-        );
-      }
-    },
+Widget _dimonis(context) {
+  return Column(
+    children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Dimonis"),
+              Expanded(child: SizedBox()),
+              Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(onPressed: () {
+                dimonis = [];
+                Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
+              }, child: Text("Buidar dimonis")),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          Container(
+            height: 250,
+            child: FutureBuilder<List<Dimoni>>(
+              future: DBConnection().readDimonisFromDatabase(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  List<Dimoni> dimonis = snapshot.data ?? [];
+                  return Container(
+                    height: 250,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: dimonis.length,
+                        itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
+                  );
+                }
+              },
+            ),
+          ),
+    ],
   );
 }
 
-class _Card extends StatelessWidget {
+class _Card extends StatefulWidget {
   final Dimoni dimoni;
 
-  const _Card({Key? key, required this.dimoni}) : super(key: key);
+  const _Card(context, {Key? key, required this.dimoni}) : super(key: key);
 
+  @override
+  State<_Card> createState() => _CardState();
+}
+
+class _CardState extends State<_Card> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -147,19 +166,22 @@ class _Card extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Dimoni dimoniTemporal = dimoni;
+              Dimoni dimoniTemporal = widget.dimoni;
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
                       arguments: dimoniTemporal)
                   .then((value) => {
-                        dimoniTemporal = value as Dimoni,
-                        dimonis.add(dimoniTemporal),
-                      });
+                        if (value != null) {
+                          dimoniTemporal = value as Dimoni,
+                          dimonis.add(dimoniTemporal),
+                          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length)
+                        }
+                  });
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/LoadingDimonis.gif'),
-                image: NetworkImage(dimoni.image),
+                placeholder: const AssetImage('assets/LoadingDimonis.gif'),
+                image: NetworkImage(widget.dimoni.image),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -170,7 +192,7 @@ class _Card extends StatelessWidget {
             height: 5,
           ),
           Text(
-            dimoni.nom,
+            widget.dimoni.nom,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
