@@ -1,4 +1,5 @@
 import 'package:app_dimonis/providers/ui_provider.dart';
+import 'package:app_dimonis/screens/gimcames_screen.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:app_dimonis/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,9 @@ class _HomeScreenBody extends StatelessWidget {
 
       case 1:
         return const DimonisScreen();
+
+      case 2:
+        return const GimcamaScreen();
 
       default:
         return const MapsScreen();

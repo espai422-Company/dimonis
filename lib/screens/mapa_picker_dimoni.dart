@@ -22,8 +22,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     final CameraPosition _puntInicial = CameraPosition(
         target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
-    final Map<String, String> cordenades =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    final Dimoni dimoni = ModalRoute.of(context)!.settings.arguments as Dimoni;
 
     Marker coordenadesDimoni = dimoni.x == '0'
         ? const Marker(markerId: MarkerId(''))
