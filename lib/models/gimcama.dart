@@ -7,7 +7,7 @@ class Gimcama {
   DateTime start;
   DateTime end;
   String? id;
-  late Map<Object, Object> dimonis;
+  late Map<Object, Object> _dimonis;
 
   late DatabaseReference _ref;
 
@@ -19,17 +19,19 @@ class Gimcama {
   }) {
     id ??= SignleDBConn.getDatabase().ref('/gimcames').push().key;
     _ref = SignleDBConn.getDatabase().ref('/gimcames/$id');
-    dimonis = {};
+    _dimonis = {};
   }
 
-  factory Gimcama.fromMap(Map<Object, dynamic> json) {
+  factory Gimcama.fromMap(Map<String, dynamic> json, {required String id}) {
     var gimcama = Gimcama(
       nom: json["nom"],
       start: DateTime.parse(json["start"]),
       end: DateTime.parse(json["end"]),
+      id: id,
     );
 
-    gimcama.dimonis = json["dimonis"];
+    // gimcama._dimonis = json["dimonis"];
+    gimcama._dimonis = {};
     return gimcama;
   }
 
@@ -37,7 +39,7 @@ class Gimcama {
         "nom": nom,
         "start": start.toString(),
         "end": end.toString(),
-        "dimonis": dimonis,
+        "dimonis": _dimonis,
       };
 
   void save() {
@@ -56,14 +58,14 @@ class Gimcama {
 
   // Metodes per afegir un dimoni a la gimcama
   void addDimoniById(String dimoniId, String x, String y) {
-    dimonis[dimoniId] = {'x': x, 'y': y};
-    _ref.child('dimonis').update(dimonis.cast());
+    _dimonis[dimoniId] = {'x': x, 'y': y};
+    _ref.child('dimonis').update(_dimonis.cast());
   }
 
   void addDimoni(Dimoni dimoni, String x, String y) {
     if (dimoni.id != null) {
-      dimonis[dimoni.id!] = {'x': x, 'y': y};
-      _ref.child('dimonis').update(dimonis.cast());
+      _dimonis[dimoni.id!] = {'x': x, 'y': y};
+      _ref.child('dimonis').update(_dimonis.cast());
     } else {
       throw Exception('Dimoni has no id so it can not be added to gimcama');
     }
@@ -71,7 +73,7 @@ class Gimcama {
 
   // Cridar sempre aquest metode per obtenir els dimonis de la gimcama
   Future<List<Dimoni>> getDimonis() async {
-    var response = await _ref.child('dimonis').get();
+    var response = await _ref.child('/dimonis').get();
 
     // map response to a Dimonis list
     var dimonis = response.value as Map;
@@ -118,9 +120,8 @@ class Gimcama {
       Map<Object, dynamic> json = res.cast<String, dynamic>();
       List<Gimcama> gimcames = [];
       json.forEach((key, value) {
-        Map<Object, dynamic> b = value.cast<String, dynamic>();
-        Gimcama gimcama = Gimcama.fromMap(b);
-        gimcama.id = key.toString();
+        Map<String, dynamic> b = value.cast<String, dynamic>();
+        Gimcama gimcama = Gimcama.fromMap(b, id: key.toString());
         gimcames.add(gimcama);
       });
       return gimcames;
@@ -135,9 +136,8 @@ class Gimcama {
     final snapshot = await ref.get();
     if (snapshot.exists) {
       var a = snapshot.value as Map;
-      Map<Object, dynamic> b = a.cast<String, dynamic>();
-      Gimcama gimcama = Gimcama.fromMap(b);
-      gimcama.id = id;
+      Map<String, dynamic> b = Map.from(a.cast<String, dynamic>());
+      Gimcama gimcama = Gimcama.fromMap(b, id: id);
       return gimcama;
     } else {
       throw Exception('Gimcama not found');
