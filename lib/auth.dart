@@ -15,6 +15,8 @@ class Auth {
 
     await user.user?.sendEmailVerification();
     // you can also store the user in Database
+    var ref = SignleDBConn.getDatabase().ref('/users');
+    ref.update({user.user!.uid: user.user!.email});
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
