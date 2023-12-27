@@ -1,5 +1,6 @@
 import 'package:app_dimonis/firebase_options.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
+import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/routes/routes.dart';
@@ -14,6 +15,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => TotalDimonisProvider()),
         ChangeNotifierProvider(
             create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
         ChangeNotifierProvider(create: (_) => UIProvider()),

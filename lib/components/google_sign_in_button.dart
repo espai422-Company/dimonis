@@ -1,3 +1,4 @@
+import 'package:app_dimonis/api/db_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +21,8 @@ class GoogleSignInButton extends StatelessWidget {
           idToken: googleAuth.idToken,
         );
         var user = await _auth.signInWithCredential(credential);
+        var ref = SignleDBConn.getDatabase().ref('/users');
+        ref.update({user.user!.uid: user.user!.email});
         print(user.user?.displayName);
         print('User signed in with Google');
         // Perform any actions after successful login
