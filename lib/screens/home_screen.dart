@@ -35,7 +35,35 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.black,
           actions: [
             IconButton(
-              onPressed: () => FirebaseAuth.instance.signOut(),
+              // onPressed: () => FirebaseAuth.instance.signOut(),
+              onPressed: () => {
+                showDialog(
+                  // barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      icon: const Icon(Icons.info_outline),
+                      title: const Text('Se va a cerrar sesión!'),
+                      content: const Text('Desea continuar?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            FirebaseAuth.instance.signOut();
+                          },
+                          child: const Text('Continuar'),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              },
               icon: const Icon(Icons.logout_rounded),
             ),
           ],
