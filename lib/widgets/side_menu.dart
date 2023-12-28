@@ -1,3 +1,4 @@
+import 'package:app_dimonis/widgets/only_admin_widget.dart';
 import 'package:flutter/material.dart';
 
 class SideMenu extends StatelessWidget {
@@ -43,7 +44,7 @@ class SideMenu extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, 'home_screen');
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
           ListTile(
@@ -62,21 +63,25 @@ class SideMenu extends StatelessWidget {
               Navigator.pushReplacementNamed(context, 'settings_screen');
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.pages_outlined),
-            title: const Text('Crea Gincana'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, '/createGinkana');
-            },
+          OnlyAdminWidget(
+            child: ListTile(
+              leading: const Icon(Icons.pages_outlined),
+              title: const Text('Crea Gincana'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, '/createGinkana');
+              },
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.person_add_alt_outlined),
-            title: const Text('Crea Dimoni'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, 'crear_dimoni');
-            },
+          OnlyAdminWidget(
+            child: ListTile(
+              leading: const Icon(Icons.person_add_alt_outlined),
+              title: const Text('Crea Dimoni'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, 'crear_dimoni');
+              },
+            ),
           ),
         ],
       ),
