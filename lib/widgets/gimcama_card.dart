@@ -7,28 +7,32 @@ class GimcamaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = gimcama.isTimeToPlay() ? Colors.green : Colors.grey;
     return Card(
       margin: EdgeInsets.all(8.0),
-      child: ListTile(
-        title: Text(gimcama.nom),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Start Date: ${gimcama.start}'),
-            Text('End Date: ${gimcama.end}'),
-            FutureBuilder(
-              future: gimcama.getDimonis(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return Text('Number of Items: ${snapshot.data!.length}');
-                }
-              },
-            ),
-          ],
+      child: Container(
+        color: color,
+        child: ListTile(
+          title: Text(gimcama.nom),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Start Date: ${gimcama.start}'),
+              Text('End Date: ${gimcama.end}'),
+              FutureBuilder(
+                future: gimcama.getDimonis(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return Text('Number of Items: ${snapshot.data!.length}');
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

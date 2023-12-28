@@ -113,6 +113,11 @@ class Gimcama {
     }
   }
 
+  bool isTimeToPlay() {
+    var now = DateTime.now();
+    return now.isAfter(start) && now.isBefore(end);
+  }
+
   // Retorna una llista de gimcames
   static Future<List<Gimcama>> getGimcames() async {
     final ref = SignleDBConn.getDatabase().ref('/gimcames');
