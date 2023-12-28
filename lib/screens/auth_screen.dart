@@ -16,6 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   bool _isLogin = false;
   bool _loading = false;
+  bool visiblePasswd = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -91,6 +92,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                     decoration: const InputDecoration(
                       hintText: 'Email',
+                      prefixIcon: Icon(Icons.email_outlined),
                       focusColor: Colors.black,
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -106,16 +108,27 @@ class _AuthScreenState extends State<AuthScreen> {
                   TextFormField(
                     //Assign controller
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: !visiblePasswd,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Password',
-                      focusedBorder: UnderlineInputBorder(
+                      prefixIcon: const Icon(Icons.lock_open_rounded),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            visiblePasswd = !visiblePasswd;
+                          });
+                        },
+                        icon: visiblePasswd
+                            ? const Icon(Icons.visibility_outlined)
+                            : const Icon(Icons.visibility_off_outlined),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.black,
                           width: 2,
