@@ -82,6 +82,8 @@ class Gimcama {
     for (var id in castedResponse.keys) {
       Dimoni dimoni = await Dimoni.getDimoni(id.toString());
       dimoni.id = id.toString();
+      dimoni.x = castedResponse[id]['x'];
+      dimoni.y = castedResponse[id]['y'];
       dimonisList.add(dimoni);
     }
     return dimonisList;
