@@ -18,8 +18,12 @@ class CustomNavigationBar extends StatelessWidget {
           label: 'Mapa',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.games_outlined),
+          icon: Icon(Icons.people),
           label: 'Dimonis',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.games_outlined),
+          label: 'Gimcames',
         ),
       ],
     );

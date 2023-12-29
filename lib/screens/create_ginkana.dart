@@ -1,4 +1,3 @@
-import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/dimoni.dart';
 import 'package:app_dimonis/models/gimcama.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
@@ -139,45 +138,47 @@ class _CreateGinkanaState extends State<CreateGinkana> {
 Widget _dimonis(context) {
   return Column(
     children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Dimonis"),
-              Expanded(child: SizedBox()),
-              Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(onPressed: () {
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("Dimonis"),
+          Expanded(child: SizedBox()),
+          Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
+          Expanded(child: SizedBox()),
+          ElevatedButton(
+              onPressed: () {
                 dimonis = [];
                 Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
-              }, child: Text("Buidar dimonis")),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          Container(
-            height: 250,
-            child: FutureBuilder<List<Dimoni>>(
-              future: DBConnection().readDimonisFromDatabase(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  List<Dimoni> dimonis = snapshot.data ?? [];
-                  return Container(
-                    height: 250,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: dimonis.length,
-                        itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
-                  );
-                }
               },
-            ),
-          ),
+              child: Text("Buidar dimonis")),
+        ],
+      ),
+      Container(
+        height: 25,
+      ),
+      Container(
+        height: 250,
+        child: FutureBuilder<List<Dimoni>>(
+          future: Dimoni.getDimonis(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              List<Dimoni> dimonis = snapshot.data ?? [];
+              return Container(
+                height: 250,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: dimonis.length,
+                    itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
+              );
+            }
+          },
+        ),
+      ),
     ],
   );
 }
@@ -198,18 +199,19 @@ class _Card extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Dimoni dimoniTemporal = dimoni;
-              Navigator.pushNamed(context, 'mapa_picker_dimoni',
-                      arguments: dimoniTemporal)
-                  .then((value) => {
-                        if (value != null) {
-                          dimoniTemporal = value as Dimoni,
-                          dimoni.x = dimoniTemporal.x,
-                          dimoni.y = dimoniTemporal.y,
-                          dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
-                          dimonis.add(dimoniTemporal),
-                          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
-                        }
-                  });
+              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal).then(
+                (value) => {
+                  if (value != null)
+                    {
+                      dimoniTemporal = value as Dimoni,
+                      dimoni.x = dimoniTemporal.x,
+                      dimoni.y = dimoniTemporal.y,
+                      dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
+                      dimonis.add(dimoniTemporal),
+                      Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
+                    }
+                },
+              );
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -259,9 +261,8 @@ Future<DateTime?> _datePicker(context, primeradata) => showDatePicker(
     firstDate: primeradata,
     lastDate: DateTime(2030));
 
-Future<TimeOfDay?> _timePicker(context) => showTimePicker(
-    context: context,
-    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
+Future<TimeOfDay?> _timePicker(context) =>
+    showTimePicker(context: context, initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);

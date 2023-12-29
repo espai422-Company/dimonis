@@ -8,5 +8,6 @@ final Map<String, WidgetBuilder> routes = {
   'settings_screen': (context) => const SettingsScreen(),
   'user_screen': (context) => const UserScreen(),
   '/createGinkana': (context) => const CreateGinkana(),
-  'mapa_picker_dimoni': (context) => const MapaPickerScreen()
+  'mapa_picker_dimoni': (context) => const MapaPickerScreen(),
+  'crear_dimoni': (context) => const CrearDimoni(),
 };

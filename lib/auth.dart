@@ -15,6 +15,8 @@ class Auth {
 
     await user.user?.sendEmailVerification();
     // you can also store the user in Database
+    var ref = SignleDBConn.getDatabase().ref('/users');
+    ref.update({user.user!.uid: user.user!.email});
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
@@ -33,14 +35,14 @@ class Auth {
   // return if current user is an admin or not
   Future<bool> isAdmin() async {
     var ref = SignleDBConn.getDatabase().ref('/admins');
-    ref.get().then((snapshot) {
-      if (snapshot.exists) {
-        var a = snapshot.value as Map;
-        Map<Object, dynamic> b = a.cast<String, dynamic>();
-        return b.containsValue(_auth.currentUser!.email);
-      }
-    });
-    return false;
+    var snapshot = await ref.get();
+    if (snapshot.value != null) {
+      var a = snapshot.value as Map;
+      Map<Object, dynamic> b = a.cast<String, String>();
+      return b.containsValue(_auth.currentUser!.email);
+    } else {
+      return false;
+    }
   }
 }
 

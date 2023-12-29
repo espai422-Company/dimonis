@@ -1,6 +1,7 @@
 import 'package:app_dimonis/firebase_options.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
+import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/routes/routes.dart';
@@ -19,6 +20,7 @@ void main() async {
         ChangeNotifierProvider(
             create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
         ChangeNotifierProvider(create: (_) => UIProvider()),
+        ChangeNotifierProvider(create: (_) => PlayingGimcanaProvider()),
       ],
       child: const MyApp(),
     ),

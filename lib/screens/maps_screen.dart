@@ -1,10 +1,234 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:math';
 
-class MapsScreen extends StatelessWidget {
+import 'package:app_dimonis/providers/playing_gimcama.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:provider/provider.dart';
+
+class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
 
   @override
+  State<MapsScreen> createState() => _MapsScreenState();
+}
+
+class _MapsScreenState extends State<MapsScreen> {
+  final Completer<GoogleMapController> _controller = Completer();
+  StreamSubscription<LocationData>? _locationSubscription;
+  Widget? _floatingActionButton;
+
+  LatLng? _currentLocation;
+  LatLng? _nextLocation;
+
+  bool hasLocationPermission = true;
+  bool locationServiceEnabled = true;
+
+  BitmapDescriptor _currentLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor _nextLocationIcon = BitmapDescriptor.defaultMarker;
+
+  @override
+  void initState() {
+    _locationRequest();
+    setCustomMarker();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('MAPS'));
+    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+
+    if (playing.completed) {
+      return const Center(
+        child: Text('Has completat la gimcana'),
+      );
+    }
+
+    if (playing.currentGimcana == null) {
+      return const Center(
+        child: Text('No hi ha cap gimcana seleccionada'),
+      );
+    }
+
+    if (!hasLocationPermission) {
+      return const Center(
+        child: Text('No tens permisos per accedir a la localització'),
+      );
+    }
+
+    if (!locationServiceEnabled) {
+      return const Center(
+        child: Text('No tens el servei de localització activat'),
+      );
+    }
+
+    if (playing.nextDimoni != null) {
+      _nextLocation = LatLng(double.parse(playing.nextDimoni!.x), double.parse(playing.nextDimoni!.y));
+    }
+
+    if (_currentLocation == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: _currentLocation!,
+          zoom: 10,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        markers: {
+          Marker(
+            markerId: const MarkerId('current'),
+            position: _currentLocation!,
+            infoWindow: const InfoWindow(title: 'Tu'),
+            icon: _currentLocationIcon,
+          ),
+          if (playing.nextDimoni != null)
+            Marker(
+              markerId: const MarkerId('next'),
+              position: _nextLocation!,
+              infoWindow: const InfoWindow(title: 'Dimoni'),
+              icon: _nextLocationIcon,
+            ),
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: _floatingActionButton,
+    );
+  }
+
+  _locationRequest() async {
+    Location location = Location();
+
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      locationServiceEnabled = serviceEnabled;
+    }
+
+    PermissionStatus permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      hasLocationPermission = permissionGranted != PermissionStatus.granted;
+    }
+
+    if (hasLocationPermission && locationServiceEnabled) {
+      _locationSubscription = location.onLocationChanged.listen(_onLocationChanged);
+    }
+  }
+
+  void _onLocationChanged(LocationData locationData) {
+    _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+
+    if (_nextLocation != null) {
+      double distance = _calculateDistance(_currentLocation!, _nextLocation!);
+
+      if (distance < 50) {
+        _floatingActionButton = FloatingActionButton(
+          elevation: 10,
+          onPressed: () {
+            _showDialog(context);
+          },
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.check),
+        );
+      } else {
+        _floatingActionButton = null;
+      }
+    }
+    setState(() {});
+  }
+
+  void _showDialog(BuildContext context) {
+    final TextEditingController controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Resposta'),
+          content: TextField(
+            controller: controller,
+            decoration: const InputDecoration(hintText: "Nom del dimoni"),
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Enviar respuesta'),
+              onPressed: () {
+                _submit(controller, context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _submit(TextEditingController controller, BuildContext context) {
+    final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
+
+    if (controller.text.toLowerCase() == playing.nextDimoni!.nom.toLowerCase()) {
+      playing.getNextDimoni();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Resposta correcta'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Resposta incorrecta'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+
+    Navigator.of(context).pop();
+  }
+
+  double _calculateDistance(LatLng from, LatLng to) {
+    const int earthRadius = 6378137;
+    double latDiff = _toRadians(to.latitude - from.latitude);
+    double lngDiff = _toRadians(to.longitude - from.longitude);
+    double a = sin(latDiff / 2) * sin(latDiff / 2) +
+        cos(_toRadians(from.latitude)) * cos(_toRadians(to.latitude)) * sin(lngDiff / 2) * sin(lngDiff / 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    double distance = earthRadius * c;
+    return distance;
+  }
+
+  double _toRadians(double degree) {
+    return degree * pi / 180;
+  }
+
+  void setCustomMarker() async {
+    _currentLocationIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(devicePixelRatio: 1.5),
+      'assets/circle.png',
+    );
+    _nextLocationIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(devicePixelRatio: 1),
+      'assets/next.png',
+    );
+  }
+
+  @override
+  void dispose() {
+    _locationSubscription?.cancel();
+    super.dispose();
   }
 }

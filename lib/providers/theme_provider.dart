@@ -4,26 +4,40 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeProvider extends ChangeNotifier {
   ThemeData currentTheme;
 
-  ThemeData personalitzat = ThemeData(
+  ThemeData lightTheme = ThemeData(
     textTheme: GoogleFonts.poppinsTextTheme(),
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.red,
   );
+
+  ThemeData darkTheme = ThemeData(
+      textTheme: GoogleFonts.poppinsTextTheme().apply(
+        bodyColor: Colors.white,
+        displayColor: Colors.white,
+      ),
+      primarySwatch: Colors.red,
+      brightness: Brightness.dark);
 
   ThemeProvider({required bool isDarkMode})
       : currentTheme = isDarkMode
-            ? ThemeData.dark()
+            ? ThemeData(
+                textTheme: GoogleFonts.poppinsTextTheme().apply(
+                  bodyColor: Colors.white,
+                  displayColor: Colors.white,
+                ),
+                primarySwatch: Colors.red,
+                brightness: Brightness.dark)
             : ThemeData(
                 textTheme: GoogleFonts.poppinsTextTheme(),
-                primarySwatch: Colors.blue,
+                primarySwatch: Colors.red,
               );
 
   setLightMode() {
-    currentTheme = personalitzat;
+    currentTheme = lightTheme;
     notifyListeners();
   }
 
   setDarkMode() {
-    currentTheme = ThemeData.dark();
+    currentTheme = darkTheme;
     notifyListeners();
   }
 }
