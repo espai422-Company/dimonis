@@ -26,7 +26,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
           title: Text("Crea una gincana"),
         ),
         body: ListView(
-          padding: EdgeInsets.all(25),
+          padding: EdgeInsets.all(16.5),
           children: [
             Container(
               height: 15,
