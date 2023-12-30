@@ -13,21 +13,36 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings Screen'),
+        title: const Text('Settings'),
         backgroundColor: Colors.black,
       ),
       drawer: const SideMenu(),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Image.asset(
+                'assets/settings.png',
+                width: 200,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 'Configuració',
-                style: TextStyle(fontSize: 45, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
-              const Divider(),
+              const SizedBox(
+                height: 5,
+              ),
+              const Divider(
+                color: Colors.red,
+                thickness: 3,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               SwitchListTile(
                 value: Preferences.isDarkMode,
                 title: const Text('Dark Mode'),

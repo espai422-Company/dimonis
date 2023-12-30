@@ -108,25 +108,23 @@ class _CrearDimoniState extends State<CrearDimoni> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (imagen_to_upload != null && _nom != '' && _descripcio != '') {
-            final uploadedImage = await uploadImage(imagen_to_upload!);
-
             Dimoni dimoniTemp = Dimoni(
                 nom: _nom, image: '', description: _descripcio, x: '0', y: '0');
 
             final uploadedDimoni =
                 await uploadDimoni(dimoniTemp, imagen_to_upload!);
 
-            if (uploadedImage && uploadedDimoni) {
+            if (uploadedDimoni) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Imagen subida correctamente.'),
+                  content: Text('Dimoni pujat correctament.'),
                 ),
               );
               tornarDefault();
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('ERROR al subir la imagen.'),
+                  content: Text('ERROR al pujar el dimoni.'),
                 ),
               );
             }

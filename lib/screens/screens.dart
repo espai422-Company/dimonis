@@ -1,3 +1,4 @@
+export 'package:app_dimonis/screens/reset_password_screen.dart';
 export 'package:app_dimonis/screens/create_dimoni.dart';
 export 'package:app_dimonis/screens/user_screen.dart';
 export 'package:app_dimonis/screens/dimonis_screen.dart';

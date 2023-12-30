@@ -9,7 +9,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Screen'),
+        title: const Text('User Information'),
         backgroundColor: Colors.black,
       ),
       drawer: const SideMenu(),
@@ -17,25 +17,31 @@ class UserScreen extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Image.asset(
+                'assets/user.png',
+                width: 200,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 'Correo',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.email!),
               const Divider(),
               const Text(
-                'Uid',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+                'ID User',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.uid),
               const Divider(),
               const Text(
                 'Verificación',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.emailVerified
