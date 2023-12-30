@@ -64,7 +64,8 @@ class _MapsScreenState extends State<MapsScreen> {
     }
 
     if (playing.nextDimoni != null) {
-      _nextLocation = LatLng(double.parse(playing.nextDimoni!.x), double.parse(playing.nextDimoni!.y));
+      _nextLocation = LatLng(double.parse(playing.nextDimoni!.x),
+          double.parse(playing.nextDimoni!.y));
     }
 
     if (_currentLocation == null) {
@@ -120,7 +121,8 @@ class _MapsScreenState extends State<MapsScreen> {
     }
 
     if (hasLocationPermission && locationServiceEnabled) {
-      _locationSubscription = location.onLocationChanged.listen(_onLocationChanged);
+      _locationSubscription =
+          location.onLocationChanged.listen(_onLocationChanged);
     }
   }
 
@@ -180,8 +182,10 @@ class _MapsScreenState extends State<MapsScreen> {
   void _submit(TextEditingController controller, BuildContext context) {
     final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
 
-    if (controller.text.toLowerCase() == playing.nextDimoni!.nom.toLowerCase()) {
+    if (controller.text.toLowerCase() ==
+        playing.nextDimoni!.nom.toLowerCase()) {
       playing.getNextDimoni();
+      playing.dimoniTrobat(playing.nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Resposta correcta'),
@@ -205,7 +209,10 @@ class _MapsScreenState extends State<MapsScreen> {
     double latDiff = _toRadians(to.latitude - from.latitude);
     double lngDiff = _toRadians(to.longitude - from.longitude);
     double a = sin(latDiff / 2) * sin(latDiff / 2) +
-        cos(_toRadians(from.latitude)) * cos(_toRadians(to.latitude)) * sin(lngDiff / 2) * sin(lngDiff / 2);
+        cos(_toRadians(from.latitude)) *
+            cos(_toRadians(to.latitude)) *
+            sin(lngDiff / 2) *
+            sin(lngDiff / 2);
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     double distance = earthRadius * c;
     return distance;

@@ -6,6 +6,6 @@ class GimcamaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GimcamaList();
+    return Center(child: GimcamaList());
   }
 }

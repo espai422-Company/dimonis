@@ -27,7 +27,7 @@ class GimcamaCard extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    return Text('Number of Items: ${snapshot.data!.length}');
+                    return Text('Dimonis a trobar: ${snapshot.data!.length}');
                   }
                 },
               ),

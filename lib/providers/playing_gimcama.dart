@@ -22,6 +22,10 @@ class PlayingGimcanaProvider extends ChangeNotifier {
       dimonis = null;
     }
 
+    progress
+        ?.getProgressDimonis()
+        .then((value) => dimonisTrobats = value.keys.toList());
+
     notifyListeners();
   }
 
@@ -55,7 +59,8 @@ class PlayingGimcanaProvider extends ChangeNotifier {
     }
 
     var dimonisFound = (await progress!.getProgress()).keys.toList();
-    var notFound = dimonis!.where((dimoni) => !dimonisFound.contains(dimoni.id)).toList();
+    var notFound =
+        dimonis!.where((dimoni) => !dimonisFound.contains(dimoni.id)).toList();
 
     if (notFound.isEmpty) {
       completed = true;
@@ -68,7 +73,7 @@ class PlayingGimcanaProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  dimoniTrobat(Dimoni dimoni){
+  dimoniTrobat(Dimoni dimoni) {
     dimonisTrobats!.add(dimoni);
     notifyListeners();
   }

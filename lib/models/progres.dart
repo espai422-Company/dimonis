@@ -39,4 +39,26 @@ class Progress {
       return {};
     }
   }
+
+  // Retorna un Map amb els dimonis trobats i la data en que es van trobar
+  Future<Map<Dimoni, DateTime>> getProgressDimonis() async {
+    var ref = SignleDBConn.getDatabase().ref('$path/$gimcanaId/$uid');
+    var snapshot = await ref.get();
+    if (snapshot.exists) {
+      var a = snapshot.value as Map;
+      Map<Object, dynamic> b = a.cast<String, dynamic>();
+      Map<Dimoni, DateTime> progress = {};
+      var keys = b.keys.toList();
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var value = b[key];
+
+        var dimoniResult = await Dimoni.getDimoni(key.toString());
+        progress[dimoniResult] = DateTime.parse(value);
+      }
+      return progress;
+    } else {
+      return {};
+    }
+  }
 }

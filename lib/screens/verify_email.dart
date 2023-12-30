@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_dimonis/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -45,10 +46,19 @@ class _VerifyEmailState extends State<VerifyEmail> {
         title: const Text('Home Screen'),
         backgroundColor: Colors.black,
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Center(
-          child: Text('Please verify your email address'),
+          child: Column(
+            children: [
+              Text('Please verify your email address'),
+              ElevatedButton(
+                  onPressed: () {
+                    auth.signOut();
+                  },
+                  child: Text('Cancel'))
+            ],
+          ),
         ),
       ),
     );
