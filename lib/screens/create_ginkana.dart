@@ -21,92 +21,116 @@ class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideMenu(),
-      appBar: AppBar(
-        title: Text("Crea una gincana"),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(25),
-        children: [
-          Container(
-            height: 15,
-          ),
-          _nom('Nom de la gincana'),
-          Container(
-            height: 25,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Data inici"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(
-                  onPressed: () async {
-                    final date = await _datePicker(context);
-                    if (date == null) {
-                      return;
-                    }
-                    final time = await _timePicker(context);
-                    if (time == null) {
-                      return;
-                    }
-                    setState(() {
-                      dataInici = _updateTime(date, time);
-                    });
+        drawer: SideMenu(),
+        appBar: AppBar(
+          title: Text("Crea una gincana"),
+        ),
+        body: ListView(
+          padding: EdgeInsets.all(16.5),
+          children: [
+            Container(
+              height: 15,
+            ),
+            _nom('Nom de la gincana'),
+            Container(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Data inici"),
+                Expanded(child: SizedBox()),
+                ElevatedButton(
+                    onPressed: () async {
+                      final date = await _datePicker(context, DateTime(2023));
+                      if (date == null) {
+                        return;
+                      }
+                      final time = await _timePicker(context);
+                      if (time == null) {
+                        return;
+                      }
+                      setState(() {
+                        dataInici = _updateTime(date, time);
+                      });
+                    },
+                    child: Text(
+                        "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+              ],
+            ),
+            Container(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Data final"),
+                Expanded(child: SizedBox()),
+                ElevatedButton(
+                    onPressed: () async {
+                      final date = await _datePicker(context, dataInici);
+                      if (date == null) {
+                        return;
+                      }
+                      final time = await _timePicker(context);
+                      if (time == null) {
+                        return;
+                      }
+                      setState(() {
+                        dataFinal = _updateTime(date, time);
+                      });
+                    },
+                    child: Text(
+                        "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+              ],
+            ),
+            Container(
+              height: 25,
+            ),
+            _dimonis(context),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            List<String> errors = comprovarDades();
+            if (errors.isNotEmpty){
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      icon: const Icon(Icons.error_outline_outlined),
+                      title: const Text('ERROR'),
+                      content:
+                          Text(errors.join('\n')),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
                   },
-                  child: Text(
-                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Data final"),
-              Expanded(child: SizedBox()),
-              ElevatedButton(
-                  onPressed: () async {
-                    final date = await _datePicker(context);
-                    if (date == null) {
-                      return;
-                    }
-                    final time = await _timePicker(context);
-                    if (time == null) {
-                      return;
-                    }
-                    setState(() {
-                      dataFinal = _updateTime(date, time);
-                    });
-                  },
-                  child: Text(
-                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
-            ],
-          ),
-          Container(
-            height: 25,
-          ),
-          _dimonis(context),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
-          dimonis.forEach((element) {
-            gimcana.addDimoni(element, element.x, element.y);
-          });
-          gimcana.save();
-          nom = '';
-          dataInici = DateTime(2023, 12, 31, 0, 0);
-          dataFinal = DateTime(2024, 12, 31, 0, 0);
-          dimonis = [];
-          Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
-        },
-        child: Icon(Icons.save),
-      ),
+                );
+            } else{
+              Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
+              dimonis.forEach((element) {
+                gimcana.addDimoni(element, element.x, element.y);
+              });
+              gimcana.save();
+              nom = '';
+              dataInici = DateTime(2023, 12, 31, 0, 0);
+              dataFinal = DateTime(2024, 12, 31, 0, 0);
+              dimonis = [];
+              Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
+            }
+          },
+          child: Icon(Icons.save),
+        ),
     );
   }
 }
@@ -192,7 +216,7 @@ class _Card extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/LoadingDimonis.gif'),
+                placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                 image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
@@ -231,12 +255,33 @@ Widget _nom(String text) {
   );
 }
 
-Future<DateTime?> _datePicker(context) =>
-    showDatePicker(context: context, initialDate: dataInici, firstDate: DateTime(2023), lastDate: DateTime(2030));
+Future<DateTime?> _datePicker(context, primeradata) => showDatePicker(
+    context: context,
+    initialDate: dataInici,
+    firstDate: primeradata,
+    lastDate: DateTime(2030));
 
 Future<TimeOfDay?> _timePicker(context) =>
     showTimePicker(context: context, initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}
+
+List<String> comprovarDades(){
+  List<String> errors = [];
+
+  if (dimonis.length < 3){
+    errors.add("El minim de dimonis pera una gincana son ${dimonis.length}/3");
+  }
+
+  if (dataFinal.isBefore(dataInici)){
+    errors.add("La data final de la gincana no pot ser menor a la data d'inici");
+  }
+
+  if (!RegExp(r'^(.{8,})$').hasMatch(nom)){
+    errors.add("El nom de la gincana es massa curt ${nom.length}/8");
+  }
+
+  return errors;
 }

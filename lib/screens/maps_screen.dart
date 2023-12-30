@@ -47,7 +47,7 @@ class _MapsScreenState extends State<MapsScreen> {
 
     if (playing.currentGimcana == null) {
       return const Center(
-        child: Text('No hi ha cap gimcana seleccionada'),
+        child: Text('No thas unit a cap gincana'),
       );
     }
 
