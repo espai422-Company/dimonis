@@ -25,12 +25,14 @@ class GimcamaList extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     var gimcama = snapshot.data![index];
+                    Provider.of<PlayingGimcanaProvider>(context, listen: false)
+                        .currentGimcana = gimcama;
                     if (gimcama.isTimeToPlay()) {
-                      Provider.of<PlayingGimcanaProvider>(context,
-                              listen: false)
-                          .currentGimcana = gimcama;
                       Provider.of<UIProvider>(context, listen: false)
                           .selectMenuOpt = 0;
+                    } else {
+                      Provider.of<UIProvider>(context, listen: false)
+                          .selectMenuOpt = 1;
                     }
                   },
                   child: GimcamaCard(gimcama: snapshot.data![index]),

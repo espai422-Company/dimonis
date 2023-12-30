@@ -61,4 +61,45 @@ class Progress {
       return {};
     }
   }
+
+  Future<List<String>> getLeaderBoard() async {
+    var ref = SignleDBConn.getDatabase().ref('$path/$gimcanaId');
+    var snapshot = await ref.get();
+    if (snapshot.exists) {
+      var a = snapshot.value as Map;
+      Map<Object, dynamic> b = a.cast<String, dynamic>();
+      print(b);
+      return sortedIds(b);
+    } else {
+      return [];
+    }
+  }
+
+  Future<int> getMyPosition() async {
+    var leaderboard = await getLeaderBoard();
+    return leaderboard.indexOf(uid) + 1;
+  }
+}
+
+List<String> sortedIds(Map<Object, dynamic> inputMap) {
+  List<String> ids = inputMap.keys.cast<String>().toList();
+
+  ids.sort((a, b) {
+    // Sort by the number of keys in the nested map
+    int compare = inputMap[b]!.length.compareTo(inputMap[a]!.length);
+
+    if (compare == 0) {
+      // If the number of keys is the same, compare the dates
+      DateTime dateA = DateTime.parse(
+          inputMap[a]!.values.first.toString()); // Parsing the date string
+      DateTime dateB = DateTime.parse(
+          inputMap[b]!.values.first.toString()); // Parsing the date string
+
+      return dateA.compareTo(dateB);
+    }
+
+    return compare;
+  });
+
+  return ids;
 }
