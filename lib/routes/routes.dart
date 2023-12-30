@@ -10,4 +10,5 @@ final Map<String, WidgetBuilder> routes = {
   '/createGinkana': (context) => const CreateGinkana(),
   'mapa_picker_dimoni': (context) => const MapaPickerScreen(),
   'crear_dimoni': (context) => const CrearDimoni(),
+  'reset_password_screen': (context) => const ResetPasswordScreen(),
 };

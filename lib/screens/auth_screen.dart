@@ -16,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   bool _isLogin = false;
   bool _loading = false;
-  bool visiblePasswd = false;
+  bool visiblePasswd = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -56,27 +56,24 @@ class _AuthScreenState extends State<AuthScreen> {
                 children: [
                   Image.asset(
                     'assets/dimoni_portada.png',
-                    height: 300,
+                    height: 200,
                   ),
-                  RichText(
-                    text: const TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Dimonis',
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        TextSpan(
-                          text: 'Go',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 45),
-                        ),
-                      ],
-                    ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Dimonis',
+                        style: TextStyle(
+                            fontSize: 35, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        'Go',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 45),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 20,
@@ -108,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   TextFormField(
                     //Assign controller
                     controller: _passwordController,
-                    obscureText: !visiblePasswd,
+                    obscureText: visiblePasswd,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
@@ -147,21 +144,44 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(
+                            context, 'reset_password_screen'),
+                        child: const Text('You forgot a password?'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        onPressed: () => handleSubmit(),
+                        child: _loading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(_isLogin ? 'Login' : 'Register'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Center(
+                    child: Text(
+                      'OR',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
                     ),
-                    onPressed: () => handleSubmit(),
-                    child: _loading
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : Text(_isLogin ? 'Login' : 'Register'),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   // ElevatedButton(
                   //     onPressed: () {
