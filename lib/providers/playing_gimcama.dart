@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class PlayingGimcanaProvider extends ChangeNotifier {
   Gimcama? _currentGimcana;
   List<Dimoni>? dimonis;
+  List<Dimoni>? dimonisTrobats = [];
   Progress? progress;
   Dimoni? nextDimoni;
   bool completed = false;
@@ -64,6 +65,11 @@ class PlayingGimcanaProvider extends ChangeNotifier {
 
     nextDimoni = notFound.first;
 
+    notifyListeners();
+  }
+
+  dimoniTrobat(Dimoni dimoni){
+    dimonisTrobats!.add(dimoni);
     notifyListeners();
   }
 }

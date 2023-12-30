@@ -50,6 +50,7 @@ class _Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
     return SizedBox(
       child: Row(
         children: [
@@ -59,7 +60,7 @@ class _Card extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
-                image: NetworkImage(dimoni.image),
+                image: playing.dimonisTrobats!.contains(dimoni) ?NetworkImage(dimoni.image) :NetworkImage('https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Dise-o-sin-t-tulo-unscreen.gif?alt=media&token=0a3a8b89-5e31-4f85-82e7-1c9b004cd7d2'),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -67,11 +68,22 @@ class _Card extends StatelessWidget {
             ),
           ),
           Expanded(child: SizedBox()),
-          Text(
-            dimoni.nom,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                playing.dimonisTrobats!.contains(dimoni) ?dimoni.nom :'??????????',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                dimoni.description,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
           Expanded(child: SizedBox()),
         ],
