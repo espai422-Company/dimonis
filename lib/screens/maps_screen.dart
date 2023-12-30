@@ -185,7 +185,6 @@ class _MapsScreenState extends State<MapsScreen> {
     if (controller.text.toLowerCase() ==
         playing.nextDimoni!.nom.toLowerCase()) {
       playing.getNextDimoni();
-      playing.dimoniTrobat(playing.nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Resposta correcta'),

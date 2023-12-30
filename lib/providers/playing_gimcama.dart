@@ -54,7 +54,10 @@ class PlayingGimcanaProvider extends ChangeNotifier {
     }
 
     if (nextDimoni != null) {
-      progress!.findDimoni(nextDimoni!);
+      await progress!.findDimoni(nextDimoni!);
+      var trobats = await progress!.getProgressDimonis();
+      dimonisTrobats = trobats.keys.toList();
+      print(dimonisTrobats!.length);
       nextDimoni = null;
     }
 
@@ -75,6 +78,7 @@ class PlayingGimcanaProvider extends ChangeNotifier {
 
   dimoniTrobat(Dimoni dimoni) {
     dimonisTrobats!.add(dimoni);
+    print('Dimoni trobat: ${dimoni.nom}');
     notifyListeners();
   }
 }
