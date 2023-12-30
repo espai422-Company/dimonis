@@ -25,33 +25,20 @@ class DimonisScreen extends StatelessWidget {
             );
           }
 
-          return FutureBuilder<List<Dimoni>>(
-            future: playing.currentGimcana!.getDimonis(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+          if (playing.dimonis == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               }
 
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error al carregar els dimonis'),
-                );
-              }
-
-              List<Dimoni>? dimonis = snapshot.data;
-
-              return ListView.builder(
+          return ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: dimonis?.length ?? 0,
+                itemCount: playing.dimonis!.length ?? 0,
                 itemBuilder: (_, int index) =>
-                    _Card(dimoni: dimonis![index], context),
+                    _Card(dimoni: playing.dimonis![index], context),
               );
             },
-          );
-        },
-      ),
+          )
     );
   }
 }

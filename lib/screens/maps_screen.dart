@@ -166,7 +166,7 @@ class _MapsScreenState extends State<MapsScreen> {
               },
             ),
             TextButton(
-              child: const Text('Enviar respuesta'),
+              child: const Text('Enviar resposta'),
               onPressed: () {
                 _submit(controller, context);
               },
