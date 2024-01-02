@@ -228,7 +228,7 @@ class _MapsScreenState extends State<MapsScreen> {
     );
     _nextLocationIcon = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(devicePixelRatio: 1),
-      'assets/next.png',
+      'assets/demon3.png',
     );
   }
 
