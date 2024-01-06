@@ -3,6 +3,7 @@ import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../components/components.dart';
 
@@ -30,9 +31,27 @@ class _AuthScreenState extends State<AuthScreen> {
 
     //Check if is login or register
     if (_isLogin) {
-      await Auth().signInWithEmailAndPassword(email, password);
+      try {
+        await Auth().signInWithEmailAndPassword(email, password);
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message!),
+          ),
+        );
+      }
+      // await Auth().signInWithEmailAndPassword(email, password);
     } else {
-      await Auth().registerWithEmailAndPassword(email, password);
+      try {
+        await Auth().registerWithEmailAndPassword(email, password);
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message!),
+          ),
+        );
+      }
+      // await Auth().registerWithEmailAndPassword(email, password);
     }
 
     setState(() => _loading = false);
