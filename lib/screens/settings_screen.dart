@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text('Configuració'),
         backgroundColor: Colors.black,
       ),
       drawer: const SideMenu(),
@@ -45,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               SwitchListTile(
                 value: Preferences.isDarkMode,
-                title: const Text('Dark Mode'),
+                title: const Text('Mode obscur'),
                 onChanged: (value) {
                   Preferences.isDarkMode = value;
                   value

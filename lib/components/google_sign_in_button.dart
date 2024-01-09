@@ -57,7 +57,7 @@ class GoogleSignInButton extends StatelessWidget {
               width: 10,
             ),
             const Text(
-              'Sign in with Google',
+              'Inicia sessió amb Google',
               style: TextStyle(fontSize: 15),
             ),
           ],

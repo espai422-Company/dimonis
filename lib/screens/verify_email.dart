@@ -43,7 +43,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Inici'),
         backgroundColor: Colors.black,
       ),
       body: Padding(
@@ -51,12 +51,12 @@ class _VerifyEmailState extends State<VerifyEmail> {
         child: Center(
           child: Column(
             children: [
-              Text('Please verify your email address'),
+              Text('Verifica la teva adreça de correu'),
               ElevatedButton(
                   onPressed: () {
                     auth.signOut();
                   },
-                  child: Text('Cancel'))
+                  child: Text('Cancel·la'))
             ],
           ),
         ),

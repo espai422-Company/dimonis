@@ -84,7 +84,7 @@ class _CrearDimoniState extends State<CrearDimoni> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.image_outlined),
-                    Text('Seleccionar Imagen'),
+                    Text('Seleccionar imatge'),
                   ],
                 ),
               ),
@@ -131,7 +131,7 @@ class _CrearDimoniState extends State<CrearDimoni> {
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Rellene todos los campos anteriores.'),
+                content: Text('Ompli tots els camps anteriors.'),
               ),
             );
           }

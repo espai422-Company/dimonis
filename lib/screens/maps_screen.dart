@@ -39,18 +39,16 @@ class _MapsScreenState extends State<MapsScreen> {
   Widget build(BuildContext context) {
     var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
 
+    if (playing.currentGimcana == null) {
+      return const Center(
+        child: Text('No t\'has unit a cap gincana'),
+      );
+    }
     if (playing.completed) {
       return const Center(
         child: Text('Has completat la gimcana'),
       );
     }
-
-    if (playing.currentGimcana == null) {
-      return const Center(
-        child: Text('No thas unit a cap gincana'),
-      );
-    }
-
     if (!hasLocationPermission) {
       return const Center(
         child: Text('No tens permisos per accedir a la localització'),

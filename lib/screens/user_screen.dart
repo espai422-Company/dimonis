@@ -9,7 +9,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Information'),
+        title: const Text('Informació de l\'usuari'),
         backgroundColor: Colors.black,
       ),
       drawer: const SideMenu(),
@@ -26,27 +26,27 @@ class UserScreen extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                'Correo',
+                'Correu',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.email!),
               const Divider(),
               const Text(
-                'ID User',
+                'ID d\'usuari',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.uid),
               const Divider(),
               const Text(
-                'Verificación',
+                'Verificat',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.emailVerified
-                  ? 'El correo ha sido verificado.'
-                  : 'El correo NO ha sido verifcado.'),
+                  ? 'El compte està verificat.'
+                  : 'El compte NO està verificat.'),
               const Divider()
             ],
           ),

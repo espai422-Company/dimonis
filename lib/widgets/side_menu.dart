@@ -41,7 +41,7 @@ class SideMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.pages_outlined),
-            title: const Text('Home'),
+            title: const Text('Inici'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/');
@@ -49,7 +49,7 @@ class SideMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.account_circle),
-            title: const Text('Cuenta'),
+            title: const Text('Compte'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, 'user_screen');
@@ -57,7 +57,7 @@ class SideMenu extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
-            title: const Text('Settings'),
+            title: const Text('Configuració'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, 'settings_screen');
@@ -66,7 +66,7 @@ class SideMenu extends StatelessWidget {
           OnlyAdminWidget(
             child: ListTile(
               leading: const Icon(Icons.pages_outlined),
-              title: const Text('Crea Gincana'),
+              title: const Text('Crear gimcana'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, '/createGinkana');
@@ -76,7 +76,7 @@ class SideMenu extends StatelessWidget {
           OnlyAdminWidget(
             child: ListTile(
               leading: const Icon(Icons.person_add_alt_outlined),
-              title: const Text('Crea Dimoni'),
+              title: const Text('Crear Dimoni'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, 'crear_dimoni');
