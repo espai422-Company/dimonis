@@ -150,15 +150,27 @@ class _MapsScreenState extends State<MapsScreen> {
 
   void _showDialog(BuildContext context) {
     final TextEditingController controller = TextEditingController();
+    final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Resposta'),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(hintText: "Nom del dimoni"),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FadeInImage(
+                  placeholder:
+                      const AssetImage('assets/LoadingDimonis-unscreen.gif'), 
+                      image: NetworkImage(playing.nextDimoni!.image)),
+                TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(hintText: "Nom del dimoni"),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
