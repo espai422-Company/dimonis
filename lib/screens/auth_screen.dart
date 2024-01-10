@@ -102,7 +102,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     controller: _emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'Introdueix el teu correu';
                       }
                       return null;
                     },
@@ -127,12 +127,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     obscureText: visiblePasswd,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
+                        return 'Introdueix la teva contrassenya';
                       }
                       return null;
                     },
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: 'Contrassenya',
                       prefixIcon: const Icon(Icons.lock_open_rounded),
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -155,7 +155,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(height: 20),
                   SwitchListTile(
                     value: _isLogin,
-                    title: const Text('Ya tienes una cuenta?'),
+                    title: const Text('Ja tens compte?'),
                     onChanged: (value) {
                       setState(() {
                         _isLogin = value;
@@ -163,44 +163,29 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pushNamed(
-                            context, 'reset_password_screen'),
-                        child: const Text('You forgot a password?'),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                        ),
-                        onPressed: () => handleSubmit(),
-                        child: _loading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text(_isLogin ? 'Login' : 'Register'),
-                      ),
-                    ],
+                  TextButton(
+                    onPressed: () => Navigator.pushNamed(
+                        context, 'reset_password_screen'),
+                    child: const Text('Has oblidat la contrassenya?'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
+                    onPressed: () => handleSubmit(),
+                    child: _loading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Text(_isLogin ? 'Inicia sessió' : 'Registre\'t'),
                   ),
                   const SizedBox(
                     height: 15,
-                  ),
-                  const Center(
-                    child: Text(
-                      'OR',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   // ElevatedButton(
                   //     onPressed: () {

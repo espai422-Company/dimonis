@@ -10,7 +10,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reset Password'),
+        title: const Text('Recupera la contrassenya'),
         backgroundColor: Colors.black,
       ),
       body: Padding(
@@ -26,10 +26,11 @@ class ResetPasswordScreen extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                'Reset your password',
+                'Recupera la contrassenya',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                textAlign: TextAlign.center,
               ),
-              const Text('Put the email to reset the password:'),
+              const Text('Introdueix el correu per canviar la contrassenya:', textAlign: TextAlign.center,),
               const SizedBox(
                 height: 20,
               ),
@@ -38,7 +39,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 controller: _emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'Introdueix el correu';
                   }
                   return null;
                 },
@@ -88,7 +89,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Text('Send'),
+                      Text('Envia'),
                     ],
                   ))
             ],

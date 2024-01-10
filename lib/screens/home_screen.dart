@@ -43,21 +43,21 @@ class HomeScreen extends StatelessWidget {
                   builder: (context) {
                     return AlertDialog(
                       icon: const Icon(Icons.info_outline),
-                      title: const Text('Se va a cerrar sesión!'),
-                      content: const Text('Desea continuar?'),
+                      title: const Text('Es tancarà la sessió!'),
+                      content: const Text('Dessitja continuar?'),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text('Cancelar'),
+                          child: const Text('Cancel·la'),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                             FirebaseAuth.instance.signOut();
                           },
-                          child: const Text('Continuar'),
+                          child: const Text('Tanca sessió'),
                         ),
                       ],
                     );

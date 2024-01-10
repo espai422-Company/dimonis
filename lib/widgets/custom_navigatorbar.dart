@@ -23,7 +23,7 @@ class CustomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.games_outlined),
-          label: 'Gimcames',
+          label: 'Gimcanes',
         ),
       ],
     );

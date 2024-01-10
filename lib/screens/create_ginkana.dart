@@ -23,7 +23,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
     return Scaffold(
         drawer: SideMenu(),
         appBar: AppBar(
-          title: Text("Crea una gincana"),
+          title: Text("Crea una gimcana"),
         ),
         body: ListView(
           padding: EdgeInsets.all(16.5),
@@ -31,7 +31,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             Container(
               height: 15,
             ),
-            _nom('Nom de la gincana'),
+            _nom('Nom de la gimcana'),
             Container(
               height: 25,
             ),
@@ -39,7 +39,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Data inici"),
+                Text("Data d\' inici"),
                 Expanded(child: SizedBox()),
                 ElevatedButton(
                     onPressed: () async {
