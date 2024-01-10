@@ -143,6 +143,15 @@ class Gimcama {
     final now = DateTime.now();
 
     return gimcames
+        .where((gimcama) => !gimcama.isTimeToPlay() && gimcama.end.isAfter(now))
+        .toList();
+  }
+
+  static Future<List<Gimcama>> getGimcamesActuals() async {
+    final gimcames = await getGimcames();
+    final now = DateTime.now();
+
+    return gimcames
         .where((gimcama) => gimcama.isTimeToPlay() && gimcama.end.isAfter(now))
         .toList();
   }
@@ -152,10 +161,7 @@ class Gimcama {
     final gimcames = await getGimcames();
     final now = DateTime.now();
 
-    return gimcames
-        .where(
-            (gimcama) => !gimcama.isTimeToPlay() || gimcama.end.isBefore(now))
-        .toList();
+    return gimcames.where((gimcama) => gimcama.end.isBefore(now)).toList();
   }
 
   // Retorna una gimcama a partir de una id

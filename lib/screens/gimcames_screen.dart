@@ -12,8 +12,8 @@ class GimcamaScreen extends StatefulWidget {
 }
 
 class _GimcamaScreenState extends State<GimcamaScreen> {
-  String selectedOption = 'Proximes';
-  List<String> options = ['Totes', 'Proximes', 'Anteriors'];
+  String selectedOption = 'Actuals';
+  List<String> options = ['Totes', 'Proximes', 'Actuals', 'Anteriors'];
 
   @override
   Widget build(BuildContext context) {

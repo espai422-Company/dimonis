@@ -18,6 +18,8 @@ class GimcamaList extends StatelessWidget {
       futureToUse = Gimcama.getGimcames();
     } else if (selectedOption == 'Proximes') {
       futureToUse = Gimcama.getProximasGimcames();
+    } else if (selectedOption == 'Actuals') {
+      futureToUse = Gimcama.getGimcamesActuals();
     } else if (selectedOption == 'Anteriors') {
       futureToUse = Gimcama.getAnterioresGimcames();
     }
