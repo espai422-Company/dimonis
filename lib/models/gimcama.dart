@@ -137,6 +137,27 @@ class Gimcama {
     }
   }
 
+  // Retorna una lista de gimcames próximas a la fecha actual
+  static Future<List<Gimcama>> getProximasGimcames() async {
+    final gimcames = await getGimcames();
+    final now = DateTime.now();
+
+    return gimcames
+        .where((gimcama) => gimcama.isTimeToPlay() && gimcama.end.isAfter(now))
+        .toList();
+  }
+
+  // Retorna una lista de gimcames anteriores a la fecha actual
+  static Future<List<Gimcama>> getAnterioresGimcames() async {
+    final gimcames = await getGimcames();
+    final now = DateTime.now();
+
+    return gimcames
+        .where(
+            (gimcama) => !gimcama.isTimeToPlay() || gimcama.end.isBefore(now))
+        .toList();
+  }
+
   // Retorna una gimcama a partir de una id
   static Future<Gimcama> getGimcama(String id) async {
     final ref = SignleDBConn.getDatabase().ref('/gimcames/$id');
