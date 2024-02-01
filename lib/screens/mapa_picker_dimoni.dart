@@ -15,23 +15,25 @@ class _MapaScreenState extends State<MapaPickerScreen> {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
   MapType _currentMapType = MapType.normal;
+  var x, y;
 
   @override
   Widget build(BuildContext context) {
     final CameraPosition _puntInicial = CameraPosition(target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
     final Map<String,String> dimoni = ModalRoute.of(context)!.settings.arguments as Map<String,String>;
-    final x = dimoni['x'];
-    final y = dimoni['y'];
+    
+    if (x == null){
+      x = dimoni['x'];
+      y = dimoni['y'];
+      print(x);
+    }
 
     Marker coordenadesDimoni = x == '0'
         ? const Marker(markerId: MarkerId(''))
         : Marker(
             markerId: const MarkerId('dimoniMarker'),
             position: getLatLng('${x},${y}'));
-
-    print(coordenadesDimoni.position.latitude);
-    print(coordenadesDimoni.position.latitude);
 
     Set<Marker> markers = new Set<Marker>();
     markers.add(
@@ -61,7 +63,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         myLocationButtonEnabled: false,
         mapType: _currentMapType,
         markers: markers,
-        onTap: (LatLng coor) => _addMarker(coor, x!, y!, coordenadesDimoni),
+        onTap: (LatLng coor) => _addMarker(coor, coordenadesDimoni),
         initialCameraPosition: _puntInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
@@ -74,7 +76,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           child: const Icon(Icons.save),
           onPressed: () {
             if (x != '0') {
-              Navigator.pop(context, {'x' : x, "y" : y});
+              Navigator.pop(context, {'x' : '$x', 'y' : '$y'} as Map<String,String>);
             } else {
               showDialog(
                 barrierDismissible: false,
@@ -125,12 +127,8 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     return LatLng(latitude, longitude);
   }
 
-  void _addMarker(LatLng pos, String x, String y, Marker coordenadesDimoni) {
+  void _addMarker(LatLng pos, Marker coordenadesDimoni) {
     setState(() {
-      coordenadesDimoni = Marker(
-          markerId: const MarkerId('coordenadesDimoni'),
-          infoWindow: InfoWindow(title: "dimoni"),
-          position: pos);
       x = pos.latitude.toString();
       y = pos.longitude.toString();
     });

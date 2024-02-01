@@ -208,11 +208,9 @@ class _Card extends StatelessWidget {
                   if (value != null)
                     {
                       coordenadesTemporals = value as Map<String,String>,
-                      coordenandes['x'] = coordenandes['x']!,
-                      coordenandes['y']  = coordenandes['y']!,
-                      dimonis[dimoni] != null 
-                      ? dimonis[dimoni] = coordenadesTemporals 
-                      : dimonis.addAll({dimoni : coordenadesTemporals}),
+                      coordenandes['x'] = coordenadesTemporals['x']!,
+                      coordenandes['y']  = coordenadesTemporals['y']!,
+                      dimonis[dimoni] = coordenadesTemporals,
                       Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
                     }
                 },
