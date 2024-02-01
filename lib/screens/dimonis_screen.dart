@@ -49,8 +49,9 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
-    return SizedBox(
-      child: Row(
+    return Container(
+      height: 250,
+      child: Column(
         children: [
           GestureDetector(
             onTap: () {},

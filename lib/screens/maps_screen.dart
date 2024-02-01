@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:app_dimonis/models/dimoni.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -147,28 +148,60 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _showDialog(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    // final TextEditingController controller = TextEditingController();
+    var selectedValue = 'Conguito';
     final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
+
+    Future<List<String>> carregadimonis() async {
+      List<String> options2 = [];
+      var dimonis = await Dimoni.getDimonis();
+      dimonis.forEach((element) {options2.add(element.nom);});
+      return options2;
+    }
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Resposta'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FadeInImage(
-                  placeholder:
-                      const AssetImage('assets/LoadingDimonis-unscreen.gif'), 
-                      image: NetworkImage(playing.nextDimoni!.image)),
-                TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(hintText: "Nom del dimoni"),
-                ),
-              ],
-            ),
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return SingleChildScrollView(
+                child: FutureBuilder(
+                  future: carregadimonis(), 
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null){
+                      return CircularProgressIndicator();
+                    }
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FadeInImage(
+                          placeholder:
+                              const AssetImage('assets/LoadingDimonis-unscreen.gif'), 
+                              image: NetworkImage(playing.nextDimoni!.image)),
+                        DropdownButton<String>(
+                          value: selectedValue,
+                          onChanged: (String? newValue) {
+                            selectedValue = newValue!;
+                            setState(() {});
+                          },
+                          items: snapshot.data!
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )
+                      ],
+                    );
+                    
+                  },
+                  
+                  )
+              );
+            }
           ),
           actions: [
             TextButton(
@@ -180,7 +213,7 @@ class _MapsScreenState extends State<MapsScreen> {
             TextButton(
               child: const Text('Enviar resposta'),
               onPressed: () {
-                _submit(controller, context);
+                _submit(selectedValue, context);
               },
             ),
           ],
@@ -189,10 +222,10 @@ class _MapsScreenState extends State<MapsScreen> {
     );
   }
 
-  void _submit(TextEditingController controller, BuildContext context) {
+  void _submit(String value, BuildContext context) {
     final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
 
-    if (controller.text.toLowerCase() ==
+    if (value.toLowerCase() ==
         playing.nextDimoni!.nom.toLowerCase()) {
       playing.getNextDimoni();
       ScaffoldMessenger.of(context).showSnackBar(

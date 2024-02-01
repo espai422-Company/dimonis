@@ -18,10 +18,9 @@ class UserScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(
-                'assets/user.png',
-                width: 200,
-              ),
+              FadeInImage(
+                placeholder: Image.asset('assets/user.png').image, 
+                image: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!)),
               const SizedBox(
                 height: 20,
               ),
@@ -38,6 +37,13 @@ class UserScreen extends StatelessWidget {
               ),
               const Divider(),
               Text(FirebaseAuth.instance.currentUser!.uid),
+              const Divider(),
+              const Text(
+                'Nom d\'usuari',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+              ),
+              const Divider(),
+              Text(FirebaseAuth.instance.currentUser!.displayName!),
               const Divider(),
               const Text(
                 'Verificat',

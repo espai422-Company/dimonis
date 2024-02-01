@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 String nom = '';
-DateTime dataInici = DateTime(2023, 12, 31, 0, 0);
-DateTime dataFinal = DateTime(2024, 12, 31, 0, 0);
-List<Dimoni> dimonis = [];
+DateTime dataInici = DateTime.now();
+DateTime dataFinal = DateTime.now();
+Map<String,String> coordenandes = {};
+Map<Dimoni,dynamic> dimonis = {};
+
 
 class CreateGinkana extends StatefulWidget {
   const CreateGinkana({super.key});
@@ -118,14 +120,14 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                 );
             } else{
               Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
-              dimonis.forEach((element) {
-                gimcana.addDimoni(element, element.x, element.y);
+              dimonis.forEach((key, value) { 
+                gimcana.addDimoni(key, value['x']!, value['y']!);
               });
               gimcana.save();
               nom = '';
-              dataInici = DateTime(2023, 12, 31, 0, 0);
-              dataFinal = DateTime(2024, 12, 31, 0, 0);
-              dimonis = [];
+              dataInici = DateTime.now();
+              dataFinal = DateTime.now();
+              dimonis = {};
               Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
             }
           },
@@ -148,7 +150,7 @@ Widget _dimonis(context) {
           Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
-                dimonis = [];
+                dimonis = {};
                 Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
               },
               child: Text("Buidar dimonis")),
@@ -198,16 +200,19 @@ class _Card extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Dimoni dimoniTemporal = dimoni;
-              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal).then(
+              String x = "0";
+              String y = "0";
+              Map<String, String> coordenadesTemporals;
+              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: {'x' : x, "y" : y}).then(
                 (value) => {
                   if (value != null)
                     {
-                      dimoniTemporal = value as Dimoni,
-                      dimoni.x = dimoniTemporal.x,
-                      dimoni.y = dimoniTemporal.y,
-                      dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
-                      dimonis.add(dimoniTemporal),
+                      coordenadesTemporals = value as Map<String,String>,
+                      coordenandes['x'] = coordenandes['x']!,
+                      coordenandes['y']  = coordenandes['y']!,
+                      dimonis[dimoni] != null 
+                      ? dimonis[dimoni] = coordenadesTemporals 
+                      : dimonis.addAll({dimoni : coordenadesTemporals}),
                       Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
                     }
                 },
