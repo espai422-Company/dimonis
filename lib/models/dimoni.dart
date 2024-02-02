@@ -98,6 +98,7 @@ class Dimoni {
       Map<Object, dynamic> b = a.cast<String, dynamic>();
       Dimoni dimoni = Dimoni.fromMap(b);
       dimoni.id = id;
+      // change
       return dimoni;
     } else {
       throw Exception('Dimoni not found');
