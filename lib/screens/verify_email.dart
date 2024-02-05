@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_dimonis/auth.dart';
+import 'package:app_dimonis/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

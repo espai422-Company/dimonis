@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/services/select_image.dart';
 import 'package:app_dimonis/services/upload_dimoni_image.dart';
 import 'package:app_dimonis/widgets/widgets.dart';
@@ -109,7 +109,10 @@ class _CrearDimoniState extends State<CrearDimoni> {
         onPressed: () async {
           if (imagen_to_upload != null && _nom != '' && _descripcio != '') {
             Dimoni dimoniTemp = Dimoni(
-                nom: _nom, image: '', description: _descripcio, x: '0', y: '0');
+              nom: _nom,
+              image: '',
+              description: _descripcio,
+            );
 
             final uploadedDimoni =
                 await uploadDimoni(dimoniTemp, imagen_to_upload!);

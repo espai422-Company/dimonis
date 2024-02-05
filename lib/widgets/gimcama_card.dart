@@ -1,15 +1,15 @@
-import 'package:app_dimonis/models/gimcama.dart';
-import 'package:app_dimonis/models/progres.dart';
+import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
+import 'package:app_dimonis/models/firebase/firebase_progress.dart';
 import 'package:flutter/material.dart';
 
 class GimcamaCard extends StatelessWidget {
-  final Gimcama gimcama;
+  final FirebaseGimana gimcama;
   const GimcamaCard({super.key, required this.gimcama});
 
   @override
   Widget build(BuildContext context) {
     var color = gimcama.isTimeToPlay() ? Colors.green : Colors.grey;
-    var progress = Progress(gimcanaId: gimcama.id!);
+    var progress = FirebaseProgress(gimcanaId: gimcama.id!);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0), // Border radius of the card

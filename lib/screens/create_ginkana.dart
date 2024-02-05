@@ -1,5 +1,5 @@
-import 'package:app_dimonis/models/dimoni.dart';
-import 'package:app_dimonis/models/gimcama.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
@@ -21,116 +21,117 @@ class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: SideMenu(),
-        appBar: AppBar(
-          title: Text("Crea una gimcana"),
-        ),
-        body: ListView(
-          padding: EdgeInsets.all(16.5),
-          children: [
-            Container(
-              height: 15,
-            ),
-            _nom('Nom de la gimcana'),
-            Container(
-              height: 25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Data d\' inici"),
-                Expanded(child: SizedBox()),
-                ElevatedButton(
-                    onPressed: () async {
-                      final date = await _datePicker(context, DateTime(2023));
-                      if (date == null) {
-                        return;
-                      }
-                      final time = await _timePicker(context);
-                      if (time == null) {
-                        return;
-                      }
-                      setState(() {
-                        dataInici = _updateTime(date, time);
-                      });
-                    },
-                    child: Text(
-                        "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
-              ],
-            ),
-            Container(
-              height: 25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Data final"),
-                Expanded(child: SizedBox()),
-                ElevatedButton(
-                    onPressed: () async {
-                      final date = await _datePicker(context, dataInici);
-                      if (date == null) {
-                        return;
-                      }
-                      final time = await _timePicker(context);
-                      if (time == null) {
-                        return;
-                      }
-                      setState(() {
-                        dataFinal = _updateTime(date, time);
-                      });
-                    },
-                    child: Text(
-                        "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
-              ],
-            ),
-            Container(
-              height: 25,
-            ),
-            _dimonis(context),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            List<String> errors = comprovarDades();
-            if (errors.isNotEmpty){
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      icon: const Icon(Icons.error_outline_outlined),
-                      title: const Text('ERROR'),
-                      content:
-                          Text(errors.join('\n')),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    );
+      drawer: SideMenu(),
+      appBar: AppBar(
+        title: Text("Crea una gimcana"),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16.5),
+        children: [
+          Container(
+            height: 15,
+          ),
+          _nom('Nom de la gimcana'),
+          Container(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Data d\' inici"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context, DateTime(2023));
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataInici = _updateTime(date, time);
+                    });
                   },
+                  child: Text(
+                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Data final"),
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () async {
+                    final date = await _datePicker(context, dataInici);
+                    if (date == null) {
+                      return;
+                    }
+                    final time = await _timePicker(context);
+                    if (time == null) {
+                      return;
+                    }
+                    setState(() {
+                      dataFinal = _updateTime(date, time);
+                    });
+                  },
+                  child: Text(
+                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+            ],
+          ),
+          Container(
+            height: 25,
+          ),
+          _dimonis(context),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          List<String> errors = comprovarDades();
+          if (errors.isNotEmpty) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  icon: const Icon(Icons.error_outline_outlined),
+                  title: const Text('ERROR'),
+                  content: Text(errors.join('\n')),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
                 );
-            } else{
-              Gimcama gimcana = Gimcama(nom: nom, start: dataInici, end: dataFinal);
-              dimonis.forEach((element) {
-                gimcana.addDimoni(element, element.x, element.y);
-              });
-              gimcana.save();
-              nom = '';
-              dataInici = DateTime(2023, 12, 31, 0, 0);
-              dataFinal = DateTime(2024, 12, 31, 0, 0);
-              dimonis = [];
-              Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
-            }
-          },
-          child: Icon(Icons.save),
-        ),
+              },
+            );
+          } else {
+            FirebaseGimana gimcana =
+                FirebaseGimana(nom: nom, start: dataInici, end: dataFinal);
+            dimonis.forEach((element) {
+              gimcana.addDimoni(element, '0', '0');
+            });
+            gimcana.save();
+            nom = '';
+            dataInici = DateTime(2023, 12, 31, 0, 0);
+            dataFinal = DateTime(2024, 12, 31, 0, 0);
+            dimonis = [];
+            Provider.of<TotalDimonisProvider>(context, listen: false)
+                .setDimoni(dimonis.length);
+          }
+        },
+        child: Icon(Icons.save),
+      ),
     );
   }
 }
@@ -149,7 +150,8 @@ Widget _dimonis(context) {
           ElevatedButton(
               onPressed: () {
                 dimonis = [];
-                Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length);
+                Provider.of<TotalDimonisProvider>(context, listen: false)
+                    .setDimoni(dimonis.length);
               },
               child: Text("Buidar dimonis")),
         ],
@@ -160,7 +162,7 @@ Widget _dimonis(context) {
       Container(
         height: 250,
         child: FutureBuilder<List<Dimoni>>(
-          future: Dimoni.getDimonis(),
+          future: null,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
@@ -173,7 +175,8 @@ Widget _dimonis(context) {
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: dimonis.length,
-                    itemBuilder: (_, int index) => _Card(dimoni: dimonis[index], context)),
+                    itemBuilder: (_, int index) =>
+                        _Card(dimoni: dimonis[index], context)),
               );
             }
           },
@@ -199,16 +202,19 @@ class _Card extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Dimoni dimoniTemporal = dimoni;
-              Navigator.pushNamed(context, 'mapa_picker_dimoni', arguments: dimoniTemporal).then(
+              Navigator.pushNamed(context, 'mapa_picker_dimoni',
+                      arguments: dimoniTemporal)
+                  .then(
                 (value) => {
                   if (value != null)
                     {
                       dimoniTemporal = value as Dimoni,
-                      dimoni.x = dimoniTemporal.x,
-                      dimoni.y = dimoniTemporal.y,
+                      // dimoni.x = dimoniTemporal.x,
+                      // dimoni.y = dimoniTemporal.y,
                       dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
                       dimonis.add(dimoniTemporal),
-                      Provider.of<TotalDimonisProvider>(context, listen: false).setDimoni(dimonis.length),
+                      Provider.of<TotalDimonisProvider>(context, listen: false)
+                          .setDimoni(dimonis.length),
                     }
                 },
               );
@@ -216,7 +222,8 @@ class _Card extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
+                placeholder:
+                    const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                 image: NetworkImage(dimoni.image),
                 width: 130,
                 height: 190,
@@ -261,25 +268,27 @@ Future<DateTime?> _datePicker(context, primeradata) => showDatePicker(
     firstDate: primeradata,
     lastDate: DateTime(2030));
 
-Future<TimeOfDay?> _timePicker(context) =>
-    showTimePicker(context: context, initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
+Future<TimeOfDay?> _timePicker(context) => showTimePicker(
+    context: context,
+    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
 }
 
-List<String> comprovarDades(){
+List<String> comprovarDades() {
   List<String> errors = [];
 
-  if (dimonis.length < 3){
+  if (dimonis.length < 3) {
     errors.add("El minim de dimonis pera una gincana son ${dimonis.length}/3");
   }
 
-  if (dataFinal.isBefore(dataInici)){
-    errors.add("La data final de la gincana no pot ser menor a la data d'inici");
+  if (dataFinal.isBefore(dataInici)) {
+    errors
+        .add("La data final de la gincana no pot ser menor a la data d'inici");
   }
 
-  if (!RegExp(r'^(.{8,})$').hasMatch(nom)){
+  if (!RegExp(r'^(.{8,})$').hasMatch(nom)) {
     errors.add("El nom de la gincana es massa curt ${nom.length}/8");
   }
 

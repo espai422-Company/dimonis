@@ -1,6 +1,9 @@
 import 'package:app_dimonis/firebase_options.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
+import 'package:app_dimonis/providers/dimoni_provider.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
@@ -16,6 +19,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => FireBaseProvider(1)),
         ChangeNotifierProvider(create: (_) => TotalDimonisProvider()),
         ChangeNotifierProvider(
             create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),

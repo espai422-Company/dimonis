@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 

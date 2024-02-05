@@ -1,11 +1,11 @@
-import 'package:app_dimonis/auth.dart';
+import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../components/components.dart';
+import '../widgets/google_sign_in_button.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -43,7 +43,8 @@ class _AuthScreenState extends State<AuthScreen> {
       // await Auth().signInWithEmailAndPassword(email, password);
     } else {
       try {
-        await Auth().registerWithEmailAndPassword(email, password);
+        await Auth()
+            .registerWithEmailAndPassword(email, password, 'CUSTOMDISPLAYNAME');
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -164,8 +165,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   const SizedBox(height: 20),
                   TextButton(
-                    onPressed: () => Navigator.pushNamed(
-                        context, 'reset_password_screen'),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, 'reset_password_screen'),
                     child: const Text('Has oblidat la contrassenya?'),
                   ),
                   ElevatedButton(
@@ -187,11 +188,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       Auth().loginWithGoogle();
-                  //     },
-                  //     child: Text('Google Sign In')),
                   GoogleSignInButton(),
                 ],
               ),

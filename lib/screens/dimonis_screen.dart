@@ -1,11 +1,13 @@
-import 'package:app_dimonis/auth.dart';
+import 'package:app_dimonis/services/auth.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/screens/create_ginkana.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dimonis/api/db_connection.dart';
-import 'package:app_dimonis/models/dimoni.dart';
-import 'package:app_dimonis/models/gimcama.dart';
-import 'package:app_dimonis/models/progres.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
+import 'package:app_dimonis/models/firebase/firebase_progress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +17,16 @@ class DimonisScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
-
+    var FirebaseProvider = Provider.of<FireBaseProvider>(context, listen: true);
     return Scaffold(body: Builder(
       builder: (context) {
         if (playing.currentGimcana == null) {
-          return Center(
-            child: Text('No t\'has unit a cap gincana'),
+          return Column(
+            children: [
+              Center(
+                child: Text('No t\'has unit a cap gincana'),
+              ),
+            ],
           );
         }
 

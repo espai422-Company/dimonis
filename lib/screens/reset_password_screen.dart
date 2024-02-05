@@ -1,4 +1,4 @@
-import 'package:app_dimonis/auth.dart';
+import 'package:app_dimonis/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -30,7 +30,10 @@ class ResetPasswordScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
                 textAlign: TextAlign.center,
               ),
-              const Text('Introdueix el correu per canviar la contrassenya:', textAlign: TextAlign.center,),
+              const Text(
+                'Introdueix el correu per canviar la contrassenya:',
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(
                 height: 20,
               ),

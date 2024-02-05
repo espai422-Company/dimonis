@@ -1,4 +1,4 @@
-import 'package:app_dimonis/models/gimcama.dart';
+import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/gimcama_card.dart';
@@ -12,19 +12,20 @@ class GimcamaList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<Gimcama>> futureToUse = Gimcama.getProximasGimcames();
+    Future<List<FirebaseGimana>> futureToUse =
+        FirebaseGimana.getProximasGimcames();
 
     if (selectedOption == 'Totes') {
-      futureToUse = Gimcama.getGimcames();
+      futureToUse = FirebaseGimana.getGimcames();
     } else if (selectedOption == 'Proximes') {
-      futureToUse = Gimcama.getProximasGimcames();
+      futureToUse = FirebaseGimana.getProximasGimcames();
     } else if (selectedOption == 'Actuals') {
-      futureToUse = Gimcama.getGimcamesActuals();
+      futureToUse = FirebaseGimana.getGimcamesActuals();
     } else if (selectedOption == 'Anteriors') {
-      futureToUse = Gimcama.getAnterioresGimcames();
+      futureToUse = FirebaseGimana.getAnterioresGimcames();
     }
 
-    return FutureBuilder<List<Gimcama>>(
+    return FutureBuilder<List<FirebaseGimana>>(
       future: futureToUse,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

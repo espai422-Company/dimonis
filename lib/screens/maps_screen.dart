@@ -61,10 +61,10 @@ class _MapsScreenState extends State<MapsScreen> {
       );
     }
 
-    if (playing.nextDimoni != null) {
-      _nextLocation = LatLng(double.parse(playing.nextDimoni!.x),
-          double.parse(playing.nextDimoni!.y));
-    }
+    // if (playing.nextDimoni != null) {
+    //   _nextLocation = LatLng(double.parse(playing.nextDimoni!.x),
+    //       double.parse(playing.nextDimoni!.y));
+    // }
 
     if (_currentLocation == null) {
       return const Center(
@@ -160,9 +160,9 @@ class _MapsScreenState extends State<MapsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FadeInImage(
-                  placeholder:
-                      const AssetImage('assets/LoadingDimonis-unscreen.gif'), 
-                      image: NetworkImage(playing.nextDimoni!.image)),
+                    placeholder:
+                        const AssetImage('assets/LoadingDimonis-unscreen.gif'),
+                    image: NetworkImage(playing.nextDimoni!.image)),
                 TextField(
                   controller: controller,
                   decoration: const InputDecoration(hintText: "Nom del dimoni"),

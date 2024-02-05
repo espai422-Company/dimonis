@@ -7,16 +7,15 @@ class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> registerWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String displayName) async {
     final user = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-
+    await user.user?.updateDisplayName(displayName);
     await user.user?.sendEmailVerification();
     // you can also store the user in Database
-    var ref = SignleDBConn.getDatabase().ref('/users');
-    ref.update({user.user!.uid: user.user!.email});
+    await saveUserToRTDB(user.credential?.providerId ?? 'default');
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
@@ -30,6 +29,23 @@ class Auth {
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<void> saveUserToRTDB(String providerId) async {
+    var ref =
+        SignleDBConn.getDatabase().ref('/users/${_auth.currentUser!.uid}');
+
+    var snapshot = await ref.get();
+    if (!snapshot.exists) {
+      // User does not exist, update the data
+      ref.set({
+        'email': _auth.currentUser!.email,
+        'displayName': _auth.currentUser!.displayName,
+        'photoURL': _auth.currentUser!.photoURL,
+        'providerId': providerId,
+        'privileges': 'user',
+      });
+    }
   }
 
   // return if current user is an admin or not

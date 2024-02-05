@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_dimonis/models/dimoni.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,21 +12,23 @@ class MapaPickerScreen extends StatefulWidget {
 }
 
 class _MapaScreenState extends State<MapaPickerScreen> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   MapType _currentMapType = MapType.normal;
 
   @override
   Widget build(BuildContext context) {
-    final CameraPosition _puntInicial = CameraPosition(target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
+    final CameraPosition _puntInicial = CameraPosition(
+        target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
     final Dimoni dimoni = ModalRoute.of(context)!.settings.arguments as Dimoni;
 
-    Marker coordenadesDimoni = dimoni.x == '0'
+    Marker coordenadesDimoni = '0' == '0'
         ? const Marker(markerId: MarkerId(''))
         : Marker(
             markerId: const MarkerId('dimoniMarker'),
-            position: getLatLng('${dimoni.x},${dimoni.y}'));
+            position: getLatLng('${0},${0}'));
 
     Set<Marker> markers = new Set<Marker>();
     markers.add(
@@ -68,7 +70,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           elevation: 0,
           child: const Icon(Icons.save),
           onPressed: () {
-            if (dimoni.x != '0') {
+            if ('0' != '0') {
               Navigator.pop(context, dimoni);
             } else {
               showDialog(
@@ -126,8 +128,8 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           markerId: const MarkerId('coordenadesDimoni'),
           infoWindow: InfoWindow(title: dimoni.nom),
           position: pos);
-      dimoni.x = pos.latitude.toString();
-      dimoni.y = pos.longitude.toString();
+      // dimoni = pos.latitude.toString();
+      // dimoni.y = pos.longitude.toString();
     });
   }
 }
