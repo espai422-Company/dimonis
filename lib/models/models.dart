@@ -1,4 +1,3 @@
-export 'package:app_dimonis/models/dimoni.dart';
-export 'package:app_dimonis/models/firebase_model.dart';
-export 'package:app_dimonis/models/gimcama.dart';
-export 'package:app_dimonis/models/progres.dart';
+export 'package:app_dimonis/models/firebase/dimoni.dart';
+export 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
+export 'package:app_dimonis/models/firebase/firebase_progress.dart';

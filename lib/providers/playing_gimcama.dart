@@ -1,11 +1,12 @@
 import 'package:app_dimonis/models/models.dart';
+import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:flutter/material.dart';
 
 class PlayingGimcanaProvider extends ChangeNotifier {
   Gimcama? _currentGimcana;
   List<Dimoni>? dimonis;
   List<Dimoni>? dimonisTrobats = [];
-  Progress? progress;
+  FirebaseProgress? progress;
   Dimoni? nextDimoni;
   bool completed = false;
 
@@ -15,7 +16,7 @@ class PlayingGimcanaProvider extends ChangeNotifier {
     if (gimcana != null && gimcana.id != null) {
       nextDimoni = null;
       completed = false;
-      progress = Progress(gimcanaId: gimcana.id!);
+      progress = FirebaseProgress(gimcanaId: gimcana.id!);
       getDimonis().then((value) => getNextDimoni());
     } else {
       progress = null;
