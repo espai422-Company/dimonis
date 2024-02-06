@@ -5,6 +5,7 @@ class Gimcama {
   DateTime start;
   DateTime end;
   String id;
+  String propietari;
   List<Ubication> ubications;
 
   Gimcama({
@@ -12,6 +13,7 @@ class Gimcama {
     required this.start,
     required this.end,
     required this.id,
+    required this.propietari,
     required this.ubications,
   });
 }

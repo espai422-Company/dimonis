@@ -8,6 +8,7 @@ class FirebaseGimana {
   DateTime start;
   DateTime end;
   String id;
+  String propietari;
   Map<dynamic, dynamic> dimonis;
 
   FirebaseGimana({
@@ -15,6 +16,7 @@ class FirebaseGimana {
     required this.start,
     required this.end,
     required this.dimonis,
+    required this.propietari,
     required this.id,
   });
 
@@ -24,6 +26,7 @@ class FirebaseGimana {
       nom: json["nom"],
       start: DateTime.parse(json["start"]),
       end: DateTime.parse(json["end"]),
+      propietari: json["propietari"],
       id: id,
       dimonis: json["dimonis"],
     );
@@ -35,6 +38,7 @@ class FirebaseGimana {
         "nom": nom,
         "start": start.toString(),
         "end": end.toString(),
+        "propietari": propietari,
         "dimonis": dimonis,
       };
 }

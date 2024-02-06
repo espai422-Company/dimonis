@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:app_dimonis/api/db_connection.dart';
+import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/models/models.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/models/state/progress.dart';
 import 'package:app_dimonis/providers/dimoni_provider.dart';
 import 'package:app_dimonis/providers/gimcana_provider.dart';
+import 'package:app_dimonis/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +17,17 @@ class ProgressProvider extends ChangeNotifier {
 
   DimoniProvider dimoniProvider;
   GimcanaProvider gimcanaProvider;
+  UsersProvider usersProvider;
 
   StreamSubscription<DatabaseEvent>? progressListener;
-  Map<String, Progress> _progressMap = {};
+  Map<FirebaseUser, Progress> _progressMap = {};
   String? uid;
   String? gimcanaId;
 
   ProgressProvider(
-      {required this.dimoniProvider, required this.gimcanaProvider}) {
+      {required this.dimoniProvider,
+      required this.gimcanaProvider,
+      required this.usersProvider}) {
     // allow app to change bettween users and accounts
     FirebaseAuth.instance.authStateChanges().listen((user) => uid = user?.uid);
   }
@@ -40,10 +45,18 @@ class ProgressProvider extends ChangeNotifier {
       if (snapshot.exists) {
         final progressMap = snapshot.value as Map;
         progressMap.forEach((key, value) {
-          if (!_progressMap.containsKey(key)) {
-            _progressMap[key] = parseProgress(value, gimcanaId);
+          try {
+            // test if user exists
+            final user = usersProvider.getUserById(key);
+          } catch (e) {
+            // reload user provider
+            usersProvider.reload();
           }
+
+          _progressMap[usersProvider.getUserById(key)] =
+              parseProgress(value, gimcanaId);
         });
+        notifyListeners();
       }
     });
   }
