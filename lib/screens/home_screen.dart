@@ -1,3 +1,4 @@
+import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/screens/gimcames_screen.dart';
 import 'package:app_dimonis/screens/screens.dart';
@@ -13,6 +14,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FireBaseProvider firebaseProvider = Provider.of<FireBaseProvider>(context);
+    if (!firebaseProvider.loaded) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Container(height: 20),
+              Text("Loading data, please wait...")
+            ],
+          ),
+        ),
+      );
+    }
     return Scaffold(
         appBar: AppBar(
           title: RichText(
@@ -90,7 +106,7 @@ class _HomeScreenBody extends StatelessWidget {
         return const DimonisScreen();
 
       case 2:
-        return const GimcamaScreen();
+        // return const GimcamaScreen();
 
       default:
         return const MapsScreen();

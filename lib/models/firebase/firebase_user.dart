@@ -6,13 +6,13 @@ class FirebaseUser {
   final String id;
 
   String displayName;
-  String photoUrl;
+  String? photoUrl;
   String privileges;
 
   FirebaseUser({
     required this.email,
     required this.displayName,
-    required this.photoUrl,
+    this.photoUrl,
     required this.providerId,
     required this.privileges,
     required this.id,

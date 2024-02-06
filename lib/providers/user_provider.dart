@@ -26,7 +26,7 @@ class UsersProvider {
 
   // static function to get users from RTDB
   static getUsers() async {
-    final ref = SignleDBConn.getDatabase().ref('/users');
+    final ref = SignleDBConn.getDatabase().ref('/newUsers');
     final snapshot = await ref.get();
     if (snapshot.exists) {
       var res = snapshot.value as Map;
@@ -36,12 +36,18 @@ class UsersProvider {
         Map<String, dynamic> b = value.cast<String, dynamic>();
         FirebaseUser user = FirebaseUser.fromMap(b, key.toString());
         users.add(user);
+        
       });
       return users;
     } else {
       return [];
     }
   }
+
+  // static setCurrentUser(List<FirebaseUser> users) {
+  //   return users.firstWhere(
+  //       (user) => user.id == FirebaseAuth.instance.currentUser!.uid);
+  // }
 
   Future<void> reload() async {
     users = await getUsers();

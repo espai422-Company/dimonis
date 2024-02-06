@@ -1,14 +1,17 @@
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
+import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 String nom = '';
-DateTime dataInici = DateTime(2023, 12, 31, 0, 0);
-DateTime dataFinal = DateTime(2024, 12, 31, 0, 0);
-List<Dimoni> dimonis = [];
+DateTime dataInici = DateTime.now();
+DateTime dataFinal = DateTime.now();
+Map<dynamic, dynamic> dimonis = {};
 
 class CreateGinkana extends StatefulWidget {
   const CreateGinkana({super.key});
@@ -116,16 +119,16 @@ class _CreateGinkanaState extends State<CreateGinkana> {
               },
             );
           } else {
-            FirebaseGimana gimcana =
-                FirebaseGimana(nom: nom, start: dataInici, end: dataFinal);
-            dimonis.forEach((element) {
-              gimcana.addDimoni(element, '0', '0');
-            });
-            gimcana.save();
+            FirebaseUser user = Provider.of<FireBaseProvider>(context, listen: false).usersProvider.currentUser;
+            FirebaseGimana gimcana = FirebaseGimana(
+                nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
+            
+            // Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
+            // print(object);
             nom = '';
-            dataInici = DateTime(2023, 12, 31, 0, 0);
-            dataFinal = DateTime(2024, 12, 31, 0, 0);
-            dimonis = [];
+            dataInici = DateTime.now();
+            dataFinal = DateTime.now();
+            dimonis = {};
             Provider.of<TotalDimonisProvider>(context, listen: false)
                 .setDimoni(dimonis.length);
           }
@@ -137,6 +140,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
 }
 
 Widget _dimonis(context) {
+  FireBaseProvider fireBaseProvider = Provider.of<FireBaseProvider>(context);
   return Column(
     children: [
       Row(
@@ -149,7 +153,7 @@ Widget _dimonis(context) {
           Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
-                dimonis = [];
+                dimonis = {};
                 Provider.of<TotalDimonisProvider>(context, listen: false)
                     .setDimoni(dimonis.length);
               },
@@ -161,27 +165,12 @@ Widget _dimonis(context) {
       ),
       Container(
         height: 250,
-        child: FutureBuilder<List<Dimoni>>(
-          future: null,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              List<Dimoni> dimonis = snapshot.data ?? [];
-              return Container(
-                height: 250,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: dimonis.length,
-                    itemBuilder: (_, int index) =>
-                        _Card(dimoni: dimonis[index], context)),
-              );
-            }
-          },
-        ),
-      ),
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: fireBaseProvider.dimoniProvider.dimonis.length,
+            itemBuilder: (_, int index) =>
+                _Card(dimoni: fireBaseProvider.dimoniProvider.dimonis[index], context)),
+      )
     ],
   );
 }
@@ -201,18 +190,15 @@ class _Card extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Dimoni dimoniTemporal = dimoni;
+              Map<Dimoni, dynamic> coordenades = {dimoni: dimonis[dimoni.id] ?? {'x': '0', 'y': '0'}};
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
-                      arguments: dimoniTemporal)
+                      arguments: coordenades)
                   .then(
                 (value) => {
                   if (value != null)
                     {
-                      dimoniTemporal = value as Dimoni,
-                      // dimoni.x = dimoniTemporal.x,
-                      // dimoni.y = dimoniTemporal.y,
-                      dimonis.removeWhere((d) => d.nom == dimoniTemporal.nom),
-                      dimonis.add(dimoniTemporal),
+                      coordenades = value as Map<Dimoni, dynamic>,
+                      dimonis.addAll({dimoni.id: coordenades[dimoni]}),
                       Provider.of<TotalDimonisProvider>(context, listen: false)
                           .setDimoni(dimonis.length),
                     }

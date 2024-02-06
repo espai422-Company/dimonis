@@ -16,6 +16,7 @@ import '../models/models.dart';
 
 class FireBaseProvider extends ChangeNotifier {
   String? uid;
+  bool loaded = false;
 
   late DimoniProvider dimoniProvider;
   late GimcanaProvider gimcanaProvider;
@@ -48,6 +49,7 @@ class FireBaseProvider extends ChangeNotifier {
         gimcanaProvider: gimcanaProvider,
         usersProvider: usersProvider);
 
+    loaded = true;
     notifyListeners();
   }
 }
