@@ -123,7 +123,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             FirebaseGimana gimcana = FirebaseGimana(
                 nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
             
-            // Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
+            Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
             // print(object);
             nom = '';
             dataInici = DateTime.now();
