@@ -76,7 +76,7 @@ class ProgressProvider extends ChangeNotifier {
     if (uid == null) {
       throw Exception('User not logged in');
     }
-
+    
     return _progressMap[uid]!;
   }
 

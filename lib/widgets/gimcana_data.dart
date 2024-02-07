@@ -1,5 +1,6 @@
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/firebase/firebase_progress.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +10,15 @@ class GimcamaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
-    var progress = FirebaseProgress(gimcanaId: playing.currentGimcana!.id!);
+    // var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+    // var progress = FirebaseProgress(gimcanaId: playing.currentGimcana!.id!);
+    var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Expanded(child: SizedBox()),
         Text(
-          "${playing.currentGimcana!.nom}",
+          "${progressProvider.gimcanaId}",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 24.0,
@@ -24,25 +26,25 @@ class GimcamaData extends StatelessWidget {
           ),
         ),
         Expanded(child: SizedBox()),
-        FutureBuilder(
-          future: Future.wait(
-              [progress.getMyPosition(), progress.getLeaderBoard()]),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else if (snapshot.data![0] == 0 ||
-                snapshot.data == null ||
-                snapshot.data![1] == 0) {
-              return Text('Encara no has trobat cap dimoni');
-            } else {
-              List<String> leaderboardData = snapshot.data![1] as List<String>;
-              return Text(
-                  'Posició: ${snapshot.data![0]} / ${leaderboardData.length}');
-            }
-          },
-        ),
+        // FutureBuilder(
+        //   future: Future.wait(
+        //       [progress.getMyPosition(), progress.getLeaderBoard()]),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return CircularProgressIndicator();
+        //     } else if (snapshot.hasError) {
+        //       return Text('Error: ${snapshot.error}');
+        //     } else if (snapshot.data![0] == 0 ||
+        //         snapshot.data == null ||
+        //         snapshot.data![1] == 0) {
+        //       return Text('Encara no has trobat cap dimoni');
+        //     } else {
+        //       List<String> leaderboardData = snapshot.data![1] as List<String>;
+        //       return Text(
+        //           'Posició: ${snapshot.data![0]} / ${leaderboardData.length}');
+        //     }
+        //   },
+        // ),
         // FutureBuilder(
         //   future: Future.wait(
         //       [progress.getProgress(), playing.currentGimcana!.getDimonis()]
@@ -64,7 +66,7 @@ class GimcamaData extends StatelessWidget {
         // ),
         Expanded(child: SizedBox()),
         ElevatedButton(
-            onPressed: () => playing.currentGimcana = null,
+            onPressed: () => progressProvider.gimcanaId = null,
             child: Text("Tornar a les gimcanes")),
         Expanded(child: SizedBox()),
       ]),

@@ -16,6 +16,10 @@ class Gimcama {
     required this.propietari,
     required this.ubications,
   });
+
+  bool isTimeToPlay() {
+    return start.isBefore(DateTime.now()) && end.isAfter(DateTime.now());
+  }
 }
 
 class Ubication {

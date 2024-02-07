@@ -3,6 +3,7 @@ import 'package:app_dimonis/widgets/gimcana_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
 
 class GimcamaScreen extends StatefulWidget {
   const GimcamaScreen({super.key});
@@ -17,9 +18,11 @@ class _GimcamaScreenState extends State<GimcamaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+    // var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+    var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
 
-    if (playing.currentGimcana == null) {
+    if (progressProvider.gimcanaId == null) {
+      print(progressProvider.gimcanaId);
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(10),

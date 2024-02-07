@@ -1,4 +1,8 @@
 import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
+import 'package:app_dimonis/providers/progress_provider.dart';
+import 'package:app_dimonis/models/state/gimcama.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/gimcama_card.dart';
@@ -12,50 +16,42 @@ class GimcamaList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // Future<List<FirebaseGimana>> futureToUse =
-    //     FirebaseGimana.getProximasGimcames();
+    
+    List<Gimcama> gimcanes = Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.gimcanes;
+    List<Gimcama> filter = gimcanes;
 
-    // if (selectedOption == 'Totes') {
-    //   futureToUse = FirebaseGimana.getGimcames();
-    // } else if (selectedOption == 'Proximes') {
-    //   futureToUse = FirebaseGimana.getProximasGimcames();
-    // } else if (selectedOption == 'Actuals') {
-    //   futureToUse = FirebaseGimana.getGimcamesActuals();
-    // } else if (selectedOption == 'Anteriors') {
-    //   futureToUse = FirebaseGimana.getAnterioresGimcames();
-    // }
+    if (selectedOption == 'Totes') {
+      filter = gimcanes;
+    } else if (selectedOption == 'Proximes') {
+      filter = gimcanes.where((gimcama) => gimcama.start.isAfter(DateTime.now())).toList();
+    } else if (selectedOption == 'Actuals') {
+      filter = gimcanes.where((gimcama) => gimcama.isTimeToPlay()).toList();
+    } else if (selectedOption == 'Anteriors') {
+      filter = gimcanes.where((gimcama) => gimcama.end.isBefore(DateTime.now())).toList();
+    }
 
-    // return FutureBuilder<List<FirebaseGimana>>(
-    //   future: futureToUse,
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return const Center(child: CircularProgressIndicator());
-    //     } else if (snapshot.hasError) {
-    //       return Text('Error: ${snapshot.error}');
-    //     } else {
-    //       return ListView.builder(
-    //         itemCount: snapshot.data!.length,
-    //         itemBuilder: (context, index) {
-    //           return GestureDetector(
-    //             onTap: () {
-    //               var gimcama = snapshot.data![index];
-    //               Provider.of<PlayingGimcanaProvider>(context, listen: false)
-    //                   .currentGimcana = gimcama;
-    //               if (gimcama.isTimeToPlay()) {
-    //                 Provider.of<UIProvider>(context, listen: false)
-    //                     .selectMenuOpt = 0;
-    //               } else {
-    //                 Provider.of<UIProvider>(context, listen: false)
-    //                     .selectMenuOpt = 1;
-    //               }
-    //             },
-    //             child: GimcamaCard(gimcama: snapshot.data![index]),
-    //           );
-    //         },
-    //       );
-    //     }
-    //   },
-    // );
+    return ListView.builder(
+      itemCount: filter.length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            var gimcama = filter[index];
+            ProgressProvider progress = Provider.of<FireBaseProvider>(context, listen: false).progressProvider;
+            // Provider.of<PlayingGimcanaProvider>(context, listen: false)
+            //     .currentGimcana = gimcama;
+            if (gimcama.isTimeToPlay()) {
+              progress.setCurrentProgress(gimcama.id);
+              Provider.of<UIProvider>(context, listen: false)
+                  .selectMenuOpt = 0;
+            } else {
+              Provider.of<UIProvider>(context, listen: false)
+                  .selectMenuOpt = 1;
+            }
+          },
+          child: GimcamaCard(gimcama: filter[index]),
+        );
+      },
+    );
+        
   }
 }

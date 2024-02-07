@@ -106,7 +106,7 @@ class _HomeScreenBody extends StatelessWidget {
         return const DimonisScreen();
 
       case 2:
-        // return const GimcamaScreen();
+        return const GimcamaScreen();
 
       default:
         return const MapsScreen();
