@@ -119,10 +119,18 @@ class _CreateGinkanaState extends State<CreateGinkana> {
               },
             );
           } else {
-            FirebaseUser user = Provider.of<FireBaseProvider>(context, listen: false).usersProvider.currentUser;
+            FirebaseUser user =
+                Provider.of<FireBaseProvider>(context, listen: false)
+                    .usersProvider
+                    .currentUser;
             FirebaseGimana gimcana = FirebaseGimana(
-                nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
-            
+                nom: nom,
+                start: dataInici,
+                end: dataFinal,
+                dimonis: dimonis,
+                propietari: user.id,
+                id: "");
+
             // Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
             // print(object);
             nom = '';
@@ -168,8 +176,9 @@ Widget _dimonis(context) {
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: fireBaseProvider.dimoniProvider.dimonis.length,
-            itemBuilder: (_, int index) =>
-                _Card(dimoni: fireBaseProvider.dimoniProvider.dimonis[index], context)),
+            itemBuilder: (_, int index) => _Card(
+                dimoni: fireBaseProvider.dimoniProvider.dimonis[index],
+                context)),
       )
     ],
   );
@@ -190,7 +199,9 @@ class _Card extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Map<Dimoni, dynamic> coordenades = {dimoni: dimonis[dimoni.id] ?? {'x': '0', 'y': '0'}};
+              Map<Dimoni, dynamic> coordenades = {
+                dimoni: dimonis[dimoni.id] ?? {'x': '0', 'y': '0'}
+              };
               Navigator.pushNamed(context, 'mapa_picker_dimoni',
                       arguments: coordenades)
                   .then(
