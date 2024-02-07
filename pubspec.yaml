@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.15.3
   firebase_core: ^2.24.2
-  google_fonts: ^6.1.0
+  google_fonts: ^4.0.0
   google_sign_in: ^6.1.6
   firebase_database: ^10.3.8
   shared_preferences: ^2.2.2
@@ -48,6 +48,7 @@ dependencies:
   change_app_package_name: ^1.0.0
   location: ^5.0.0
   quiver: ^3.0.0
+  flutter_paypal_checkout: ^1.0.1
 
 dev_dependencies:
   flutter_test:

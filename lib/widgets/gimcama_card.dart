@@ -8,7 +8,8 @@ class GimcamaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = gimcama.isTimeToPlay() ? Colors.green : Colors.grey;
+    // var color = gimcama.isTimeToPlay() ? Colors.green : Colors.grey;
+    var color = Colors.green;
     var progress = FirebaseProgress(gimcanaId: gimcama.id!);
     return Card(
       shape: RoundedRectangleBorder(
@@ -26,18 +27,18 @@ class GimcamaCard extends StatelessWidget {
               children: <Widget>[
                 Text('Start Date: ${gimcama.start}'.replaceAll('.000', '')),
                 Text('End Date: ${gimcama.end}'.replaceAll('.000', '')),
-                FutureBuilder(
-                  future: gimcama.getDimonis(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return Text('Dimonis a trobar: ${snapshot.data!.length}');
-                    }
-                  },
-                ),
+                // FutureBuilder(
+                //   future: gimcama.getDimonis(),
+                //   builder: (context, snapshot) {
+                //     if (snapshot.connectionState == ConnectionState.waiting) {
+                //       return CircularProgressIndicator();
+                //     } else if (snapshot.hasError) {
+                //       return Text('Error: ${snapshot.error}');
+                //     } else {
+                //       // return Text('Dimonis a trobar: ${snapshot.data!.length}');
+                //     }
+                //   },
+                // ),
                 FutureBuilder(
                   future: progress.getMyPosition(),
                   builder: (context, snapshot) {

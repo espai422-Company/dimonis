@@ -97,7 +97,7 @@ class UsersProvider {
   }
 
   void _updateUser(FirebaseUser user) {
-    var ref = SignleDBConn.getDatabase().ref('/users/${user.id}');
+    var ref = SignleDBConn.getDatabase().ref('/newUsers/${user.id}');
     ref.update(user.toMap());
 
     notifyListeners();

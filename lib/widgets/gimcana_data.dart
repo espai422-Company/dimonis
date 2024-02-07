@@ -43,24 +43,25 @@ class GimcamaData extends StatelessWidget {
             }
           },
         ),
-        FutureBuilder(
-          future: Future.wait(
-              [progress.getProgress(), playing.currentGimcana!.getDimonis()]),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else if (snapshot.data == null || snapshot.data![0] == 0) {
-              return Text('Comença a capturar dimonis');
-            } else {
-              var _trobats = snapshot.data![0] as Map<String, DateTime>;
-              var _dimonisTotals = snapshot.data![1] as List<Dimoni>;
-              return Text(
-                  'Dimonis trobats: ${_trobats.length} / ${_dimonisTotals.length}');
-            }
-          },
-        ),
+        // FutureBuilder(
+        //   future: Future.wait(
+        //       [progress.getProgress(), playing.currentGimcana!.getDimonis()]
+        //       ),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return CircularProgressIndicator();
+        //     } else if (snapshot.hasError) {
+        //       return Text('Error: ${snapshot.error}');
+        //     } else if (snapshot.data == null || snapshot.data![0] == 0) {
+        //       return Text('Comença a capturar dimonis');
+        //     } else {
+        //       var _trobats = snapshot.data![0] as Map<String, DateTime>;
+        //       var _dimonisTotals = snapshot.data![1] as List<Dimoni>;
+        //       return Text(
+        //           'Dimonis trobats: ${_trobats.length} / ${_dimonisTotals.length}');
+        //     }
+        //   },
+        // ),
         Expanded(child: SizedBox()),
         ElevatedButton(
             onPressed: () => playing.currentGimcana = null,

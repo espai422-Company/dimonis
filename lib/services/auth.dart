@@ -33,7 +33,7 @@ class Auth {
 
   Future<void> saveUserToRTDB(String providerId) async {
     var ref =
-        SignleDBConn.getDatabase().ref('/users/${_auth.currentUser!.uid}');
+        SignleDBConn.getDatabase().ref('/newUsers/${_auth.currentUser!.uid}');
 
     var snapshot = await ref.get();
     if (!snapshot.exists) {

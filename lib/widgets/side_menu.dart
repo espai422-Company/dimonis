@@ -63,6 +63,14 @@ class SideMenu extends StatelessWidget {
               Navigator.pushReplacementNamed(context, 'settings_screen');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.settings_outlined),
+            title: const Text('PayPal'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/upgrade_to_premium');
+            },
+          ),
           OnlyAdminWidget(
             child: ListTile(
               leading: const Icon(Icons.pages_outlined),

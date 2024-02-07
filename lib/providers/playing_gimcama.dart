@@ -37,7 +37,7 @@ class PlayingGimcanaProvider extends ChangeNotifier {
       return;
     }
 
-    dimonis = await _currentGimcana!.getDimonis();
+    // dimonis = await _currentGimcana!.getDimonis();
     notifyListeners();
   }
 
