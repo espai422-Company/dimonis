@@ -12,7 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class ProgressProvider extends ChangeNotifier {
+class ProgressProvider{
   static const _path = '/progress';
 
   DimoniProvider dimoniProvider;
@@ -23,11 +23,13 @@ class ProgressProvider extends ChangeNotifier {
   Map<FirebaseUser, Progress> _progressMap = {};
   String? uid;
   String? gimcanaId;
+  void Function() notifyListeners;
 
   ProgressProvider(
       {required this.dimoniProvider,
       required this.gimcanaProvider,
-      required this.usersProvider}) {
+      required this.usersProvider,
+      required this.notifyListeners}) {
     // allow app to change bettween users and accounts
     FirebaseAuth.instance.authStateChanges().listen((user) => uid = user?.uid);
   }
@@ -76,7 +78,7 @@ class ProgressProvider extends ChangeNotifier {
     if (uid == null) {
       throw Exception('User not logged in');
     }
-    
+
     return _progressMap[uid]!;
   }
 
@@ -90,4 +92,12 @@ class ProgressProvider extends ChangeNotifier {
   }
 
   get progressMap => _progressMap;
+
+  void unSubscribe() {
+    if (progressListener != null) {
+      progressListener!.cancel();
+    }
+    gimcanaId = null;
+    notifyListeners();
+  }
 }

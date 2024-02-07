@@ -22,7 +22,6 @@ class _GimcamaScreenState extends State<GimcamaScreen> {
     var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
 
     if (progressProvider.gimcanaId == null) {
-      print(progressProvider.gimcanaId);
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(10),

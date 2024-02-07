@@ -66,7 +66,7 @@ class GimcamaData extends StatelessWidget {
         // ),
         Expanded(child: SizedBox()),
         ElevatedButton(
-            onPressed: () => progressProvider.gimcanaId = null,
+            onPressed: () => progressProvider.unSubscribe(),
             child: Text("Tornar a les gimcanes")),
         Expanded(child: SizedBox()),
       ]),

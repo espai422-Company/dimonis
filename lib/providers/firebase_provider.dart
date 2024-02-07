@@ -47,7 +47,8 @@ class FireBaseProvider extends ChangeNotifier {
     progressProvider = ProgressProvider(
         dimoniProvider: dimoniProvider,
         gimcanaProvider: gimcanaProvider,
-        usersProvider: usersProvider);
+        usersProvider: usersProvider,
+        notifyListeners: notifyListeners);
 
     loaded = true;
     notifyListeners();
