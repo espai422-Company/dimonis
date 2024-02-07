@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_dimonis/services/auth.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       await user?.reload();
       if (user!.emailVerified) {
         timer.cancel();
-        Navigator.of(context).pushReplacementNamed('/');
+        Navigator.of(context).pushReplacementNamed('accountConfirmed');
       }
     });
     super.initState();
@@ -43,22 +44,83 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inici'),
-        backgroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                auth.signOut();
+              },
+              icon: const Icon(
+                Icons.clear,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            children: [
-              Text('Verifica la teva adreça de correu'),
-              ElevatedButton(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/verifyEmail.png",
+              height: 250,
+            ),
+            const Text(
+              'Verifica la teva adreça de correu',
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(FirebaseAuth.instance.currentUser?.email ?? 'CORREU'),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Enhorabona, el teu compte espera: verifica el teu correu per començar a jugar i crear les teves gimcanes.",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
                   onPressed: () {
                     auth.signOut();
                   },
-                  child: Text('Cancel·la'))
-            ],
-          ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('Cancel·la'),
+                    ],
+                  )),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.send_outlined),
+                onPressed: () {
+                  auth.resendEmailVerification();
+                },
+                label: const Text("Resend Email"),
+              ),
+            )
+          ],
         ),
       ),
     );

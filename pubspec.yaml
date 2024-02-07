@@ -49,6 +49,8 @@ dependencies:
   location: ^5.0.0
   quiver: ^3.0.0
   flutter_paypal_checkout: ^1.0.1
+  awesome_dialog: ^3.2.0
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:
