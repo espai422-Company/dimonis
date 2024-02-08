@@ -14,9 +14,9 @@ class PayPal extends StatelessWidget {
     return PaypalCheckout(
       sandboxMode: true,
       clientId:
-          "AYT2USFxL71fN411wANicSiJfEfYgnH7lQJgYBVU64vv_s-xfqbToQY02cqhCAOYUDL24A6lzmptGgF3",
+          "AeanoRyYsYdKkVnNWP4SaZVcE0KyzBKvM9okHCEdxvX4aSnaqln49CcKtUb9Wc19wRmA5Vfgs9IBQnv1",
       secretKey:
-          "EKD9lH8dIwfpA4TKwaauREXNGvGWoMqGX27igCDpC9oXXZhAywY0XRgJAH7ZxgduXwivzqPg2iCyy4ST",
+          "ED9ZzXtB-VoaoSBVYg4U_86BPy90nR_7JNo5lqDFJw5DPmHhPtzI6dArlYr1fFrQUkS412fR6rmFaUNC",
       returnURL: "success.snippetcoder.com",
       cancelURL: "cancel.snippetcoder.com",
       transactions: const [
