@@ -50,42 +50,34 @@ class HomeScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.black,
           actions: [
-            IconButton(
-              // onPressed: () => FirebaseAuth.instance.signOut(),
-              onPressed: () => {
-                showDialog(
-                  // barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      icon: const Icon(Icons.info_outline),
-                      title: const Text('Es tancarà la sessió!'),
-                      content: const Text('Dessitja continuar?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Cancel·la'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            FirebaseAuth.instance.signOut();
-                          },
-                          child: const Text('Tanca sessió'),
-                        ),
-                      ],
-                    );
-                  },
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                height: 60,
+                width: 60,
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  child: ClipOval(
+                    child: Image.network(
+                      FirebaseAuth.instance.currentUser!.photoURL ?? 'FOTO',
+                      fit: BoxFit.cover,
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return Image.asset(
+                          'assets/user.png',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              },
-              icon: const Icon(Icons.logout_rounded),
+              ),
             ),
           ],
         ),
         drawer: const SideMenu(),
-        bottomNavigationBar: CustomNavigationBar(),
+        bottomNavigationBar: const CustomNavigationBar(),
         body: const _HomeScreenBody());
   }
 }

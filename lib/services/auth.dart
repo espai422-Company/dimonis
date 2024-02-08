@@ -18,6 +18,10 @@ class Auth {
     await saveUserToRTDB(user.credential?.providerId ?? 'default');
   }
 
+  Future<void> resendEmailVerification() async {
+    await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+  }
+
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     final user = await _auth.signInWithEmailAndPassword(
       email: email,

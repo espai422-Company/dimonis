@@ -1,9 +1,10 @@
+import 'package:app_dimonis/screens/login-register/welcome_screen.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class ComprovacioLogin extends StatelessWidget {
+  const ComprovacioLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +16,10 @@ class LoginScreen extends StatelessWidget {
           if (user.emailVerified) {
             return const HomeScreen();
           } else {
-            // return HomeScreen();
             return const VerifyEmail();
           }
         } else {
-          return const AuthScreen();
+          return const WelcomeScreen();
         }
       },
     );

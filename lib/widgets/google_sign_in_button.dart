@@ -39,30 +39,15 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _signInWithGoogle,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.red, width: 3),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/google.png',
-              width: 40,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text(
-              'Inicia sessió amb Google',
-              style: TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: OutlinedButton.icon(
+        icon: const Image(image: AssetImage("assets/google.png"), width: 20.0),
+        onPressed: () {
+          _signInWithGoogle();
+        },
+        label: const Text("Sign-In With Google"),
       ),
     );
   }
