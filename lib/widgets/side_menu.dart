@@ -89,6 +89,15 @@ class _DrawerBody extends StatelessWidget {
           },
         ),
         ProfileMenuWidget(
+          title: "Get Prime",
+          icon: Icons.star_border_purple500,
+          color: color,
+          onPress: () {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/upgrade_to_premium');
+          },
+        ),
+        ProfileMenuWidget(
           title: "Configuració",
           icon: Icons.settings_outlined,
           color: color,
