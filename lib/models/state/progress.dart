@@ -10,7 +10,7 @@ class Progress {
 
 class Discover {
   final Dimoni dimoni;
-  final DateTime time;
+  final String time;
 
   Discover(this.dimoni, this.time);
 }

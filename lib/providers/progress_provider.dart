@@ -68,7 +68,7 @@ class ProgressProvider{
     List<Discover> discovers = [];
     progressMap.forEach((key, value) {
       discovers.add(Discover(
-          dimoniProvider.getDimoniById(key.toString()), DateTime.parse(value)));
+          dimoniProvider.getDimoniById(key.toString()), value));
     });
 
     return Progress(gimcanaProvider.getGimcanaById(gimcanaId), discovers);

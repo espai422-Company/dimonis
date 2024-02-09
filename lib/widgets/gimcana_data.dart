@@ -10,8 +10,6 @@ class GimcamaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
-    // var progress = FirebaseProgress(gimcanaId: playing.currentGimcana!.id!);
     var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -26,6 +24,7 @@ class GimcamaData extends StatelessWidget {
           ),
         ),
         Expanded(child: SizedBox()),
+        ElevatedButton(onPressed: () => print(progressProvider.progressMap), child: Text("Comença a jugar")),
         // FutureBuilder(
         //   future: Future.wait(
         //       [progress.getMyPosition(), progress.getLeaderBoard()]),
