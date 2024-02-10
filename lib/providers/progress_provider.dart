@@ -24,6 +24,7 @@ class ProgressProvider{
   String? uid;
   String? gimcanaId;
   void Function() notifyListeners;
+  Map<FirebaseUser, Duration> timeToComplete = {};
 
   ProgressProvider(
       {required this.dimoniProvider,
@@ -58,6 +59,8 @@ class ProgressProvider{
           _progressMap[usersProvider.getUserById(key)] =
               parseProgress(value, gimcanaId);
         });
+        sortByCaptures();
+        saveTimes();
         notifyListeners();
       }
     });
@@ -99,5 +102,47 @@ class ProgressProvider{
     }
     gimcanaId = null;
     notifyListeners();
+  }
+
+  void sortByCaptures() {
+    List<Progress> progresses = _progressMap.values.toList();
+    List<FirebaseUser> users = _progressMap.keys.toList();
+    for (int i = 0; i < progresses.length - 1; i++) {
+      if (progresses[i].discovers.length < progresses[i + 1].discovers.length) {
+        Progress temp = progresses[i];
+        progresses[i] = progresses[i + 1];
+        progresses[i + 1] = temp;
+
+        FirebaseUser tempUser = users[i];
+        users[i] = users[i + 1];
+        users[i + 1] = tempUser;
+      }
+      else if (progresses[i].discovers.length == progresses[i + 1].discovers.length) {
+        progresses[i].discovers.sort((a, b) => a.time.compareTo(b.time));
+        progresses[i + 1].discovers.sort((a, b) => a.time.compareTo(b.time));
+
+        if (DateTime.parse(progresses[i].discovers[0].time).difference(DateTime.parse(progresses[i].discovers[progresses[i].discovers.length - 1].time)) < DateTime.parse(progresses[i + 1].discovers[0].time).difference(DateTime.parse(progresses[i + 1].discovers[progresses[i + 1].discovers.length - 1].time))){
+          Progress temp = progresses[i];
+          progresses[i] = progresses[i + 1];
+          progresses[i + 1] = temp;
+
+          FirebaseUser tempUser = users[i];
+          users[i] = users[i + 1];
+          users[i + 1] = tempUser;
+        }
+      }
+    }
+    _progressMap = Map.fromIterables(users, progresses);
+  }
+  
+  void saveTimes() {
+    Gimcama gimcana = gimcanaProvider.getGimcanaById(gimcanaId!);
+    _progressMap.forEach((key, value) {
+      if (value.discovers.length == gimcana.ubications.length && timeToComplete[key] == null) {
+        DateTime firstCapture = DateTime.parse(value.discovers[0].time);
+        DateTime lastCapture = DateTime.parse(value.discovers[value.discovers.length - 1].time);
+        timeToComplete[key] = firstCapture.difference(lastCapture);
+      }
+    });
   }
 }
