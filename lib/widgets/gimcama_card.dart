@@ -11,11 +11,10 @@ class GimcamaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = gimcama.isTimeToPlay()
-     ? Colors.green : Colors.grey;
+    var color = gimcama.isTimeToPlay() ? Colors.green : Colors.grey;
     // var progress = FirebaseProgress(gimcanaId: gimcama.id!);
     // ProgressProvider progress = Provider.of<FireBaseProvider>(context, listen: false).progressProvider;
-    
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0), // Border radius of the card
