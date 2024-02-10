@@ -51,7 +51,9 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.black,
           actions: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, 'user_screen');
+              },
               child: Container(
                 padding: const EdgeInsets.all(5),
                 height: 60,
