@@ -16,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   'reset_password_screen': (context) => const ResetPasswordScreen(),
   '/upgrade_to_premium': (context) => const UpgradeToPremium(),
   '/paypal': (context) => const PayPal(),
+  'update_user_data_screen': (context) => const UpdateProfileScreen()
 };
