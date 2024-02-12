@@ -3,9 +3,14 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     const Color color = Colors.red;
@@ -61,9 +66,8 @@ class ProfileScreen extends StatelessWidget {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
-                    // FirebaseAuth.instance.currentUser!
-                    // .updateDisplayName('Esteve Llobera Suau');
-                    // print(FirebaseAuth.instance.currentUser!.metadata);
+                    Navigator.pushNamed(context, 'update_user_data_screen')
+                        .then((value) => setState(() {}));
                   },
                   child: const Text('Edit profile',
                       style: TextStyle(color: Colors.black)),
