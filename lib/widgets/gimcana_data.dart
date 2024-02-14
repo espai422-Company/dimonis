@@ -39,6 +39,7 @@ class GimcamaData extends StatelessWidget {
             itemBuilder: (context, index) {
               var user = progressProvider.progressMap.keys.elementAt(index);
               var progress = progressProvider.progressMap[user]!;
+              dynamic count;
 
               if (progressProvider.timeToComplete[user] == null) {
                 DateTime primeraCaptura = DateTime.parse(progress.discovers[0].time);
@@ -49,11 +50,8 @@ class GimcamaData extends StatelessWidget {
                 int minutes = difference.inMinutes.remainder(60) * -1;
                 int seconds = difference.inSeconds.remainder(60) * -1;
 
-                return ListTile(
-                  title: Text("${index + 1} ${user.displayName}"),
-                  subtitle: CountUp(days: days, hours: hours, minutes: minutes, seconds: seconds),
-                  trailing: Text(progress.discovers.length.toString()),
-                );
+                count = CountUp(days: days, hours: hours, minutes: minutes, seconds: seconds);
+                
               } else {
                 Duration difference = progressProvider.timeToComplete[user]!;
 
@@ -62,16 +60,16 @@ class GimcamaData extends StatelessWidget {
                 int minutes = difference.inMinutes.remainder(60) * -1;
                 int seconds = difference.inSeconds.remainder(60) * -1;
 
-                return ListTile(
+                count = Text("Completat en ${days}d ${hours}h ${minutes}m ${seconds}s");
+              }
+              return ListTile(
                   title: Text("${index + 1} ${user.displayName}"),
-                  subtitle: Text("Completat en ${days}d ${hours}h ${minutes}m ${seconds}s"),
+                  subtitle: count,
                   trailing: Text(progress.discovers.length.toString()),
                 );
-              }
             },
           ),
         ),
-        ElevatedButton(onPressed: () => progressProvider.sortByCaptures(), child: Text("Ordenar per captures")),
         Expanded(child: SizedBox()),
         ElevatedButton(
             onPressed: () => progressProvider.unSubscribe(),
