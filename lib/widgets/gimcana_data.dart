@@ -6,6 +6,7 @@ import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/models/state/progress.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
+import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,13 +23,92 @@ class GimcamaData extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Expanded(child: SizedBox()),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Image(image: NetworkImage(progress.keys.first.photoUrl!), height: 100, width: 100),
-        //     Text(progressProvider.progressMap.keys.first.displayName),
-        //   ],
-        // ),
+        Container(
+          height: 200,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  Expanded(child: SizedBox()),
+                  progress.keys.elementAt(1).photoUrl != null
+                      ? Image.network(
+                          progress.keys.first.photoUrl!,
+                          height: 50,
+                        )
+                      : Image.asset('assets/demon.png', height: 50,),
+                  Container(
+                    height: 125,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 104, 16, 16),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(progress.keys.elementAt(1).displayName, textAlign: TextAlign.center),
+                        Text(progress.values.elementAt(1).discovers.length.toString()),
+                        getTime(progressProvider, progress.keys.elementAt(1), progress)
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              
+              Column(
+                children: [
+                  Expanded(child: SizedBox()),
+                  progress.keys.elementAt(0).photoUrl != null
+                      ? Image.network(
+                          progress.keys.first.photoUrl!,
+                          height: 50,
+                        )
+                      : Image.asset('assets/demon.png', height: 50,),
+                  Container(
+                    height: 150,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 104, 16, 16),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(progress.keys.elementAt(0).displayName, textAlign: TextAlign.center),
+                        Text(progress.values.elementAt(0).discovers.length.toString()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Expanded(child: SizedBox()),
+                  progress.keys.elementAt(2).photoUrl != null
+                      ? Image.network(
+                          progress.keys.first.photoUrl!,
+                          height: 50,
+                        )
+                      : Image.asset('assets/demon.png', height: 50,),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 104, 16, 16),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(progress.keys.elementAt(2).displayName, textAlign: TextAlign.center),
+                        Text(progress.values.elementAt(2).discovers.length.toString()),
+
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         Expanded(child: SizedBox()),
         Container(
           height: 300,
@@ -41,27 +121,8 @@ class GimcamaData extends StatelessWidget {
               var progress = progressProvider.progressMap[user]!;
               dynamic count;
 
-              if (progressProvider.timeToComplete[user] == null) {
-                DateTime primeraCaptura = DateTime.parse(progress.discovers[0].time);
-                Duration difference = primeraCaptura.difference(DateTime.now());
+              count = getTime(progressProvider, user, progress);
 
-                int days = difference.inDays * -1;
-                int hours = difference.inHours.remainder(24) * -1;
-                int minutes = difference.inMinutes.remainder(60) * -1;
-                int seconds = difference.inSeconds.remainder(60) * -1;
-
-                count = CountUp(days: days, hours: hours, minutes: minutes, seconds: seconds);
-                
-              } else {
-                Duration difference = progressProvider.timeToComplete[user]!;
-
-                int days = difference.inDays * -1;
-                int hours = difference.inHours.remainder(24) * -1;
-                int minutes = difference.inMinutes.remainder(60) * -1;
-                int seconds = difference.inSeconds.remainder(60) * -1;
-
-                count = Text("Completat en ${days}d ${hours}h ${minutes}m ${seconds}s");
-              }
               return ListTile(
                   title: Text("${index + 1} ${user.displayName}"),
                   subtitle: count,
@@ -77,6 +138,30 @@ class GimcamaData extends StatelessWidget {
         Expanded(child: SizedBox()),
       ]),
     );
+  }
+
+  getTime(ProgressProvider progressProvider, user, progress) {
+    if (progressProvider.timeToComplete[user] == null) {
+      DateTime primeraCaptura = DateTime.parse(progress.discovers[0].time);
+      Duration difference = primeraCaptura.difference(DateTime.now());
+    
+      int days = difference.inDays * -1;
+      int hours = difference.inHours.remainder(24) * -1;
+      int minutes = difference.inMinutes.remainder(60) * -1;
+      int seconds = difference.inSeconds.remainder(60) * -1;
+    
+      return CountUp(days: days, hours: hours, minutes: minutes, seconds: seconds);
+      
+    } else {
+      Duration difference = progressProvider.timeToComplete[user]!;
+    
+      int days = difference.inDays * -1;
+      int hours = difference.inHours.remainder(24) * -1;
+      int minutes = difference.inMinutes.remainder(60) * -1;
+      int seconds = difference.inSeconds.remainder(60) * -1;
+    
+      return Text("Completat en ${days}d ${hours}h ${minutes}m ${seconds}s");
+    }
   }
 }
 
