@@ -59,6 +59,7 @@ class ProgressProvider{
           _progressMap[usersProvider.getUserById(key)] =
               parseProgress(value, gimcanaId);
         });
+        sortPodium();
         sortByCaptures();
         saveTimes();
         notifyListeners();
@@ -101,6 +102,7 @@ class ProgressProvider{
       progressListener!.cancel();
     }
     gimcanaId = null;
+    timeToComplete = {}; 
     notifyListeners();
   }
 
@@ -144,5 +146,22 @@ class ProgressProvider{
         timeToComplete[key] = firstCapture.difference(lastCapture);
       }
     });
+  }
+
+  void sortPodium(){
+    List<FirebaseUser> users = timeToComplete.keys.toList();
+    List<Duration> times = timeToComplete.values.toList();
+
+    for (int i = 0; i < times.length - 1; i++) {
+      if (times[i].compareTo(times[i + 1]) < 0) {
+        Duration temp = times[i];
+        times[i] = times[i + 1];
+        times[i + 1] = temp;
+
+        FirebaseUser tempUser = users[i];
+        users[i] = users[i + 1];
+        users[i + 1] = tempUser;
+      }
+    }
   }
 }
