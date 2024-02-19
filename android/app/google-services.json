@@ -76,44 +76,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685068771761:android:69a97e87489445980e9d90",
+        "mobilesdk_app_id": "1:685068771761:android:66ddf57b9cd6bc5e0e9d90",
         "android_client_info": {
-          "package_name": "com.example.app_dimonis"
+          "package_name": "cat.paucasesnovescifp.apps.dimonisgo"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "685068771761-2a7kgohjmi17po933c3cok7ff6arlf6e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.app_dimonis",
-            "certificate_hash": "71ba6edf277481c906bf6032cd2b9fcf190c0834"
-          }
-        },
-        {
-          "client_id": "685068771761-59ft4te0v82s880bl3k63rout6u15hv7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.app_dimonis",
-            "certificate_hash": "ceee746eca4cc027da9581864f65bd3424677f89"
-          }
-        },
-        {
-          "client_id": "685068771761-cmo1o58f188t9fsfh7k46rohk54uvh4h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.app_dimonis",
-            "certificate_hash": "16201807176c0119b22fd752a34c43c9eac6e451"
-          }
-        },
-        {
-          "client_id": "685068771761-s4r4ou7docgqbhbd7iehe6knb8qh6s4t.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.app_dimonis",
-            "certificate_hash": "d7886f95ee6787d09ecddab50127e25a922fa146"
-          }
-        },
         {
           "client_id": "685068771761-a7c9ph2lur7lqcl3kpspb08fej587kjq.apps.googleusercontent.com",
           "client_type": 3
