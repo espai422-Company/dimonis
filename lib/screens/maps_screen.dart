@@ -1,11 +1,16 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:app_dimonis/providers/playing_gimcama.dart';
+import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:app_dimonis/models/state/gimcama.dart';
+import 'package:app_dimonis/providers/providers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+
+import '../models/state/progress.dart';
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -21,6 +26,7 @@ class _MapsScreenState extends State<MapsScreen> {
 
   LatLng? _currentLocation;
   LatLng? _nextLocation;
+  Dimoni? _nextDimoni;
 
   bool hasLocationPermission = true;
   bool locationServiceEnabled = true;
@@ -32,43 +38,32 @@ class _MapsScreenState extends State<MapsScreen> {
   void initState() {
     _locationRequest();
     setCustomMarker();
+    _getNext();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+    final firebase = Provider.of<FireBaseProvider>(context);
+    final actualUser = firebase.usersProvider.getUserById(FirebaseAuth.instance.currentUser!.uid);
+    final progressProvider = firebase.progressProvider;
+    _getNext();
 
-    if (playing.currentGimcana == null) {
+    if (progressProvider.gimcanaId == null) {
       return const Center(
         child: Text('No t\'has unit a cap gincana'),
       );
-    }
-    if (playing.completed) {
+    } else if (progressProvider.timeToComplete[actualUser] != null) {
       return const Center(
         child: Text('Has completat la gimcana'),
       );
-    }
-    if (!hasLocationPermission) {
+    } else if (!hasLocationPermission) {
       return const Center(
-        child: Text('No tens permisos per accedir a la localització'),
+        child: Text('No tenim permís per accedir a la localització'),
       );
-    }
-
-    if (!locationServiceEnabled) {
+    } else if (!locationServiceEnabled) {
       return const Center(
         child: Text('No tens el servei de localització activat'),
-      );
-    }
-
-    // if (playing.nextDimoni != null) {
-    //   _nextLocation = LatLng(double.parse(playing.nextDimoni!.x),
-    //       double.parse(playing.nextDimoni!.y));
-    // }
-
-    if (_currentLocation == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
       );
     }
 
@@ -76,20 +71,21 @@ class _MapsScreenState extends State<MapsScreen> {
       body: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
-          target: _currentLocation!,
+          target: _nextLocation ?? const LatLng(0, 0),
           zoom: 10,
         ),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
         markers: {
-          Marker(
-            markerId: const MarkerId('current'),
-            position: _currentLocation!,
-            infoWindow: const InfoWindow(title: 'Tu'),
-            icon: _currentLocationIcon,
-          ),
-          if (playing.nextDimoni != null)
+          if (_currentLocation != null)
+            Marker(
+              markerId: const MarkerId('current'),
+              position: _currentLocation!,
+              infoWindow: const InfoWindow(title: 'Tu'),
+              icon: _currentLocationIcon,
+            ),
+          if (_nextLocation != null)
             Marker(
               markerId: const MarkerId('next'),
               position: _nextLocation!,
@@ -101,6 +97,51 @@ class _MapsScreenState extends State<MapsScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: _floatingActionButton,
     );
+  }
+
+  Progress? _getActualProgress(FireBaseProvider fireBaseProvider) {
+    final actualUserUID = FirebaseAuth.instance.currentUser!.uid;
+    final actualUser = fireBaseProvider.usersProvider.getUserById(actualUserUID);
+    final Progress? progress = fireBaseProvider.progressProvider.progressMap[actualUser];
+
+    return progress;
+  }
+
+  Gimcama? _getActualGimcana(FireBaseProvider fireBaseProvider) {
+    final gimcanaId = fireBaseProvider.progressProvider.gimcanaId;
+
+    if (gimcanaId == null) {
+      return null;
+    }
+
+    final gimcana = fireBaseProvider.gimcanaProvider.getGimcanaById(gimcanaId);
+
+    return gimcana;
+  }
+
+  void _getNext() {
+    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    final progress = _getActualProgress(fireBaseProvider);
+
+    if (progress == null) {
+      final firstUbi = _getActualGimcana(fireBaseProvider)?.ubications.first;
+      _nextLocation = firstUbi?.getLatLng();
+      _nextDimoni = firstUbi?.dimoni;
+      return;
+    }
+
+    final founds = progress.discovers;
+    final locations = progress.gimcamana.ubications;
+
+    for (var ubic in locations) {
+      if (!founds.any((element) => element.dimoni.id == ubic.dimoni.id)) {
+        _nextLocation = ubic.getLatLng();
+        _nextDimoni = ubic.dimoni;
+        return;
+      }
+    }
+
+    _nextLocation = null;
   }
 
   _locationRequest() async {
@@ -119,8 +160,7 @@ class _MapsScreenState extends State<MapsScreen> {
     }
 
     if (hasLocationPermission && locationServiceEnabled) {
-      _locationSubscription =
-          location.onLocationChanged.listen(_onLocationChanged);
+      _locationSubscription = location.onLocationChanged.listen(_onLocationChanged);
     }
   }
 
@@ -148,7 +188,6 @@ class _MapsScreenState extends State<MapsScreen> {
 
   void _showDialog(BuildContext context) {
     final TextEditingController controller = TextEditingController();
-    final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
 
     showDialog(
       context: context,
@@ -160,9 +199,8 @@ class _MapsScreenState extends State<MapsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FadeInImage(
-                    placeholder:
-                        const AssetImage('assets/LoadingDimonis-unscreen.gif'),
-                    image: NetworkImage(playing.nextDimoni!.image)),
+                    placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
+                    image: NetworkImage(_nextDimoni!.image)),
                 TextField(
                   controller: controller,
                   decoration: const InputDecoration(hintText: "Nom del dimoni"),
@@ -190,11 +228,9 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _submit(TextEditingController controller, BuildContext context) {
-    final playing = Provider.of<PlayingGimcanaProvider>(context, listen: false);
-
-    if (controller.text.toLowerCase() ==
-        playing.nextDimoni!.nom.toLowerCase()) {
-      playing.getNextDimoni();
+    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    if (controller.text.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
+      fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Resposta correcta'),
@@ -218,10 +254,7 @@ class _MapsScreenState extends State<MapsScreen> {
     double latDiff = _toRadians(to.latitude - from.latitude);
     double lngDiff = _toRadians(to.longitude - from.longitude);
     double a = sin(latDiff / 2) * sin(latDiff / 2) +
-        cos(_toRadians(from.latitude)) *
-            cos(_toRadians(to.latitude)) *
-            sin(lngDiff / 2) *
-            sin(lngDiff / 2);
+        cos(_toRadians(from.latitude)) * cos(_toRadians(to.latitude)) * sin(lngDiff / 2) * sin(lngDiff / 2);
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     double distance = earthRadius * c;
     return distance;
