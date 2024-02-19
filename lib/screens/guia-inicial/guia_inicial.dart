@@ -36,7 +36,7 @@ class _GuiaInicialState extends State<GuiaInicial> {
                 title: 'Compateix amb els teus amics',
                 subTitle: 'Juga amb els teus amics i competeix en temps real.',
                 counterText: '2/3',
-                bgColor: Color.fromARGB(255, 255, 218, 218),
+                bgColor: Color.fromARGB(255, 235, 235, 235),
               ),
               const PagePlantilla(
                 image: 'assets/guia/foto3.png',
@@ -44,7 +44,7 @@ class _GuiaInicialState extends State<GuiaInicial> {
                 subTitle:
                     'Uneix-te a la comunitat i crea les teves pròpies gincanes.',
                 counterText: '3/3',
-                bgColor: Color.fromARGB(255, 224, 255, 212),
+                bgColor: Colors.white,
               ),
               Container(color: Colors.white)
             ],
