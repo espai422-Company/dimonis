@@ -1,4 +1,5 @@
 import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Gimcama {
   String nom;
@@ -28,4 +29,8 @@ class Ubication {
   final String y;
 
   Ubication({required this.dimoni, required this.x, required this.y});
+
+  LatLng getLatLng() {
+    return LatLng(double.parse(x), double.parse(y));
+  }
 }

@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -51,18 +54,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB8IuPU65VoTDGU1GhK1Zp1Fw_xgvPGsYM',
-    appId: '1:685068771761:android:69a97e87489445980e9d90',
+    appId: '1:685068771761:android:66ddf57b9cd6bc5e0e9d90',
     messagingSenderId: '685068771761',
     projectId: 'appdimonis',
+    databaseURL: 'https://appdimonis-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'appdimonis.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBgVDGnzS6N37bpaJRFjQs_3wR9KCFtYvQ',
-    appId: '1:685068771761:ios:4fa0701ebe53d93c0e9d90',
-    messagingSenderId: '685068771761',
-    projectId: 'appdimonis',
-    storageBucket: 'appdimonis.appspot.com',
-    iosBundleId: 'com.example.appDimonis',
   );
 }
