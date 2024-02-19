@@ -61,16 +61,13 @@ class HomeScreen extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
                   child: ClipOval(
-                    child: Image.network(
-                      FirebaseAuth.instance.currentUser!.photoURL ?? 'FOTO',
+                    child: FadeInImage(
                       fit: BoxFit.cover,
-                      errorBuilder: (BuildContext context, Object error,
-                          StackTrace? stackTrace) {
-                        return Image.asset(
-                          'assets/user.png',
-                          fit: BoxFit.cover,
-                        );
-                      },
+                      placeholder: const AssetImage('assets/user.png'),
+                      image: NetworkImage(
+                        FirebaseAuth.instance.currentUser!.photoURL ??
+                            'https://raw.githubusercontent.com/espai422-Company/dimonis/master/assets/user.png',
+                      ),
                     ),
                   ),
                 ),

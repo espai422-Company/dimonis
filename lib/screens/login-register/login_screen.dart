@@ -1,5 +1,5 @@
+import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/screens/login-register/components_login.dart';
-import 'package:app_dimonis/screens/login-register/comprovacio_login_screen.dart';
 import 'package:app_dimonis/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -66,11 +66,11 @@ class _LoginFormState extends State<LoginForm> {
 
     try {
       await Auth().signInWithEmailAndPassword(email, password);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const ComprovacioLogin(),
-        ),
-      );
+      if (Preferences.guiaInicial) {
+        Navigator.of(context).pushNamed('guia_inicial');
+      } else {
+        Navigator.of(context).pushNamed('/');
+      }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

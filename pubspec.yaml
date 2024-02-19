@@ -51,7 +51,9 @@ dependencies:
   flutter_paypal_checkout: ^1.0.1
   awesome_dialog: ^3.2.0
   salomon_bottom_bar: ^3.3.2
-  firebase_app_check: 0.2.1+8
+  firebase_app_check: ^0.2.1+8
+  liquid_swipe: ^3.1.0
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +64,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 #   flutter_launcher_icons: ^0.13.1
 
 # flutter_icons:
@@ -83,7 +85,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-  #   - images/a_dot_burr.jpeg
+    - assets/guia/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
