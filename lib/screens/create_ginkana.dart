@@ -23,6 +23,7 @@ class CreateGinkana extends StatefulWidget {
 class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
+    FirebaseGimana gimcana = ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
@@ -123,11 +124,23 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                 Provider.of<FireBaseProvider>(context, listen: false)
                     .usersProvider
                     .currentUser;
-            FirebaseGimana gimcana = FirebaseGimana(
-                nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
+            // FirebaseGimana gimcana = FirebaseGimana(
+            //     nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
             
-            Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
-            // print(object);
+            gimcana.nom = nom;
+            gimcana.start = dataInici;
+            gimcana.end = dataFinal;
+            gimcana.dimonis = dimonis;
+            gimcana.propietari = user.id;
+
+            if (gimcana.id == "") {
+              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
+            } else {
+              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.updateGimcama(gimcana);
+            }
+            
+
+
             nom = '';
             dataInici = DateTime.now();
             dataFinal = DateTime.now();

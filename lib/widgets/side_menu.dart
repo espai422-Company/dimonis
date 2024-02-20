@@ -1,3 +1,4 @@
+import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/widgets/only_admin_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,7 +115,7 @@ class _DrawerBody extends StatelessWidget {
             color: color,
             onPress: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, 'crear_gimcana');
+              Navigator.pushReplacementNamed(context, 'crear_gimcana', arguments: FirebaseGimana(nom: '', start: DateTime.now(), end: DateTime.now(), dimonis: {}, propietari: '', id: ''));
             },
           ),
         ),

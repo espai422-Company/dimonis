@@ -1,3 +1,4 @@
+import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/gimcana_provider.dart';
@@ -16,11 +17,11 @@ class DimonisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
     var FirebaseProvider = Provider.of<FireBaseProvider>(context, listen: true);
+    var gimcanaId = FirebaseProvider.progressProvider.gimcanaId;
     return Scaffold(body: Builder(
       builder: (context) {
-        if (playing.currentGimcana == null) {
+        if (gimcanaId == null) {
           return Column(
             children: [
               Center(
@@ -30,17 +31,13 @@ class DimonisScreen extends StatelessWidget {
           );
         }
 
-        if (playing.dimonis == null) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+        var playing = FirebaseProvider.gimcanaProvider.getGimcanaById(gimcanaId);
 
         return ListView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: playing.dimonis!.length ?? 0,
+          itemCount: playing.ubications.length,
           itemBuilder: (_, int index) =>
-              _Card(dimoni: playing.dimonis![index], context),
+              _Card(dimoni: playing.ubications[index].dimoni, context),
         );
       },
     ));
