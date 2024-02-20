@@ -22,94 +22,94 @@ class GimcamaData extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Expanded(child: SizedBox()),
-        Container(
-          height: 200,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Expanded(child: SizedBox()),
-                  progress.keys.elementAt(1).photoUrl != null
-                      ? Image.network(
-                          progress.keys.first.photoUrl!,
-                          height: 50,
-                        )
-                      : Image.asset('assets/demon.png', height: 50,),
-                  Container(
-                    height: 125,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 104, 16, 16),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(progress.keys.elementAt(1).displayName, textAlign: TextAlign.center),
-                        Text(progress.values.elementAt(1).discovers.length.toString()),
-                        getTime(progressProvider, progress.keys.elementAt(1), progress)
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+        // Expanded(child: SizedBox()),
+        // Container(
+        //   height: 200,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Column(
+        //         children: [
+        //           Expanded(child: SizedBox()),
+        //           progress.keys.elementAt(1).photoUrl != null
+        //               ? Image.network(
+        //                   progress.keys.first.photoUrl!,
+        //                   height: 50,
+        //                 )
+        //               : Image.asset('assets/demon.png', height: 50,),
+        //           Container(
+        //             height: 125,
+        //             width: 100,
+        //             decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Color.fromARGB(255, 104, 16, 16),
+        //             ),
+        //             child: Column(
+        //               children: [
+        //                 Text(progress.keys.elementAt(1).displayName, textAlign: TextAlign.center),
+        //                 Text(progress.values.elementAt(1).discovers.length.toString()),
+        //                 getTime(progressProvider, progress.keys.elementAt(1), progress)
+        //               ],
+        //             ),
+        //           ),
+        //         ],
+        //       ),
               
-              Column(
-                children: [
-                  Expanded(child: SizedBox()),
-                  progress.keys.elementAt(0).photoUrl != null
-                      ? Image.network(
-                          progress.keys.first.photoUrl!,
-                          height: 50,
-                        )
-                      : Image.asset('assets/demon.png', height: 50,),
-                  Container(
-                    height: 150,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 104, 16, 16),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(progress.keys.elementAt(0).displayName, textAlign: TextAlign.center),
-                        Text(progress.values.elementAt(0).discovers.length.toString()),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Expanded(child: SizedBox()),
-                  progress.keys.elementAt(2).photoUrl != null
-                      ? Image.network(
-                          progress.keys.first.photoUrl!,
-                          height: 50,
-                        )
-                      : Image.asset('assets/demon.png', height: 50,),
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 104, 16, 16),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(progress.keys.elementAt(2).displayName, textAlign: TextAlign.center),
-                        Text(progress.values.elementAt(2).discovers.length.toString()),
+        //       Column(
+        //         children: [
+        //           Expanded(child: SizedBox()),
+        //           progress.keys.elementAt(0).photoUrl != null
+        //               ? Image.network(
+        //                   progress.keys.first.photoUrl!,
+        //                   height: 50,
+        //                 )
+        //               : Image.asset('assets/demon.png', height: 50,),
+        //           Container(
+        //             height: 150,
+        //             width: 100,
+        //             decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Color.fromARGB(255, 104, 16, 16),
+        //             ),
+        //             child: Column(
+        //               children: [
+        //                 Text(progress.keys.elementAt(0).displayName, textAlign: TextAlign.center),
+        //                 Text(progress.values.elementAt(0).discovers.length.toString()),
+        //               ],
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       Column(
+        //         children: [
+        //           Expanded(child: SizedBox()),
+        //           progress.keys.elementAt(2).photoUrl != null
+        //               ? Image.network(
+        //                   progress.keys.first.photoUrl!,
+        //                   height: 50,
+        //                 )
+        //               : Image.asset('assets/demon.png', height: 50,),
+        //           Container(
+        //             height: 100,
+        //             width: 100,
+        //             decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Color.fromARGB(255, 104, 16, 16),
+        //             ),
+        //             child: Column(
+        //               children: [
+        //                 Text(progress.keys.elementAt(2).displayName, textAlign: TextAlign.center),
+        //                 Text(progress.values.elementAt(2).discovers.length.toString()),
 
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Expanded(child: SizedBox()),
+        //               ],
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // Expanded(child: SizedBox()),
         Container(
           height: 300,
           width: 300,
