@@ -3,6 +3,7 @@ import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class GimcamaCard extends StatelessWidget {
@@ -25,31 +26,17 @@ class GimcamaCard extends StatelessWidget {
         child: Container(
           color: color,
           child: ListTile(
+            titleAlignment: ListTileTitleAlignment.center,
             title: Text(gimcama.nom),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Start Date: ${gimcama.start}'.replaceAll('.000', '')),
-                Text('End Date: ${gimcama.end}'.replaceAll('.000', '')),
+                Text('Start Date: ${DateFormat('yyyy-MM-dd HH:mm').format(gimcama.start)}'),
+                Text('End Date: ${DateFormat('yyyy-MM-dd HH:mm').format(gimcama.end)}'),
                 Text('Dimonis a trobar: ${gimcama.ubications.length}'),
-                // Text("${progress.getProgressOfCurrentUser()}")
-
-                // FutureBuilder(
-                //   future: progress.getMyPosition(),
-                //   builder: (context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.waiting) {
-                //       return CircularProgressIndicator();
-                //     } else if (snapshot.hasError) {
-                //       return Text('Error: ${snapshot.error}');
-                //     } else if (snapshot.data == null || snapshot.data == 0) {
-                //       return Text('No has participat');
-                //     } else {
-                //       return Text('Posició: ${snapshot.data}');
-                //     }
-                //   },
-                // ),
               ],
             ),
+            // trailing: Icon(Icons.arrow_forward_ios),
           ),
         ),
       ),

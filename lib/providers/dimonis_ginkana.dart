@@ -5,6 +5,8 @@ class TotalDimonisProvider extends ChangeNotifier {
 
   setDimoni(int total) {
     totaldimonis = total;
+  }
+  notify(){
     notifyListeners();
   }
 }

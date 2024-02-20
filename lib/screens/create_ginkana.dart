@@ -4,6 +4,7 @@ import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/gimcana_provider.dart';
+import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,10 @@ class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
     FirebaseGimana gimcana = ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
+    nom = gimcana.nom;
+    dataInici = gimcana.start;
+    dataFinal = gimcana.end;
+    dimonis = gimcana.dimonis;
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
@@ -124,8 +129,6 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                 Provider.of<FireBaseProvider>(context, listen: false)
                     .usersProvider
                     .currentUser;
-            // FirebaseGimana gimcana = FirebaseGimana(
-            //     nom: nom, start: dataInici, end: dataFinal, dimonis: dimonis, propietari: user.id, id: "");
             
             gimcana.nom = nom;
             gimcana.start = dataInici;
@@ -147,6 +150,9 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             dimonis = {};
             Provider.of<TotalDimonisProvider>(context, listen: false)
                 .setDimoni(dimonis.length);
+
+            Navigator.pushReplacementNamed(context, '/');
+            Provider.of<UIProvider>(context, listen: false).selectMenuOpt = 2;
           }
         },
         child: Icon(Icons.save),
@@ -157,6 +163,8 @@ class _CreateGinkanaState extends State<CreateGinkana> {
 
 Widget _dimonis(context) {
   FireBaseProvider fireBaseProvider = Provider.of<FireBaseProvider>(context);
+  var totaldimonis = Provider.of<TotalDimonisProvider>(context);
+  totaldimonis.setDimoni(dimonis.length);
   return Column(
     children: [
       Row(
@@ -165,13 +173,13 @@ Widget _dimonis(context) {
         children: [
           Text("Dimonis"),
           Expanded(child: SizedBox()),
-          Text("${Provider.of<TotalDimonisProvider>(context).totaldimonis}"),
+          Text("${totaldimonis.totaldimonis}"),
           Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
                 dimonis = {};
-                Provider.of<TotalDimonisProvider>(context, listen: false)
-                    .setDimoni(dimonis.length);
+                totaldimonis.setDimoni(dimonis.length);
+                totaldimonis.notify();
               },
               child: Text("Buidar dimonis")),
         ],
@@ -252,7 +260,7 @@ class _Card extends StatelessWidget {
 }
 
 Widget _nom(String text) {
-  return TextField(
+  return TextFormField(
     decoration: InputDecoration(
       hintText: text,
       labelText: text,
@@ -261,8 +269,13 @@ Widget _nom(String text) {
         borderRadius: BorderRadius.circular(20.0),
       ),
     ),
+    initialValue: nom,
     onChanged: (value) {
       nom = value;
+    },
+    validator: (value) {
+      if (value == null || value.length < 1)
+        return 'El nom és obligatori';
     },
   );
 }
