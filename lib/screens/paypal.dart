@@ -22,10 +22,10 @@ class PayPal extends StatelessWidget {
       transactions: const [
         {
           "amount": {
-            "total": '70',
-            "currency": "USD",
+            "total": '5', // Amount changed to 5 euros
+            "currency": "EUR", // Currency changed to EUR
             "details": {
-              "subtotal": '70',
+              "subtotal": '5', // Subtotal changed to 5 euros
               "shipping": '0',
               "shipping_discount": 0
             }
@@ -33,13 +33,12 @@ class PayPal extends StatelessWidget {
           "description": "The payment transaction description.",
           "item_list": {
             "items": [
-              {"name": "Apple", "quantity": 4, "price": '5', "currency": "USD"},
               {
-                "name": "Pineapple",
-                "quantity": 5,
-                "price": '10',
-                "currency": "USD"
-              }
+                "name": "Dimonis Go Prime",
+                "quantity": 1,
+                "price": '5',
+                "currency": "EUR"
+              } // Changed item to "Prime" with quantity 1
             ],
           }
         }
