@@ -5,11 +5,13 @@ class ThemeProvider extends ChangeNotifier {
   ThemeData currentTheme;
 
   ThemeData lightTheme = ThemeData(
+    useMaterial3: false,
     textTheme: GoogleFonts.poppinsTextTheme(),
     primarySwatch: Colors.red,
   );
 
   ThemeData darkTheme = ThemeData(
+      useMaterial3: false,
       textTheme: GoogleFonts.poppinsTextTheme().apply(
         bodyColor: Colors.white,
         displayColor: Colors.white,
@@ -20,6 +22,7 @@ class ThemeProvider extends ChangeNotifier {
   ThemeProvider({required bool isDarkMode})
       : currentTheme = isDarkMode
             ? ThemeData(
+                useMaterial3: false,
                 textTheme: GoogleFonts.poppinsTextTheme().apply(
                   bodyColor: Colors.white,
                   displayColor: Colors.white,
@@ -27,6 +30,7 @@ class ThemeProvider extends ChangeNotifier {
                 primarySwatch: Colors.red,
                 brightness: Brightness.dark)
             : ThemeData(
+                useMaterial3: false,
                 textTheme: GoogleFonts.poppinsTextTheme(),
                 primarySwatch: Colors.red,
               );
