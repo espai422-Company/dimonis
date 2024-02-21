@@ -6,6 +6,7 @@ import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -105,25 +106,34 @@ class _CreateGinkanaState extends State<CreateGinkana> {
         onPressed: () {
           List<String> errors = comprovarDades();
           if (errors.isNotEmpty) {
-            showDialog(
-              barrierDismissible: false,
+            AwesomeDialog(
               context: context,
-              builder: (context) {
-                return AlertDialog(
-                  icon: const Icon(Icons.error_outline_outlined),
-                  title: const Text('ERROR'),
-                  content: Text(errors.join('\n')),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              },
-            );
+              dialogType: DialogType.error,
+              animType: AnimType.bottomSlide,
+              title: 'ERROR',
+              desc: errors.join('\n'),
+              btnCancelOnPress: () {},
+              btnCancelText: 'OK',
+            ).show();
+            // showDialog(
+            //   barrierDismissible: false,
+            //   context: context,
+            //   builder: (context) {
+            //     return AlertDialog(
+            //       icon: const Icon(Icons.error_outline_outlined),
+            //       title: const Text('ERROR'),
+            //       content: Text(errors.join('\n')),
+            //       actions: [
+            //         TextButton(
+            //           onPressed: () {
+            //             Navigator.of(context).pop();
+            //           },
+            //           child: const Text('OK'),
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           } else {
             FirebaseUser user =
                 Provider.of<FireBaseProvider>(context, listen: false)
@@ -274,7 +284,7 @@ Widget _nom(String text) {
       nom = value;
     },
     validator: (value) {
-      if (value == null || value.length < 1)
+      if (value == null || value.length < 8 || value.length > 15)
         return 'El nom és obligatori';
     },
   );
@@ -308,6 +318,10 @@ List<String> comprovarDades() {
 
   if (!RegExp(r'^(.{8,})$').hasMatch(nom)) {
     errors.add("El nom de la gincana es massa curt ${nom.length}/8");
+  }
+
+  if (nom.length > 15){
+    errors.add("El nom de la gincana es massa llarg ${nom.length}/15");
   }
 
   return errors;

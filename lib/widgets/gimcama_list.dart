@@ -37,72 +37,78 @@ class GimcamaList extends StatelessWidget {
           .toList();
     }
 
-    return ListWheelScrollView(
-      itemExtent: 150,
-      children: List.generate(
-        filter.length,
-        (index) => GestureDetector(
-          onTap: () {
-            var gimcama = filter[index];
-            ProgressProvider progress =
-                Provider.of<FireBaseProvider>(context, listen: false)
-                    .progressProvider;
-            if (gimcama.isTimeToPlay()) {
-              progress.setCurrentProgress(gimcama.id);
-              Provider.of<UIProvider>(context, listen: false).selectMenuOpt = 0;
-            } else {
+    return RefreshIndicator(
+      onRefresh: () async {
+        (_) => Provider.of<FireBaseProvider>(context, listen: false)
+            .gimcanaProvider.reload();
+      },
+      child: ListWheelScrollView(
+        itemExtent: 150,
+        children: List.generate(
+          filter.length,
+          (index) => GestureDetector(
+            onTap: () {
+              var gimcama = filter[index];
+              ProgressProvider progress =
+                  Provider.of<FireBaseProvider>(context, listen: false)
+                      .progressProvider;
+              if (gimcama.isTimeToPlay()) {
+                progress.setCurrentProgress(gimcama.id);
+                Provider.of<UIProvider>(context, listen: false).selectMenuOpt = 0;
+              } else {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.error,
+                    buttonsBorderRadius: const BorderRadius.all(
+                      Radius.circular(2),
+                    ),
+                    dismissOnTouchOutside: true,
+                    dismissOnBackKeyPress: false,
+                    headerAnimationLoop: false,
+                    animType: AnimType.topSlide,
+                    title: 'No es pot jugar',
+                    desc: 'La gimcama no està activa, revisa les dates',
+                    showCloseIcon: true,
+                    btnOkOnPress: () {
+                    },
+                  ).show();
+              }
+              
+            },
+            onLongPress: () {
+              var gimcama = filter[index];
+              if (gimcama.start.isAfter(DateTime.now()) && gimcama.propietari == Provider.of<FireBaseProvider>(context, listen: false).usersProvider.currentUser.id) {
                 AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.error,
-                  buttonsBorderRadius: const BorderRadius.all(
-                    Radius.circular(2),
-                  ),
-                  dismissOnTouchOutside: true,
-                  dismissOnBackKeyPress: false,
-                  headerAnimationLoop: false,
-                  animType: AnimType.topSlide,
-                  title: 'No es pot jugar',
-                  desc: 'La gimcama no està activa, revisa les dates',
-                  showCloseIcon: true,
-                  btnOkOnPress: () {
-                  },
-                ).show();
-            }
-            
-          },
-          onLongPress: () {
-            var gimcama = filter[index];
-            if (gimcama.start.isAfter(DateTime.now()) && gimcama.propietari == Provider.of<FireBaseProvider>(context, listen: false).usersProvider.currentUser.id) {
-              AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.warning,
-                  buttonsBorderRadius: const BorderRadius.all(
-                    Radius.circular(2),
-                  ),
-                  dismissOnTouchOutside: true,
-                  dismissOnBackKeyPress: false,
-                  headerAnimationLoop: false,
-                  animType: AnimType.topSlide,
-                  title: 'Edita gimcama',
-                  desc: 'Vols editar la gimcama ${gimcama.nom}?',
-                  showCloseIcon: true,
-                  btnCancelOnPress: () => {},
-                  btnOkOnPress: () {
-                    Map<dynamic, dynamic> dimonis = {};
-                      gimcama.ubications.forEach((element) {
-                        dimonis.addAll({
-                          element.dimoni.id : {
-                            'x': element.x,
-                            'y': element.y,
-                          }
-                        });
-                        });
-                      Navigator.pushReplacementNamed(context, 'crear_gimcana', arguments: FirebaseGimana(nom: gimcama.nom, start: gimcama.start, end: gimcama.end, dimonis: dimonis, propietari: gimcama.propietari, id: gimcama.id));
-                  },
-                ).show();
-            }
-          },
-          child: GimcamaCard(gimcama: filter[index]),
+                    context: context,
+                    dialogType: DialogType.warning,
+                    buttonsBorderRadius: const BorderRadius.all(
+                      Radius.circular(2),
+                    ),
+                    dismissOnTouchOutside: true,
+                    dismissOnBackKeyPress: false,
+                    headerAnimationLoop: false,
+                    animType: AnimType.topSlide,
+                    title: 'Edita gimcama',
+                    desc: 'Vols editar la gimcama ${gimcama.nom}?',
+                    showCloseIcon: true,
+                    btnCancelOnPress: () => {},
+                    btnOkOnPress: () {
+                      Map<dynamic, dynamic> dimonis = {};
+                        gimcama.ubications.forEach((element) {
+                          dimonis.addAll({
+                            element.dimoni.id : {
+                              'x': element.x,
+                              'y': element.y,
+                            }
+                          });
+                          });
+                        Navigator.pushReplacementNamed(context, 'crear_gimcana', arguments: FirebaseGimana(nom: gimcama.nom, start: gimcama.start, end: gimcama.end, dimonis: dimonis, propietari: gimcama.propietari, id: gimcama.id));
+                    },
+                  ).show();
+              }
+            },
+            child: GimcamaCard(gimcama: filter[index]),
+          ),
         ),
       ),
     );
