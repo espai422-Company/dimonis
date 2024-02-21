@@ -94,7 +94,7 @@ class ProgressProvider {
     }
 
     var ref = SignleDBConn.getDatabase().ref('$_path/$gimcanaId/$uid');
-    ref.set({dimoni.id: DateTime.now().toString()});
+    ref.update({dimoni.id!: DateTime.now().toString()});
   }
 
   get progressMap => _progressMap;
