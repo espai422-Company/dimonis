@@ -51,7 +51,9 @@ class _Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
+    var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
+    print('progess');
+    print(progressProvider.getProgressOfCurrentUser().discovers);
     return SizedBox(
       child: Row(
         children: [
@@ -62,12 +64,11 @@ class _Card extends StatelessWidget {
               child: FadeInImage(
                 placeholder:
                     const AssetImage('assets/LoadingDimonis-unscreen.gif'),
-                image: playing.dimonisTrobats!
-                        .map((e) => e.id!)
-                        .contains(dimoni.id!)
-                    ? NetworkImage(dimoni.image)
-                    : NetworkImage(
-                        'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Dise-o-sin-t-tulo-unscreen.gif?alt=media&token=0a3a8b89-5e31-4f85-82e7-1c9b004cd7d2'),
+                image: NetworkImage(
+                    progressProvider.getProgressOfCurrentUser().discovers.any((element) => element.dimoni.id == dimoni.id)
+                      ? dimoni.image
+                      : 'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Dise-o-sin-t-tulo-unscreen.gif?alt=media&token=0a3a8b89-5e31-4f85-82e7-1c9b004cd7d2',
+                ),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -80,7 +81,7 @@ class _Card extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                playing.dimonisTrobats!.map((d) => d.id!).contains(dimoni.id!)
+                progressProvider.getProgressOfCurrentUser().discovers.any((element) => element.dimoni.id == dimoni.id)
                     ? dimoni.nom
                     : '??????????',
                 maxLines: 2,
