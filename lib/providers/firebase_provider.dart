@@ -52,5 +52,6 @@ class FireBaseProvider extends ChangeNotifier {
 
     loaded = true;
     notifyListeners();
+    print('All loaded');
   }
 }

@@ -10,7 +10,7 @@ class GoogleSignInButton extends StatelessWidget {
 
   GoogleSignInButton({super.key});
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
@@ -25,6 +25,7 @@ class GoogleSignInButton extends StatelessWidget {
         var ref = SignleDBConn.getDatabase().ref('/users');
         auth.saveUserToRTDB(user.credential?.providerId ?? 'Google');
         print(user.user?.displayName);
+        Navigator.pushNamed(context, '/');
         print('User signed in with Google');
         // Perform any actions after successful login
       } else {
@@ -45,7 +46,7 @@ class GoogleSignInButton extends StatelessWidget {
       child: OutlinedButton.icon(
         icon: const Image(image: AssetImage("assets/google.png"), width: 20.0),
         onPressed: () {
-          _signInWithGoogle();
+          _signInWithGoogle(context);
         },
         label: const Text("Sign-In With Google"),
       ),
