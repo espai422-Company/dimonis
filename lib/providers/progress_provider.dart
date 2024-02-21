@@ -13,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class ProgressProvider{
+class ProgressProvider {
   static const _path = '/progress';
 
   DimoniProvider dimoniProvider;
@@ -72,8 +72,8 @@ class ProgressProvider{
   Progress parseProgress(Map<dynamic, dynamic> progressMap, String gimcanaId) {
     List<Discover> discovers = [];
     progressMap.forEach((key, value) {
-      discovers.add(Discover(
-          dimoniProvider.getDimoniById(key.toString()), value));
+      discovers
+          .add(Discover(dimoniProvider.getDimoniById(key.toString()), value));
     });
 
     return Progress(gimcanaProvider.getGimcanaById(gimcanaId), discovers);
@@ -84,7 +84,8 @@ class ProgressProvider{
       throw Exception('User not logged in');
     }
 
-    return _progressMap[usersProvider.getUserById(uid!)] ?? Progress(gimcanaProvider.getGimcanaById(gimcanaId!), []);
+    return _progressMap[usersProvider.getUserById(uid!)] ??
+        Progress(gimcanaProvider.getGimcanaById(gimcanaId!), []);
   }
 
   void addDiscover(Dimoni dimoni) {
@@ -93,7 +94,7 @@ class ProgressProvider{
     }
 
     var ref = SignleDBConn.getDatabase().ref('$_path/$gimcanaId/$uid');
-    ref.set({dimoni.id: DateTime.now().toString()});
+    ref.update({dimoni.id!: DateTime.now().toString()});
   }
 
   get progressMap => _progressMap;
@@ -102,8 +103,9 @@ class ProgressProvider{
     if (progressListener != null) {
       progressListener!.cancel();
     }
+    _progressMap = {};
     gimcanaId = null;
-    timeToComplete = {}; 
+    timeToComplete = {};
     notifyListeners();
   }
 
@@ -119,12 +121,19 @@ class ProgressProvider{
         FirebaseUser tempUser = users[i];
         users[i] = users[i + 1];
         users[i + 1] = tempUser;
-      }
-      else if (progresses[i].discovers.length == progresses[i + 1].discovers.length) {
+      } else if (progresses[i].discovers.length ==
+          progresses[i + 1].discovers.length) {
         progresses[i].discovers.sort((a, b) => a.time.compareTo(b.time));
         progresses[i + 1].discovers.sort((a, b) => a.time.compareTo(b.time));
 
-        if (DateTime.parse(progresses[i].discovers[0].time).difference(DateTime.parse(progresses[i].discovers[progresses[i].discovers.length - 1].time)) < DateTime.parse(progresses[i + 1].discovers[0].time).difference(DateTime.parse(progresses[i + 1].discovers[progresses[i + 1].discovers.length - 1].time))){
+        if (DateTime.parse(progresses[i].discovers[0].time).difference(
+                DateTime.parse(progresses[i]
+                    .discovers[progresses[i].discovers.length - 1]
+                    .time)) <
+            DateTime.parse(progresses[i + 1].discovers[0].time).difference(
+                DateTime.parse(progresses[i + 1]
+                    .discovers[progresses[i + 1].discovers.length - 1]
+                    .time))) {
           Progress temp = progresses[i];
           progresses[i] = progresses[i + 1];
           progresses[i + 1] = temp;
@@ -137,19 +146,21 @@ class ProgressProvider{
     }
     _progressMap = Map.fromIterables(users, progresses);
   }
-  
+
   void saveTimes() {
     Gimcama gimcana = gimcanaProvider.getGimcanaById(gimcanaId!);
     _progressMap.forEach((key, value) {
-      if (value.discovers.length == gimcana.ubications.length && timeToComplete[key] == null) {
+      if (value.discovers.length == gimcana.ubications.length &&
+          timeToComplete[key] == null) {
         DateTime firstCapture = DateTime.parse(value.discovers[0].time);
-        DateTime lastCapture = DateTime.parse(value.discovers[value.discovers.length - 1].time);
+        DateTime lastCapture =
+            DateTime.parse(value.discovers[value.discovers.length - 1].time);
         timeToComplete[key] = firstCapture.difference(lastCapture);
       }
     });
   }
 
-  void sortPodium(){
+  void sortPodium() {
     List<FirebaseUser> users = timeToComplete.keys.toList();
     List<Duration> times = timeToComplete.values.toList();
 

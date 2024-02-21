@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/providers.dart';
+import 'package:app_dimonis/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -176,7 +177,7 @@ class _MapsScreenState extends State<MapsScreen> {
           onPressed: () {
             _showDialog(context);
           },
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 255, 0, 0),
           child: const Icon(Icons.check),
         );
       } else {
@@ -192,6 +193,16 @@ class _MapsScreenState extends State<MapsScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        List<DropdownMenuItem<String>> dimonis = [];
+        Provider.of<FireBaseProvider>(context, listen: false).dimoniProvider.dimonis.forEach((element) {
+            dimonis.add(
+              DropdownMenuItem<String>(
+                value: element.nom,
+                child: Text(element.nom),
+              )
+            );
+        });
+        var selectedValue = 'Polisso2';
         return AlertDialog(
           title: const Text('Resposta'),
           content: SingleChildScrollView(
@@ -201,10 +212,18 @@ class _MapsScreenState extends State<MapsScreen> {
                 FadeInImage(
                     placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                     image: NetworkImage(_nextDimoni!.image)),
-                TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(hintText: "Nom del dimoni"),
-                ),
+                // TextField(
+                //   controller: controller,
+                //   decoration: const InputDecoration(hintText: "Nom del dimoni"),
+                // ),
+                DropdownButton<String>(
+                  value: selectedValue,
+                  onChanged: (String? newValue) {
+                    selectedValue = newValue!;
+                    setState(() {});
+                  },
+                  items: dimonis,
+                )
               ],
             ),
           ),
@@ -218,7 +237,7 @@ class _MapsScreenState extends State<MapsScreen> {
             TextButton(
               child: const Text('Enviar resposta'),
               onPressed: () {
-                _submit(controller, context);
+                _submit(selectedValue, context);
               },
             ),
           ],
@@ -227,9 +246,9 @@ class _MapsScreenState extends State<MapsScreen> {
     );
   }
 
-  void _submit(TextEditingController controller, BuildContext context) {
+  void _submit(String resposta, BuildContext context) {
     final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
-    if (controller.text.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
+    if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
