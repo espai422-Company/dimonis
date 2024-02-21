@@ -102,6 +102,7 @@ class ProgressProvider{
     if (progressListener != null) {
       progressListener!.cancel();
     }
+    _progressMap = {};
     gimcanaId = null;
     timeToComplete = {}; 
     notifyListeners();
