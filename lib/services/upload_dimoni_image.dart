@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 final FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -19,7 +22,8 @@ Future<bool> uploadImage(File image, String nomImage) async {
   }
 }
 
-Future<bool> uploadDimoni(Dimoni dimoniTemp, File image) async {
+Future<bool> uploadDimoni(
+    BuildContext context, Dimoni dimoniTemp, File image) async {
   try {
     final String nameFile = image.path.split('/').last;
 
@@ -30,9 +34,11 @@ Future<bool> uploadDimoni(Dimoni dimoniTemp, File image) async {
     }
 
     dimoniTemp.image =
-        'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/$nameFile?alt=media&token=8eff69df-c8ce-4af1-b0d9-7021985158a5';
+        'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/$nameFile?alt=media&token=3281b52e-0cbd-409f-9b96-f3e054e3ac2e';
 
-    // dimoniTemp.save();
+    var dimoniProvider =
+        Provider.of<FireBaseProvider>(context, listen: false).dimoniProvider;
+    dimoniProvider.saveDimoni(dimoniTemp);
 
     return true;
   } catch (e) {

@@ -1,5 +1,7 @@
+import 'package:app_dimonis/providers/providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -31,7 +33,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     setState(() => _loading = true);
 
     if (displayName != FirebaseAuth.instance.currentUser!.displayName) {
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
+      var userProvider =
+          Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
+      userProvider.setDisplayName(displayName);
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('S\'ha actualitzat el nom d\'usuari correctament.'),

@@ -80,7 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: "Settings",
                   icon: Icons.settings,
                   color: color,
-                  onPress: () {}),
+                  onPress: () {
+                    Navigator.pushNamed(context, 'settings_screen');
+                  }),
               ProfileMenuWidget(
                   title: "Billing Details",
                   icon: Icons.wallet,

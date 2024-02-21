@@ -115,7 +115,7 @@ class _CrearDimoniState extends State<CrearDimoni> {
             );
 
             final uploadedDimoni =
-                await uploadDimoni(dimoniTemp, imagen_to_upload!);
+                await uploadDimoni(context, dimoniTemp, imagen_to_upload!);
 
             if (uploadedDimoni) {
               ScaffoldMessenger.of(context).showSnackBar(
