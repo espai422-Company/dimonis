@@ -105,7 +105,6 @@ class ProgressProvider {
     }
     _progressMap = {};
     gimcanaId = null;
-    progressMap.clear();
     timeToComplete = {};
     notifyListeners();
   }
