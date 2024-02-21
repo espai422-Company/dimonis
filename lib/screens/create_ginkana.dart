@@ -109,31 +109,17 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             AwesomeDialog(
               context: context,
               dialogType: DialogType.error,
-              animType: AnimType.bottomSlide,
+              animType: AnimType.topSlide,
+              buttonsBorderRadius: const BorderRadius.all(
+                Radius.circular(2),
+              ),
+              dismissOnTouchOutside: true,
+              dismissOnBackKeyPress: false,
               title: 'ERROR',
               desc: errors.join('\n'),
               btnCancelOnPress: () {},
               btnCancelText: 'OK',
             ).show();
-            // showDialog(
-            //   barrierDismissible: false,
-            //   context: context,
-            //   builder: (context) {
-            //     return AlertDialog(
-            //       icon: const Icon(Icons.error_outline_outlined),
-            //       title: const Text('ERROR'),
-            //       content: Text(errors.join('\n')),
-            //       actions: [
-            //         TextButton(
-            //           onPressed: () {
-            //             Navigator.of(context).pop();
-            //           },
-            //           child: const Text('OK'),
-            //         ),
-            //       ],
-            //     );
-            //   },
-            // );
           } else {
             FirebaseUser user =
                 Provider.of<FireBaseProvider>(context, listen: false)

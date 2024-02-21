@@ -64,13 +64,11 @@ class GimcamaList extends StatelessWidget {
                     ),
                     dismissOnTouchOutside: true,
                     dismissOnBackKeyPress: false,
-                    headerAnimationLoop: false,
                     animType: AnimType.topSlide,
                     title: 'No es pot jugar',
                     desc: 'La gimcama no està activa, revisa les dates',
-                    showCloseIcon: true,
-                    btnOkOnPress: () {
-                    },
+                    btnCancelOnPress: () {},
+                    btnCancelText: 'OK',
                   ).show();
               }
               
