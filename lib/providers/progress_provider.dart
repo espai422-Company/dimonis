@@ -6,6 +6,7 @@ import 'package:app_dimonis/models/models.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/models/state/progress.dart';
 import 'package:app_dimonis/providers/dimoni_provider.dart';
+import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,7 +84,7 @@ class ProgressProvider{
       throw Exception('User not logged in');
     }
 
-    return _progressMap[uid]!;
+    return _progressMap[usersProvider.getUserById(uid!)] ?? Progress(gimcanaProvider.getGimcanaById(gimcanaId!), []);
   }
 
   void addDiscover(Dimoni dimoni) {
