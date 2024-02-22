@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapaPickerScreen extends StatefulWidget {
@@ -18,9 +19,14 @@ class _MapaScreenState extends State<MapaPickerScreen> {
   MapType _currentMapType = MapType.normal;
   late Map<Dimoni, dynamic> dimoni;
   late Marker coordenadesDimoni = Marker(markerId: const MarkerId(''));
+  late String _mapStyle;
 
   @override
   Widget build(BuildContext context) {
+    GoogleMapController mapController;
+    rootBundle.loadString('assets/maps/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
     final CameraPosition _puntInicial = CameraPosition(
         target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
@@ -58,6 +64,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         ],
       ),
       body: GoogleMap(
+        zoomControlsEnabled: false,
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
         mapType: _currentMapType,
@@ -70,6 +77,8 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         initialCameraPosition: _puntInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          mapController = controller;
+          mapController.setMapStyle(_mapStyle);
         },
       ),
       floatingActionButton: Padding(
@@ -77,6 +86,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         child: FloatingActionButton(
           elevation: 0,
           child: const Icon(Icons.save),
+          backgroundColor: Colors.red,
           onPressed: () {
             if ('0' != dimoni.values.first['x'] &&
                 '0' != dimoni.values.first['y']) {

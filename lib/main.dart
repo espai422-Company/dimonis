@@ -33,8 +33,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => FireBaseProvider(1)),
         ChangeNotifierProvider(create: (_) => TotalDimonisProvider()),
-        ChangeNotifierProvider(
-            create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
+        ChangeNotifierProvider(create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
         ChangeNotifierProvider(create: (_) => UIProvider()),
         ChangeNotifierProvider(create: (_) => PlayingGimcanaProvider()),
       ],

@@ -79,6 +79,7 @@ class _MapsScreenState extends State<MapsScreen> {
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
+        zoomControlsEnabled: false,
         initialCameraPosition: CameraPosition(
           target: _nextLocation ?? const LatLng(0, 0),
           zoom: 10,
