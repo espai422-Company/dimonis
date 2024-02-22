@@ -12,6 +12,7 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import '../models/state/progress.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -31,6 +32,7 @@ class _MapsScreenState extends State<MapsScreen> {
 
   bool hasLocationPermission = true;
   bool locationServiceEnabled = true;
+  late String _mapStyle;
 
   BitmapDescriptor _currentLocationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor _nextLocationIcon = BitmapDescriptor.defaultMarker;
@@ -41,12 +43,18 @@ class _MapsScreenState extends State<MapsScreen> {
     setCustomMarker();
     _getNext();
     super.initState();
+
+    rootBundle.loadString('assets/maps/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    GoogleMapController mapController;
     final firebase = Provider.of<FireBaseProvider>(context);
-    final actualUser = firebase.usersProvider.getUserById(FirebaseAuth.instance.currentUser!.uid);
+    final actualUser = firebase.usersProvider
+        .getUserById(FirebaseAuth.instance.currentUser!.uid);
     final progressProvider = firebase.progressProvider;
     _getNext();
 
@@ -75,8 +83,13 @@ class _MapsScreenState extends State<MapsScreen> {
           target: _nextLocation ?? const LatLng(0, 0),
           zoom: 10,
         ),
+        // onMapCreated: (GoogleMapController controller) {
+        //   _controller.complete(controller);
+        // },
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          mapController = controller;
+          mapController.setMapStyle(_mapStyle);
         },
         markers: {
           if (_currentLocation != null)
@@ -102,8 +115,10 @@ class _MapsScreenState extends State<MapsScreen> {
 
   Progress? _getActualProgress(FireBaseProvider fireBaseProvider) {
     final actualUserUID = FirebaseAuth.instance.currentUser!.uid;
-    final actualUser = fireBaseProvider.usersProvider.getUserById(actualUserUID);
-    final Progress? progress = fireBaseProvider.progressProvider.progressMap[actualUser];
+    final actualUser =
+        fireBaseProvider.usersProvider.getUserById(actualUserUID);
+    final Progress? progress =
+        fireBaseProvider.progressProvider.progressMap[actualUser];
 
     return progress;
   }
@@ -121,7 +136,8 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _getNext() {
-    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    final fireBaseProvider =
+        Provider.of<FireBaseProvider>(context, listen: false);
     final progress = _getActualProgress(fireBaseProvider);
 
     if (progress == null) {
@@ -161,7 +177,8 @@ class _MapsScreenState extends State<MapsScreen> {
     }
 
     if (hasLocationPermission && locationServiceEnabled) {
-      _locationSubscription = location.onLocationChanged.listen(_onLocationChanged);
+      _locationSubscription =
+          location.onLocationChanged.listen(_onLocationChanged);
     }
   }
 
@@ -194,13 +211,14 @@ class _MapsScreenState extends State<MapsScreen> {
       context: context,
       builder: (BuildContext context) {
         List<DropdownMenuItem<String>> dimonis = [];
-        Provider.of<FireBaseProvider>(context, listen: false).dimoniProvider.dimonis.forEach((element) {
-            dimonis.add(
-              DropdownMenuItem<String>(
-                value: element.nom,
-                child: Text(element.nom),
-              )
-            );
+        Provider.of<FireBaseProvider>(context, listen: false)
+            .dimoniProvider
+            .dimonis
+            .forEach((element) {
+          dimonis.add(DropdownMenuItem<String>(
+            value: element.nom,
+            child: Text(element.nom),
+          ));
         });
         var selectedValue = 'Polisso2';
         return AlertDialog(
@@ -210,7 +228,8 @@ class _MapsScreenState extends State<MapsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FadeInImage(
-                    placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
+                    placeholder:
+                        const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                     image: NetworkImage(_nextDimoni!.image)),
                 // TextField(
                 //   controller: controller,
@@ -247,7 +266,8 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _submit(String resposta, BuildContext context) {
-    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    final fireBaseProvider =
+        Provider.of<FireBaseProvider>(context, listen: false);
     if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -273,7 +293,10 @@ class _MapsScreenState extends State<MapsScreen> {
     double latDiff = _toRadians(to.latitude - from.latitude);
     double lngDiff = _toRadians(to.longitude - from.longitude);
     double a = sin(latDiff / 2) * sin(latDiff / 2) +
-        cos(_toRadians(from.latitude)) * cos(_toRadians(to.latitude)) * sin(lngDiff / 2) * sin(lngDiff / 2);
+        cos(_toRadians(from.latitude)) *
+            cos(_toRadians(to.latitude)) *
+            sin(lngDiff / 2) *
+            sin(lngDiff / 2);
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     double distance = earthRadius * c;
     return distance;
