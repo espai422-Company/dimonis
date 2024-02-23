@@ -8,20 +8,33 @@ class ThemeProvider extends ChangeNotifier {
     useMaterial3: false,
     textTheme: GoogleFonts.poppinsTextTheme(),
     primarySwatch: Colors.red,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.red,
+      foregroundColor: Colors.white,
+    ),
   );
 
   ThemeData darkTheme = ThemeData(
-      useMaterial3: false,
-      textTheme: GoogleFonts.poppinsTextTheme().apply(
-        bodyColor: Colors.white,
-        displayColor: Colors.white,
-      ),
-      primarySwatch: Colors.red,
-      brightness: Brightness.dark);
+    useMaterial3: false,
+    textTheme: GoogleFonts.poppinsTextTheme().apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white,
+    ),
+    primarySwatch: Colors.red,
+    brightness: Brightness.dark,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.red,
+      foregroundColor: Colors.white,
+    ),
+  );
 
   ThemeProvider({required bool isDarkMode})
       : currentTheme = isDarkMode
             ? ThemeData(
+                floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
                 useMaterial3: false,
                 textTheme: GoogleFonts.poppinsTextTheme().apply(
                   bodyColor: Colors.white,
@@ -30,6 +43,10 @@ class ThemeProvider extends ChangeNotifier {
                 primarySwatch: Colors.red,
                 brightness: Brightness.dark)
             : ThemeData(
+                floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
                 useMaterial3: false,
                 textTheme: GoogleFonts.poppinsTextTheme(),
                 primarySwatch: Colors.red,
