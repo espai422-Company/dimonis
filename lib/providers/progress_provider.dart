@@ -112,28 +112,9 @@ class ProgressProvider {
   void sortByCaptures() {
     List<Progress> progresses = _progressMap.values.toList();
     List<FirebaseUser> users = _progressMap.keys.toList();
-    for (int i = 0; i < progresses.length - 1; i++) {
-      if (progresses[i].discovers.length < progresses[i + 1].discovers.length) {
-        Progress temp = progresses[i];
-        progresses[i] = progresses[i + 1];
-        progresses[i + 1] = temp;
-
-        FirebaseUser tempUser = users[i];
-        users[i] = users[i + 1];
-        users[i + 1] = tempUser;
-      } else if (progresses[i].discovers.length ==
-          progresses[i + 1].discovers.length) {
-        progresses[i].discovers.sort((a, b) => a.time.compareTo(b.time));
-        progresses[i + 1].discovers.sort((a, b) => a.time.compareTo(b.time));
-
-        if (DateTime.parse(progresses[i].discovers[0].time).difference(
-                DateTime.parse(progresses[i]
-                    .discovers[progresses[i].discovers.length - 1]
-                    .time)) <
-            DateTime.parse(progresses[i + 1].discovers[0].time).difference(
-                DateTime.parse(progresses[i + 1]
-                    .discovers[progresses[i + 1].discovers.length - 1]
-                    .time))) {
+    for (int j = 0; j < progresses.length - 1; j++) {
+      for (int i = 0; i < progresses.length - 1; i++) {
+        if (progresses[i].discovers.length < progresses[i + 1].discovers.length) {
           Progress temp = progresses[i];
           progresses[i] = progresses[i + 1];
           progresses[i + 1] = temp;
@@ -141,6 +122,27 @@ class ProgressProvider {
           FirebaseUser tempUser = users[i];
           users[i] = users[i + 1];
           users[i + 1] = tempUser;
+        } else if (progresses[i].discovers.length ==
+            progresses[i + 1].discovers.length) {
+          progresses[i].discovers.sort((a, b) => a.time.compareTo(b.time));
+          progresses[i + 1].discovers.sort((a, b) => a.time.compareTo(b.time));
+
+          if (DateTime.parse(progresses[i].discovers[0].time).difference(
+                  DateTime.parse(progresses[i]
+                      .discovers[progresses[i].discovers.length - 1]
+                      .time)) <
+              DateTime.parse(progresses[i + 1].discovers[0].time).difference(
+                  DateTime.parse(progresses[i + 1]
+                      .discovers[progresses[i + 1].discovers.length - 1]
+                      .time))) {
+            Progress temp = progresses[i];
+            progresses[i] = progresses[i + 1];
+            progresses[i + 1] = temp;
+
+            FirebaseUser tempUser = users[i];
+            users[i] = users[i + 1];
+            users[i + 1] = tempUser;
+          }
         }
       }
     }
