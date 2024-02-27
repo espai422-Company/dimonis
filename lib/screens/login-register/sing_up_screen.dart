@@ -69,11 +69,7 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
 
     try {
       await Auth().registerWithEmailAndPassword(email, password, user);
-      if (Preferences.guiaInicial) {
-        Navigator.of(context).pushNamed('guia_inicial');
-      } else {
-        Navigator.of(context).pushNamed('/');
-      }
+      Navigator.of(context).pushNamed('/');
       _emailController.text = '';
       _passController.text = '';
       _userNameController.text = '';

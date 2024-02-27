@@ -1,3 +1,4 @@
+import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:flutter/material.dart';
 
 class AccountCreated extends StatelessWidget {
@@ -35,7 +36,11 @@ class AccountCreated extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/');
+                  if (Preferences.guiaInicial) {
+                    Navigator.of(context).pushReplacementNamed('guia_inicial');
+                  } else {
+                    Navigator.of(context).pushReplacementNamed('/');
+                  }
                 },
                 child: const Text('Continua'),
               ),
