@@ -1,7 +1,9 @@
+import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/widgets/widgets.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +15,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final userProvider =
+        Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
+
     const Color color = Colors.red;
 
     return Scaffold(
@@ -55,10 +60,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(
-                  FirebaseAuth.instance.currentUser!.displayName ??
-                      'NOM COMPLET',
-                  style: Theme.of(context).textTheme.headlineMedium),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      FirebaseAuth.instance.currentUser!.displayName ??
+                          'NOM COMPLET',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  userProvider.currentUser.privileges == 'prime'
+                      ? const Icon(
+                          Icons.star,
+                          color: Colors.red,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
               Text(FirebaseAuth.instance.currentUser!.email!,
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 20),

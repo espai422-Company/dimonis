@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:app_dimonis/services/auth.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +25,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
 
       await user?.reload();
       if (user!.emailVerified) {
-        timer.cancel();
         Navigator.of(context).pushReplacementNamed('accountConfirmed');
+        timer.cancel();
       }
     });
     super.initState();
