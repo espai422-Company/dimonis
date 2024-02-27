@@ -16,8 +16,9 @@ class UsersProvider {
 
     // allow app to change bettween users and accounts
 
-    FirebaseAuth.instance.authStateChanges().listen((user) {
+    FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (user != null) {
+        users = await getUsers();
         _currentUser =
             users.firstWhere((userFirebase) => userFirebase.id == user.uid);
       }
@@ -36,7 +37,6 @@ class UsersProvider {
         Map<String, dynamic> b = value.cast<String, dynamic>();
         FirebaseUser user = FirebaseUser.fromMap(b, key.toString());
         users.add(user);
-        
       });
       return users;
     } else {

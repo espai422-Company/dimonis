@@ -38,7 +38,8 @@ class _DrawerHeader extends StatelessWidget {
         backgroundColor: Colors.transparent,
         child: ClipOval(
           child: Image.network(
-            FirebaseAuth.instance.currentUser!.photoURL ?? 'FOTO',
+            FirebaseAuth.instance.currentUser!.photoURL ??
+                'https://raw.githubusercontent.com/espai422-Company/dimonis/master/assets/user.png',
             fit: BoxFit.cover,
             width: 90,
             height: 90,
@@ -115,7 +116,14 @@ class _DrawerBody extends StatelessWidget {
             color: color,
             onPress: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, 'crear_gimcana', arguments: FirebaseGimana(nom: '', start: DateTime.now(), end: DateTime.now(), dimonis: {}, propietari: '', id: ''));
+              Navigator.pushReplacementNamed(context, 'crear_gimcana',
+                  arguments: FirebaseGimana(
+                      nom: '',
+                      start: DateTime.now(),
+                      end: DateTime.now(),
+                      dimonis: {},
+                      propietari: '',
+                      id: ''));
             },
           ),
         ),
