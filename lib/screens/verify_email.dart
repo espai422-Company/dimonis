@@ -25,10 +25,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
 
       await user?.reload();
       if (user!.emailVerified) {
+        Navigator.of(context).pushReplacementNamed('accountConfirmed');
         timer.cancel();
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed('accountConfirmed');
-        });
       }
     });
     super.initState();
