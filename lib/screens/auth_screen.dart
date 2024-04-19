@@ -1,6 +1,7 @@
 import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
+import 'package:app_dimonis/widgets/facebook_sign_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -189,6 +190,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: 15,
                   ),
                   GoogleSignInButton(),
+                  FacebookSignInButton(),
                 ],
               ),
             ),

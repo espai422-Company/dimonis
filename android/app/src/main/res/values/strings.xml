@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DimonisGoTest1</string>
+    <string name="facebook_app_id">713000574105296</string>
+    <string name="fb_login_protocol_scheme">fb713000574105296</string>
+    <string name="facebook_client_token">56fd7f6ac7db1d0291e7ba4a1281d1bf</string>
+</resources>
+

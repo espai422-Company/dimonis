@@ -51,7 +51,7 @@ android {
         applicationId "cat.paucasesnovescifp.apps.dimonisgo"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -81,4 +81,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+     implementation 'com.facebook.android:facebook-login:latest.release'
+}
