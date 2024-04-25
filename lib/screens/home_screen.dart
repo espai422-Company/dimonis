@@ -21,9 +21,9 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
+              const CircularProgressIndicator(),
               Container(height: 20),
-              Text("Loading data, please wait...")
+              const Text("Loading data, please wait...")
             ],
           ),
         ),
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _HomeScreenBody extends StatelessWidget {
-  const _HomeScreenBody({Key? key}) : super(key: key);
+  const _HomeScreenBody();
 
   @override
   Widget build(BuildContext context) {

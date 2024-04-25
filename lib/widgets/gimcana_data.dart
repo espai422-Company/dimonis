@@ -1,17 +1,14 @@
 import 'dart:async';
 
-import 'package:app_dimonis/models/firebase/dimoni.dart';
-import 'package:app_dimonis/models/firebase/firebase_progress.dart';
 import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/models/state/progress.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class GimcamaData extends StatelessWidget {
-  GimcamaData({super.key});
+  const GimcamaData({super.key});
 
 
   @override
@@ -22,7 +19,7 @@ class GimcamaData extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Container(
+        SizedBox(
           height: 300,
           width: 300,
           child: ListView.builder(
@@ -43,11 +40,11 @@ class GimcamaData extends StatelessWidget {
             },
           ),
         ),
-        Expanded(child: SizedBox()),
+        const Expanded(child: SizedBox()),
         ElevatedButton(
             onPressed: () => progressProvider.unSubscribe(),
-            child: Text("Tornar a les gimcanes")),
-        Expanded(child: SizedBox()),
+            child: const Text("Tornar a les gimcanes")),
+        const Expanded(child: SizedBox()),
       ]),
     );
   }
@@ -103,7 +100,7 @@ class _CountUpState extends State<CountUp> {
   void initState() {
     super.initState();
     _currentSeconds = widget.seconds;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _currentSeconds++;
         if (_currentSeconds >= 60) {

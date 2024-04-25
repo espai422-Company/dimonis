@@ -16,9 +16,9 @@ class WelcomeScreen extends StatelessWidget {
             const Image(image: AssetImage("assets/demon.png")),
             Column(
               children: [
-                Text('DimonisGO', style: Theme.of(context).textTheme.headline3),
+                Text('DimonisGO', style: Theme.of(context).textTheme.displaySmall),
                 Text("Una aplicacion para entretener-se i jugar con amigos",
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center),
               ],
             ),

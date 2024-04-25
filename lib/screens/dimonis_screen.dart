@@ -1,25 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:app_dimonis/providers/progress_provider.dart';
-import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/gimcana_provider.dart';
-import 'package:app_dimonis/providers/playing_gimcama.dart';
-import 'package:app_dimonis/screens/create_ginkana.dart';
 import 'package:flutter/material.dart';
-import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
-import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
-import 'package:app_dimonis/models/firebase/firebase_progress.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 class DimonisScreen extends StatelessWidget {
-  const DimonisScreen({Key? key});
+  const DimonisScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var FirebaseProvider = Provider.of<FireBaseProvider>(context, listen: true);
-    var gimcanaId = FirebaseProvider.progressProvider.gimcanaId;
+    var firebaseProvider = Provider.of<FireBaseProvider>(context, listen: true);
+    var gimcanaId = firebaseProvider.progressProvider.gimcanaId;
     return Scaffold(body: Builder(
       builder: (context) {
         if (gimcanaId == null) {
@@ -59,7 +50,7 @@ class DimonisScreen extends StatelessWidget {
         }
 
         var playing =
-            FirebaseProvider.gimcanaProvider.getGimcanaById(gimcanaId);
+            firebaseProvider.gimcanaProvider.getGimcanaById(gimcanaId);
 
         return ListView.builder(
           scrollDirection: Axis.vertical,
@@ -75,7 +66,7 @@ class DimonisScreen extends StatelessWidget {
 class _Card extends StatelessWidget {
   final Dimoni dimoni;
 
-  const _Card(context, {Key? key, required this.dimoni}) : super(key: key);
+  const _Card(context, {required this.dimoni});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +98,7 @@ class _Card extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,7 +121,7 @@ class _Card extends StatelessWidget {
               ),
             ],
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );

@@ -40,7 +40,7 @@ class FacebookSignInButton extends StatelessWidget {
       height: 50,
       child: OutlinedButton.icon(
         icon:
-            const Image(image: AssetImage("assets/Facebook.jpg"), width: 20.0),
+            const Image(image: AssetImage("assets/facebook.png"), width: 20.0),
         onPressed: () {
           _signInWithFacebook(context);
         },

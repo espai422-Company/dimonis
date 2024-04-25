@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width: MediaQuery.of(context).size.width - 40,
+                  SizedBox(width: MediaQuery.of(context).size.width - 40,
                     child: Text(
                       textAlign: TextAlign.center,
                         FirebaseAuth.instance.currentUser!.displayName ??

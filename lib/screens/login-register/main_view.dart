@@ -6,9 +6,8 @@ class MainViewScreen extends StatelessWidget {
   final int initialPageIndex;
   final PageController controller;
 
-  MainViewScreen({Key? key, required this.initialPageIndex})
-      : controller = PageController(initialPage: initialPageIndex),
-        super(key: key);
+  MainViewScreen({super.key, required this.initialPageIndex})
+      : controller = PageController(initialPage: initialPageIndex);
 
   @override
   Widget build(BuildContext context) {

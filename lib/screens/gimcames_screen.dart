@@ -2,7 +2,6 @@ import 'package:app_dimonis/widgets/gimcama_list.dart';
 import 'package:app_dimonis/widgets/gimcana_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 
 class GimcamaScreen extends StatefulWidget {
@@ -52,7 +51,7 @@ class _GimcamaScreenState extends State<GimcamaScreen> {
         ),
       );
     } else {
-      return Center(child: GimcamaData());
+      return const Center(child: GimcamaData());
     }
   }
 }

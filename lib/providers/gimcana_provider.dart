@@ -1,10 +1,8 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
-import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/dimoni_provider.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/widgets.dart';
 
 class GimcanaProvider {
   List<Gimcama> _gimcanes = [];

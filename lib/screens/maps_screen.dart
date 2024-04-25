@@ -87,12 +87,12 @@ class _MapsScreenState extends State<MapsScreen> {
         animatedTexts: [
           ScaleAnimatedText(
             'Enhorabona!',
-            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
           ),
           ScaleAnimatedText(
             'Has completat la gimcana!',
-            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
           ),
         ],
@@ -227,7 +227,7 @@ class _MapsScreenState extends State<MapsScreen> {
           onPressed: () {
             _showDialog(context);
           },
-          backgroundColor: Color.fromARGB(255, 255, 0, 0),
+          backgroundColor: const Color.fromARGB(255, 255, 0, 0),
           child: const Icon(Icons.check),
         );
       } else {
