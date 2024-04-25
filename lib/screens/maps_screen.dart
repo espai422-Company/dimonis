@@ -4,16 +4,16 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
+import 'package:app_dimonis/providers/global_classification_provider.dart';
 import 'package:app_dimonis/providers/providers.dart';
-import 'package:app_dimonis/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import '../models/state/progress.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -54,6 +54,8 @@ class _MapsScreenState extends State<MapsScreen> {
   Widget build(BuildContext context) {
     GoogleMapController mapController;
     final firebase = Provider.of<FireBaseProvider>(context);
+    final classification = Provider.of<GlobalClassificationProvider>(context);
+
     final actualUser = firebase.usersProvider
         .getUserById(FirebaseAuth.instance.currentUser!.uid);
     final progressProvider = firebase.progressProvider;
@@ -117,9 +119,6 @@ class _MapsScreenState extends State<MapsScreen> {
           target: _nextLocation ?? const LatLng(0, 0),
           zoom: 10,
         ),
-        // onMapCreated: (GoogleMapController controller) {
-        //   _controller.complete(controller);
-        // },
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
           mapController = controller;
@@ -239,8 +238,6 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _showDialog(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -265,10 +262,6 @@ class _MapsScreenState extends State<MapsScreen> {
                     placeholder:
                         const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                     image: NetworkImage(_nextDimoni!.image)),
-                // TextField(
-                //   controller: controller,
-                //   decoration: const InputDecoration(hintText: "Nom del dimoni"),
-                // ),
                 DropdownButton<String>(
                   value: selectedValue,
                   onChanged: (String? newValue) {

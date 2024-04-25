@@ -31,8 +31,7 @@ class _DrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UserAccountsDrawerHeader(
-      accountName:
-          Text(FirebaseAuth.instance.currentUser!.displayName ?? 'NOM COMPLET'),
+      accountName: Text(FirebaseAuth.instance.currentUser!.displayName ?? 'NOM COMPLET'),
       accountEmail: Text(FirebaseAuth.instance.currentUser!.email ?? 'CORREU'),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.transparent,
@@ -43,8 +42,7 @@ class _DrawerHeader extends StatelessWidget {
             fit: BoxFit.cover,
             width: 90,
             height: 90,
-            errorBuilder:
-                (BuildContext context, Object error, StackTrace? stackTrace) {
+            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
               return Image.asset(
                 'assets/user.png',
                 fit: BoxFit.cover,
@@ -56,8 +54,7 @@ class _DrawerHeader extends StatelessWidget {
         ),
       ),
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/DrawerImage.jpg'), fit: BoxFit.cover),
+        image: DecorationImage(image: AssetImage('assets/DrawerImage.jpg'), fit: BoxFit.cover),
       ),
     );
   }
@@ -88,6 +85,15 @@ class _DrawerBody extends StatelessWidget {
           onPress: () {
             Navigator.pop(context);
             Navigator.pushReplacementNamed(context, 'user_screen');
+          },
+        ),
+        ProfileMenuWidget(
+          title: "Classificació",
+          icon: Icons.bar_chart,
+          color: color,
+          onPress: () {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, 'global_classification');
           },
         ),
         ProfileMenuWidget(
