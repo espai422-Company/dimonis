@@ -37,4 +37,7 @@ class FirebaseUser {
         "providerId": providerId,
         "privileges": privileges,
       };
+
+  @override
+  int get hashCode => id.hashCode;
 }
