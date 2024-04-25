@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'element_list.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({Key? key}) : super(key: key);
+  const SideMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,7 @@ class SideMenu extends StatelessWidget {
 }
 
 class _DrawerHeader extends StatelessWidget {
-  const _DrawerHeader({
-    Key? key,
-  }) : super(key: key);
+  const _DrawerHeader();
 
   @override
   Widget build(BuildContext context) {

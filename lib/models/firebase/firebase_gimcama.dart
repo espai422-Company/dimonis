@@ -1,8 +1,3 @@
-import 'package:app_dimonis/api/db_connection.dart';
-import 'package:app_dimonis/models/firebase/dimoni.dart';
-import 'package:app_dimonis/models/state/gimcama.dart';
-import 'package:firebase_database/firebase_database.dart';
-
 class FirebaseGimana {
   String nom;
   DateTime start;

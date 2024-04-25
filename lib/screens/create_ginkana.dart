@@ -3,7 +3,6 @@ import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -34,12 +33,12 @@ class _CreateGinkanaState extends State<CreateGinkana> {
     // dataFinal = gimcana.end;
     dimonis = gimcana.dimonis;
     return Scaffold(
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       appBar: AppBar(
-        title: Text("Crea una gimcana"),
+        title: const Text("Crea una gimcana"),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.5),
+        padding: const EdgeInsets.all(16.5),
         children: [
           Container(
             height: 15,
@@ -52,8 +51,8 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Data d\' inici"),
-              Expanded(child: SizedBox()),
+              const Text("Data d\' inici"),
+              const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
                     final date = await _datePicker(context, DateTime(2023));
@@ -79,8 +78,8 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Data final"),
-              Expanded(child: SizedBox()),
+              const Text("Data final"),
+              const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
                     final date = await _datePicker(context, dataFinal);
@@ -154,7 +153,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             Provider.of<UIProvider>(context, listen: false).selectMenuOpt = 2;
           }
         },
-        child: Icon(Icons.save),
+        child: const Icon(Icons.save),
       ),
     );
   }
@@ -170,23 +169,23 @@ Widget _dimonis(context) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Dimonis"),
-          Expanded(child: SizedBox()),
+          const Text("Dimonis"),
+          const Expanded(child: SizedBox()),
           Text("${totaldimonis.totaldimonis}"),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
                 dimonis = {};
                 totaldimonis.setDimoni(dimonis.length);
                 totaldimonis.notify();
               },
-              child: Text("Buidar dimonis")),
+              child: const Text("Buidar dimonis")),
         ],
       ),
       Container(
         height: 25,
       ),
-      Container(
+      SizedBox(
         height: 250,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -202,7 +201,7 @@ Widget _dimonis(context) {
 class _Card extends StatelessWidget {
   final Dimoni dimoni;
 
-  const _Card(context, {Key? key, required this.dimoni}) : super(key: key);
+  const _Card(context, {required this.dimoni});
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +262,7 @@ Widget _nom(String text) {
     decoration: InputDecoration(
       hintText: text,
       labelText: text,
-      icon: Icon(Icons.games_sharp),
+      icon: const Icon(Icons.games_sharp),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -273,8 +272,10 @@ Widget _nom(String text) {
       nom = value;
     },
     validator: (value) {
-      if (value == null || value.length < 8 || value.length > 15)
+      if (value == null || value.length < 8 || value.length > 15) {
         return 'El nom és obligatori';
+      }
+      return null;
     },
   );
 }

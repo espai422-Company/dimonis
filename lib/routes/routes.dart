@@ -4,7 +4,6 @@ import 'package:app_dimonis/screens/paypal.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:app_dimonis/screens/upgrade_to_premium.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/': (context) => const ComprovacioLogin(),

@@ -4,8 +4,7 @@ import 'package:app_dimonis/widgets/facebook_sign_in_button.dart';
 
 class LoginHeaderWidget extends StatelessWidget {
   const LoginHeaderWidget(
-      {Key? key, required this.title, required this.subtitle})
-      : super(key: key);
+      {super.key, required this.title, required this.subtitle});
 
   final String title;
   final String subtitle;

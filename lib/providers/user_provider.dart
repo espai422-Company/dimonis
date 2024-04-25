@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class UsersProvider {
   void Function() notifyListeners;
