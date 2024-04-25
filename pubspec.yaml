@@ -110,6 +110,8 @@ flutter:
     - assets/guia/
     - assets/maps/
     - assets/fotos_clasificacio/
+    - assets/logo/
+    - assets/icons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
