@@ -1,7 +1,6 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/widgets.dart';
 
 class DimoniProvider {
   late List<Dimoni> _dimonis;

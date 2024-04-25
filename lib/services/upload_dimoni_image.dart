@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,28 @@ Future<bool> uploadImage(File image, String nomImage) async {
   if (snapshot.state == TaskState.success) {
     return true;
   } else {
+    return false;
+  }
+}
+
+Future<bool> uploadImageUser(BuildContext context, File image) async {
+  try {
+    final String nameFile = '${FirebaseAuth.instance.currentUser!.uid}.png';
+
+    final uploadedImage = await uploadImage(image, 'Icons/$nameFile');
+
+    if (!uploadedImage) {
+      return false;
+    }
+
+    var userProvider =
+        Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
+    userProvider.setPhotoURL(
+        'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F' +
+            nameFile +
+            '?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3');
+    return true;
+  } catch (e) {
     return false;
   }
 }

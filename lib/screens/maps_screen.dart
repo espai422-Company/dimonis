@@ -1,18 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
+import 'package:app_dimonis/providers/global_classification_provider.dart';
 import 'package:app_dimonis/providers/providers.dart';
-import 'package:app_dimonis/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 import '../models/state/progress.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -53,19 +54,53 @@ class _MapsScreenState extends State<MapsScreen> {
   Widget build(BuildContext context) {
     GoogleMapController mapController;
     final firebase = Provider.of<FireBaseProvider>(context);
+    final classification = Provider.of<GlobalClassificationProvider>(context);
+
     final actualUser = firebase.usersProvider
         .getUserById(FirebaseAuth.instance.currentUser!.uid);
     final progressProvider = firebase.progressProvider;
     _getNext();
 
     if (progressProvider.gimcanaId == null) {
-      return const Center(
-        child: Text('No t\'has unit a cap gincana'),
+      return Center(
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText(
+              'Unit a una gimcana per començar',
+              textAlign: TextAlign.center,
+              textStyle: const TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+              speed: const Duration(milliseconds: 200),
+            ),
+          ],
+          repeatForever: true,
+          pause: const Duration(milliseconds: 100),
+          displayFullTextOnTap: true,
+          stopPauseOnTap: true,
+        ),
       );
     } else if (progressProvider.timeToComplete[actualUser] != null) {
-      return const Center(
-        child: Text('Has completat la gimcana'),
-      );
+      return Center(
+          child: AnimatedTextKit(
+        animatedTexts: [
+          ScaleAnimatedText(
+            'Enhorabona!',
+            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+          ScaleAnimatedText(
+            'Has completat la gimcana!',
+            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+        ],
+        pause: const Duration(milliseconds: 300),
+        repeatForever: true,
+        displayFullTextOnTap: true,
+        stopPauseOnTap: true,
+      ));
     } else if (!hasLocationPermission) {
       return const Center(
         child: Text('No tenim permís per accedir a la localització'),
@@ -84,9 +119,6 @@ class _MapsScreenState extends State<MapsScreen> {
           target: _nextLocation ?? const LatLng(0, 0),
           zoom: 10,
         ),
-        // onMapCreated: (GoogleMapController controller) {
-        //   _controller.complete(controller);
-        // },
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
           mapController = controller;
@@ -195,7 +227,7 @@ class _MapsScreenState extends State<MapsScreen> {
           onPressed: () {
             _showDialog(context);
           },
-          backgroundColor: Color.fromARGB(255, 255, 0, 0),
+          backgroundColor: const Color.fromARGB(255, 255, 0, 0),
           child: const Icon(Icons.check),
         );
       } else {
@@ -206,8 +238,6 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _showDialog(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -232,10 +262,6 @@ class _MapsScreenState extends State<MapsScreen> {
                     placeholder:
                         const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                     image: NetworkImage(_nextDimoni!.image)),
-                // TextField(
-                //   controller: controller,
-                //   decoration: const InputDecoration(hintText: "Nom del dimoni"),
-                // ),
                 DropdownButton<String>(
                   value: selectedValue,
                   onChanged: (String? newValue) {

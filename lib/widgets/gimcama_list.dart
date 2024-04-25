@@ -2,8 +2,6 @@ import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/gimcana_provider.dart';
-import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/gimcama_card.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';

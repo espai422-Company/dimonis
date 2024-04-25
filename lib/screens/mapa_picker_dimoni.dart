@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapaPickerScreen extends StatefulWidget {
-  const MapaPickerScreen({Key? key}) : super(key: key);
+  const MapaPickerScreen({super.key});
 
   @override
   State<MapaPickerScreen> createState() => _MapaScreenState();
@@ -18,7 +18,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
   MapType _currentMapType = MapType.normal;
   late Map<Dimoni, dynamic> dimoni;
-  late Marker coordenadesDimoni = Marker(markerId: const MarkerId(''));
+  late Marker coordenadesDimoni = const Marker(markerId: MarkerId(''));
   late String _mapStyle;
 
   @override
@@ -27,7 +27,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     rootBundle.loadString('assets/maps/map_style.txt').then((string) {
       _mapStyle = string;
     });
-    final CameraPosition _puntInicial = CameraPosition(
+    final CameraPosition puntInicial = CameraPosition(
         target: getLatLng('39.76971,3.0123283'), zoom: 17, tilt: 50);
 
     dimoni = ModalRoute.of(context)!.settings.arguments as Map<Dimoni, dynamic>;
@@ -40,7 +40,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
               double.parse(dimoni.values.first['y'])));
     }
 
-    Set<Marker> markers = new Set<Marker>();
+    Set<Marker> markers = <Marker>{};
     markers.add(
       coordenadesDimoni,
     );
@@ -51,7 +51,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              tornarAlLlocInicial(_puntInicial);
+              tornarAlLlocInicial(puntInicial);
             },
             icon: const Icon(Icons.location_pin),
           ),
@@ -74,7 +74,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           dimoni.values.first['x'] = coor.latitude.toString(),
           dimoni.values.first['y'] = coor.longitude.toString(),
           },
-        initialCameraPosition: _puntInicial,
+        initialCameraPosition: puntInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
           mapController = controller;

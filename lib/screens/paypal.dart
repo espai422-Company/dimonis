@@ -1,5 +1,4 @@
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_checkout/flutter_paypal_checkout.dart';
 import 'package:provider/provider.dart';

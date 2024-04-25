@@ -1,10 +1,9 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseProgress {
-  static final path = '/progress';
+  static const path = '/progress';
   final String gimcanaId;
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 

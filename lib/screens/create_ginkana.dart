@@ -3,7 +3,6 @@ import 'package:app_dimonis/models/firebase/firebase_gimcama.dart';
 import 'package:app_dimonis/models/firebase/firebase_user.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
-import 'package:app_dimonis/providers/gimcana_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
 import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -11,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 String nom = '';
-DateTime dataInici = DateTime.now();
-DateTime dataFinal = DateTime.now();
+DateTime? dataInici;
+DateTime? dataFinal;
 Map<dynamic, dynamic> dimonis = {};
 
 class CreateGinkana extends StatefulWidget {
@@ -25,18 +24,21 @@ class CreateGinkana extends StatefulWidget {
 class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
-    FirebaseGimana gimcana = ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
+    FirebaseGimana gimcana =
+        ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
     nom = gimcana.nom;
-    dataInici = gimcana.start;
-    dataFinal = gimcana.end;
+    dataFinal ??= gimcana.end;
+    dataInici ??= gimcana.start;
+    // dataInici = gimcana.start;
+    // dataFinal = gimcana.end;
     dimonis = gimcana.dimonis;
     return Scaffold(
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       appBar: AppBar(
-        title: Text("Crea una gimcana"),
+        title: const Text("Crea una gimcana"),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.5),
+        padding: const EdgeInsets.all(16.5),
         children: [
           Container(
             height: 15,
@@ -49,8 +51,8 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Data d\' inici"),
-              Expanded(child: SizedBox()),
+              const Text("Data d\' inici"),
+              const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
                     final date = await _datePicker(context, DateTime(2023));
@@ -66,7 +68,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                     });
                   },
                   child: Text(
-                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+                      "${dataInici!.year}/${dataInici!.month}/${dataInici!.day} ${dataInici!.hour.toString().padLeft(2, "0")}:${dataInici!.minute.toString().padLeft(2, "0")}")),
             ],
           ),
           Container(
@@ -76,11 +78,11 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Data final"),
-              Expanded(child: SizedBox()),
+              const Text("Data final"),
+              const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
-                    final date = await _datePicker(context, dataInici);
+                    final date = await _datePicker(context, dataFinal);
                     if (date == null) {
                       return;
                     }
@@ -93,7 +95,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                     });
                   },
                   child: Text(
-                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+                      "${dataFinal!.year}/${dataFinal!.month}/${dataFinal!.day} ${dataFinal!.hour.toString().padLeft(2, "0")}:${dataFinal!.minute.toString().padLeft(2, "0")}")),
             ],
           ),
           Container(
@@ -125,24 +127,24 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                 Provider.of<FireBaseProvider>(context, listen: false)
                     .usersProvider
                     .currentUser;
-            
+
             gimcana.nom = nom;
-            gimcana.start = dataInici;
-            gimcana.end = dataFinal;
+            gimcana.start = dataInici!;
+            gimcana.end = dataFinal!;
             gimcana.dimonis = dimonis;
             gimcana.propietari = user.id;
 
             if (gimcana.id == "") {
-              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
+              Provider.of<FireBaseProvider>(context, listen: false)
+                  .gimcanaProvider
+                  .saveGimcama(gimcana);
             } else {
-              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.updateGimcama(gimcana);
+              Provider.of<FireBaseProvider>(context, listen: false)
+                  .gimcanaProvider
+                  .updateGimcama(gimcana);
             }
-            
-
 
             nom = '';
-            dataInici = DateTime.now();
-            dataFinal = DateTime.now();
             dimonis = {};
             Provider.of<TotalDimonisProvider>(context, listen: false)
                 .setDimoni(dimonis.length);
@@ -151,7 +153,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             Provider.of<UIProvider>(context, listen: false).selectMenuOpt = 2;
           }
         },
-        child: Icon(Icons.save),
+        child: const Icon(Icons.save),
       ),
     );
   }
@@ -167,23 +169,23 @@ Widget _dimonis(context) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Dimonis"),
-          Expanded(child: SizedBox()),
+          const Text("Dimonis"),
+          const Expanded(child: SizedBox()),
           Text("${totaldimonis.totaldimonis}"),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
                 dimonis = {};
                 totaldimonis.setDimoni(dimonis.length);
                 totaldimonis.notify();
               },
-              child: Text("Buidar dimonis")),
+              child: const Text("Buidar dimonis")),
         ],
       ),
       Container(
         height: 25,
       ),
-      Container(
+      SizedBox(
         height: 250,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -199,7 +201,7 @@ Widget _dimonis(context) {
 class _Card extends StatelessWidget {
   final Dimoni dimoni;
 
-  const _Card(context, {Key? key, required this.dimoni}) : super(key: key);
+  const _Card(context, {required this.dimoni});
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +262,7 @@ Widget _nom(String text) {
     decoration: InputDecoration(
       hintText: text,
       labelText: text,
-      icon: Icon(Icons.games_sharp),
+      icon: const Icon(Icons.games_sharp),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
@@ -270,8 +272,10 @@ Widget _nom(String text) {
       nom = value;
     },
     validator: (value) {
-      if (value == null || value.length < 8 || value.length > 15)
+      if (value == null || value.length < 8 || value.length > 15) {
         return 'El nom és obligatori';
+      }
+      return null;
     },
   );
 }
@@ -284,7 +288,7 @@ Future<DateTime?> _datePicker(context, primeradata) => showDatePicker(
 
 Future<TimeOfDay?> _timePicker(context) => showTimePicker(
     context: context,
-    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
+    initialTime: TimeOfDay(hour: dataInici!.hour, minute: dataInici!.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
@@ -297,7 +301,7 @@ List<String> comprovarDades() {
     errors.add("El minim de dimonis pera una gincana son ${dimonis.length}/3");
   }
 
-  if (dataFinal.isBefore(dataInici)) {
+  if (dataFinal!.isBefore(dataInici!)) {
     errors
         .add("La data final de la gincana no pot ser menor a la data d'inici");
   }
@@ -306,7 +310,7 @@ List<String> comprovarDades() {
     errors.add("El nom de la gincana es massa curt ${nom.length}/8");
   }
 
-  if (nom.length > 15){
+  if (nom.length > 15) {
     errors.add("El nom de la gincana es massa llarg ${nom.length}/15");
   }
 
