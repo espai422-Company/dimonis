@@ -67,9 +67,9 @@ class _LoginFormState extends State<LoginForm> {
     try {
       await Auth().signInWithEmailAndPassword(email, password);
       if (Preferences.guiaInicial) {
-        Navigator.of(context).pushNamed('guia_inicial');
+        Navigator.of(context).pushReplacementNamed('guia_inicial');
       } else {
-        Navigator.of(context).pushNamed('/');
+        Navigator.of(context).pushReplacementNamed('/');
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
