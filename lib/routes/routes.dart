@@ -1,8 +1,10 @@
 import 'package:app_dimonis/screens/global_classification.dart';
+import 'package:app_dimonis/screens/icon_picker_user.dart';
 import 'package:app_dimonis/screens/paypal.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:app_dimonis/screens/upgrade_to_premium.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/': (context) => const ComprovacioLogin(),
@@ -19,5 +21,6 @@ final Map<String, WidgetBuilder> routes = {
   '/paypal': (context) => const PayPal(),
   'update_user_data_screen': (context) => const UpdateProfileScreen(),
   'guia_inicial': (context) => const GuiaInicial(),
-  'global_classification': (context) => const GlobalClassification()
+  'global_classification': (context) => const GlobalClassification(),
+  'icon_picker_user': (context) => const ImagePickerScreen()
 };

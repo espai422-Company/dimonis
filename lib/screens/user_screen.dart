@@ -38,22 +38,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image.asset('assets/demon.png'),
+                      child: Image.network(
+                        FirebaseAuth.instance.currentUser!.photoURL ?? '',
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object error,
+                            StackTrace? stackTrace) {
+                          return Image.asset(
+                            'assets/demon.png',
+                            fit: BoxFit.cover,
+                            width: 90,
+                            height: 90,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: color),
-                      child: const Icon(
-                        Icons.edit,
-                        color: Colors.black,
-                        size: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'icon_picker_user');
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: color),
+                        child: const Icon(
+                          Icons.edit,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
