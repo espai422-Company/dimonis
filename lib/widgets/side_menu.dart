@@ -65,7 +65,7 @@ class _DrawerBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color color = Colors.cyan;
+    const Color color = Color.fromARGB(255, 255, 126, 126);
 
     return Column(
       children: [

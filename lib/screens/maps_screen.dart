@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/global_classification_provider.dart';
@@ -55,19 +56,51 @@ class _MapsScreenState extends State<MapsScreen> {
     final firebase = Provider.of<FireBaseProvider>(context);
     final classification = Provider.of<GlobalClassificationProvider>(context);
 
-    final actualUser = firebase.usersProvider.getUserById(FirebaseAuth.instance.currentUser!.uid);
+    final actualUser = firebase.usersProvider
+        .getUserById(FirebaseAuth.instance.currentUser!.uid);
     final progressProvider = firebase.progressProvider;
     _getNext();
 
     if (progressProvider.gimcanaId == null) {
-      return const Center(
-        child: Text('No t\'has unit a cap gincana'),
+      return Center(
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText(
+              'Unit a una gimcana per començar',
+              textAlign: TextAlign.center,
+              textStyle: const TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+              speed: const Duration(milliseconds: 200),
+            ),
+          ],
+          repeatForever: true,
+          pause: const Duration(milliseconds: 100),
+          displayFullTextOnTap: true,
+          stopPauseOnTap: true,
+        ),
       );
     } else if (progressProvider.timeToComplete[actualUser] != null) {
-      classification.finishGimcana(progressProvider.gimcanaId!, actualUser.id);
-      return const Center(
-        child: Text('Has completat la gimcana'),
-      );
+      return Center(
+          child: AnimatedTextKit(
+        animatedTexts: [
+          ScaleAnimatedText(
+            'Enhorabona!',
+            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+          ScaleAnimatedText(
+            'Has completat la gimcana!',
+            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+        ],
+        pause: const Duration(milliseconds: 300),
+        repeatForever: true,
+        displayFullTextOnTap: true,
+        stopPauseOnTap: true,
+      ));
     } else if (!hasLocationPermission) {
       return const Center(
         child: Text('No tenim permís per accedir a la localització'),
@@ -115,8 +148,10 @@ class _MapsScreenState extends State<MapsScreen> {
 
   Progress? _getActualProgress(FireBaseProvider fireBaseProvider) {
     final actualUserUID = FirebaseAuth.instance.currentUser!.uid;
-    final actualUser = fireBaseProvider.usersProvider.getUserById(actualUserUID);
-    final Progress? progress = fireBaseProvider.progressProvider.progressMap[actualUser];
+    final actualUser =
+        fireBaseProvider.usersProvider.getUserById(actualUserUID);
+    final Progress? progress =
+        fireBaseProvider.progressProvider.progressMap[actualUser];
 
     return progress;
   }
@@ -134,7 +169,8 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _getNext() {
-    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    final fireBaseProvider =
+        Provider.of<FireBaseProvider>(context, listen: false);
     final progress = _getActualProgress(fireBaseProvider);
 
     if (progress == null) {
@@ -174,7 +210,8 @@ class _MapsScreenState extends State<MapsScreen> {
     }
 
     if (hasLocationPermission && locationServiceEnabled) {
-      _locationSubscription = location.onLocationChanged.listen(_onLocationChanged);
+      _locationSubscription =
+          location.onLocationChanged.listen(_onLocationChanged);
     }
   }
 
@@ -205,7 +242,10 @@ class _MapsScreenState extends State<MapsScreen> {
       context: context,
       builder: (BuildContext context) {
         List<DropdownMenuItem<String>> dimonis = [];
-        Provider.of<FireBaseProvider>(context, listen: false).dimoniProvider.dimonis.forEach((element) {
+        Provider.of<FireBaseProvider>(context, listen: false)
+            .dimoniProvider
+            .dimonis
+            .forEach((element) {
           dimonis.add(DropdownMenuItem<String>(
             value: element.nom,
             child: Text(element.nom),
@@ -219,7 +259,8 @@ class _MapsScreenState extends State<MapsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FadeInImage(
-                    placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
+                    placeholder:
+                        const AssetImage('assets/LoadingDimonis-unscreen.gif'),
                     image: NetworkImage(_nextDimoni!.image)),
                 DropdownButton<String>(
                   value: selectedValue,
@@ -252,7 +293,8 @@ class _MapsScreenState extends State<MapsScreen> {
   }
 
   void _submit(String resposta, BuildContext context) {
-    final fireBaseProvider = Provider.of<FireBaseProvider>(context, listen: false);
+    final fireBaseProvider =
+        Provider.of<FireBaseProvider>(context, listen: false);
     if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -278,7 +320,10 @@ class _MapsScreenState extends State<MapsScreen> {
     double latDiff = _toRadians(to.latitude - from.latitude);
     double lngDiff = _toRadians(to.longitude - from.longitude);
     double a = sin(latDiff / 2) * sin(latDiff / 2) +
-        cos(_toRadians(from.latitude)) * cos(_toRadians(to.latitude)) * sin(lngDiff / 2) * sin(lngDiff / 2);
+        cos(_toRadians(from.latitude)) *
+            cos(_toRadians(to.latitude)) *
+            sin(lngDiff / 2) *
+            sin(lngDiff / 2);
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
     double distance = earthRadius * c;
     return distance;
