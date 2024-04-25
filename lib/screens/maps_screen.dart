@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/providers.dart';
@@ -59,13 +60,45 @@ class _MapsScreenState extends State<MapsScreen> {
     _getNext();
 
     if (progressProvider.gimcanaId == null) {
-      return const Center(
-        child: Text('No t\'has unit a cap gincana'),
+      return Center(
+        child: AnimatedTextKit(
+          animatedTexts: [
+            TypewriterAnimatedText(
+              'Unit a una gimcana per començar',
+              textAlign: TextAlign.center,
+              textStyle: const TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+              speed: const Duration(milliseconds: 200),
+            ),
+          ],
+          repeatForever: true,
+          pause: const Duration(milliseconds: 100),
+          displayFullTextOnTap: true,
+          stopPauseOnTap: true,
+        ),
       );
     } else if (progressProvider.timeToComplete[actualUser] != null) {
-      return const Center(
-        child: Text('Has completat la gimcana'),
-      );
+      return Center(
+          child: AnimatedTextKit(
+        animatedTexts: [
+          ScaleAnimatedText(
+            'Enhorabona!',
+            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+          ScaleAnimatedText(
+            'Has completat la gimcana!',
+            textStyle: TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            duration: const Duration(milliseconds: 5000),
+          ),
+        ],
+        pause: const Duration(milliseconds: 300),
+        repeatForever: true,
+        displayFullTextOnTap: true,
+        stopPauseOnTap: true,
+      ));
     } else if (!hasLocationPermission) {
       return const Center(
         child: Text('No tenim permís per accedir a la localització'),
