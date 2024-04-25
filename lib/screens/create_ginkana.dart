@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 String nom = '';
-DateTime dataInici = DateTime.now();
-DateTime dataFinal = DateTime.now();
+DateTime? dataInici;
+DateTime? dataFinal;
 Map<dynamic, dynamic> dimonis = {};
 
 class CreateGinkana extends StatefulWidget {
@@ -25,10 +25,13 @@ class CreateGinkana extends StatefulWidget {
 class _CreateGinkanaState extends State<CreateGinkana> {
   @override
   Widget build(BuildContext context) {
-    FirebaseGimana gimcana = ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
+    FirebaseGimana gimcana =
+        ModalRoute.of(context)!.settings.arguments as FirebaseGimana;
     nom = gimcana.nom;
-    dataInici = gimcana.start;
-    dataFinal = gimcana.end;
+    dataFinal ??= gimcana.end;
+    dataInici ??= gimcana.start;
+    // dataInici = gimcana.start;
+    // dataFinal = gimcana.end;
     dimonis = gimcana.dimonis;
     return Scaffold(
       drawer: SideMenu(),
@@ -66,7 +69,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                     });
                   },
                   child: Text(
-                      "${dataInici.year}/${dataInici.month}/${dataInici.day} ${dataInici.hour.toString().padLeft(2, "0")}:${dataInici.minute.toString().padLeft(2, "0")}")),
+                      "${dataInici!.year}/${dataInici!.month}/${dataInici!.day} ${dataInici!.hour.toString().padLeft(2, "0")}:${dataInici!.minute.toString().padLeft(2, "0")}")),
             ],
           ),
           Container(
@@ -80,7 +83,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
               Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
-                    final date = await _datePicker(context, dataInici);
+                    final date = await _datePicker(context, dataFinal);
                     if (date == null) {
                       return;
                     }
@@ -93,7 +96,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                     });
                   },
                   child: Text(
-                      "${dataFinal.year}/${dataFinal.month}/${dataFinal.day} ${dataFinal.hour.toString().padLeft(2, "0")}:${dataFinal.minute.toString().padLeft(2, "0")}")),
+                      "${dataFinal!.year}/${dataFinal!.month}/${dataFinal!.day} ${dataFinal!.hour.toString().padLeft(2, "0")}:${dataFinal!.minute.toString().padLeft(2, "0")}")),
             ],
           ),
           Container(
@@ -125,24 +128,24 @@ class _CreateGinkanaState extends State<CreateGinkana> {
                 Provider.of<FireBaseProvider>(context, listen: false)
                     .usersProvider
                     .currentUser;
-            
+
             gimcana.nom = nom;
-            gimcana.start = dataInici;
-            gimcana.end = dataFinal;
+            gimcana.start = dataInici!;
+            gimcana.end = dataFinal!;
             gimcana.dimonis = dimonis;
             gimcana.propietari = user.id;
 
             if (gimcana.id == "") {
-              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.saveGimcama(gimcana);
+              Provider.of<FireBaseProvider>(context, listen: false)
+                  .gimcanaProvider
+                  .saveGimcama(gimcana);
             } else {
-              Provider.of<FireBaseProvider>(context, listen: false).gimcanaProvider.updateGimcama(gimcana);
+              Provider.of<FireBaseProvider>(context, listen: false)
+                  .gimcanaProvider
+                  .updateGimcama(gimcana);
             }
-            
-
 
             nom = '';
-            dataInici = DateTime.now();
-            dataFinal = DateTime.now();
             dimonis = {};
             Provider.of<TotalDimonisProvider>(context, listen: false)
                 .setDimoni(dimonis.length);
@@ -284,7 +287,7 @@ Future<DateTime?> _datePicker(context, primeradata) => showDatePicker(
 
 Future<TimeOfDay?> _timePicker(context) => showTimePicker(
     context: context,
-    initialTime: TimeOfDay(hour: dataInici.hour, minute: dataInici.minute));
+    initialTime: TimeOfDay(hour: dataInici!.hour, minute: dataInici!.minute));
 
 DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
@@ -297,7 +300,7 @@ List<String> comprovarDades() {
     errors.add("El minim de dimonis pera una gincana son ${dimonis.length}/3");
   }
 
-  if (dataFinal.isBefore(dataInici)) {
+  if (dataFinal!.isBefore(dataInici!)) {
     errors
         .add("La data final de la gincana no pot ser menor a la data d'inici");
   }
@@ -306,7 +309,7 @@ List<String> comprovarDades() {
     errors.add("El nom de la gincana es massa curt ${nom.length}/8");
   }
 
-  if (nom.length > 15){
+  if (nom.length > 15) {
     errors.add("El nom de la gincana es massa llarg ${nom.length}/15");
   }
 
