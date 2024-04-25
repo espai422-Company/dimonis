@@ -1,3 +1,4 @@
+import 'package:app_dimonis/widgets/github_sign_in_button.dart';
 import 'package:app_dimonis/widgets/google_sign_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dimonis/widgets/facebook_sign_in_button.dart';
@@ -53,8 +54,21 @@ class LoginFooterWidget extends StatelessWidget {
         children: [
           const Text("OR"),
           const SizedBox(height: 10),
-          GoogleSignInButton(),
-          FacebookSignInButton(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GoogleSignInButton(),
+              const SizedBox(width: 30,),
+              FacebookSignInButton(),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GithubSignInButton(),
+            ],
+          ),
           const SizedBox(height: 10),
           TextButton(
             onPressed: () {

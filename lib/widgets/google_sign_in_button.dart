@@ -41,14 +41,14 @@ class GoogleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: 130,
       height: 50,
       child: OutlinedButton.icon(
         icon: const Image(image: AssetImage("assets/google.png"), width: 20.0),
         onPressed: () {
           _signInWithGoogle(context);
         },
-        label: const Text("Sign-In With Google"),
+        label: const Text("Google"),
       ),
     );
   }

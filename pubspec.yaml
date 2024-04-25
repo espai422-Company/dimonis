@@ -58,6 +58,7 @@ dependencies:
   flutter_facebook_auth: ^6.0.0
   flutter_launcher_icons: ^0.13.1
   animated_text_kit: ^4.2.2
+  github: ^9.24.0
 
 
 dev_dependencies:

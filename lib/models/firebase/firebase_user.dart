@@ -23,7 +23,7 @@ class FirebaseUser {
   factory FirebaseUser.fromMap(Map<String, dynamic> json, String id) =>
       FirebaseUser(
         email: json["email"],
-        displayName: json["displayName"],
+        displayName: json["displayName"] ?? "",
         photoUrl: json["photoURL"],
         providerId: json["providerId"],
         privileges: json["privileges"],

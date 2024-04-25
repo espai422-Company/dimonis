@@ -36,7 +36,7 @@ class FacebookSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: 130,
       height: 50,
       child: OutlinedButton.icon(
         icon:
@@ -44,7 +44,7 @@ class FacebookSignInButton extends StatelessWidget {
         onPressed: () {
           _signInWithFacebook(context);
         },
-        label: const Text("Sign-In With Facebook"),
+        label: const Text("Facebook"),
       ),
     );
   }
