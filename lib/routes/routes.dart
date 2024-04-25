@@ -1,3 +1,4 @@
+import 'package:app_dimonis/screens/global_classification.dart';
 import 'package:app_dimonis/screens/paypal.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:app_dimonis/screens/upgrade_to_premium.dart';
@@ -18,4 +19,5 @@ final Map<String, WidgetBuilder> routes = {
   '/paypal': (context) => const PayPal(),
   'update_user_data_screen': (context) => const UpdateProfileScreen(),
   'guia_inicial': (context) => const GuiaInicial(),
+  'global_classification': (context) => const GlobalClassification()
 };
