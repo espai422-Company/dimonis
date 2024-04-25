@@ -63,10 +63,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                      FirebaseAuth.instance.currentUser!.displayName ??
-                          'NOM COMPLET',
-                      style: Theme.of(context).textTheme.headlineMedium),
+                  Container(width: MediaQuery.of(context).size.width - 40,
+                    child: Text(
+                      textAlign: TextAlign.center,
+                        FirebaseAuth.instance.currentUser!.displayName ??
+                            'NOM COMPLET',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                  ),
                   userProvider.currentUser.privileges == 'prime'
                       ? const Icon(
                           Icons.star,
