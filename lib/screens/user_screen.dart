@@ -53,36 +53,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'icon_picker_user');
-                      },
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: color),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: MediaQuery.of(context).size.width - 40,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 40,
                     child: Text(
-                      textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                         FirebaseAuth.instance.currentUser!.displayName ??
                             'NOM COMPLET',
                         style: Theme.of(context).textTheme.headlineMedium),

@@ -30,8 +30,7 @@ class ImagePickerScreen extends StatelessWidget {
 
                 if (imagen != null) {
                   image = File(imagen.path);
-                  uploadImageUser(context, image!);
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(uploadImageUser(context, image!));
                 }
               },
               child: FadeInImage.assetNetwork(
@@ -46,9 +45,10 @@ class ImagePickerScreen extends StatelessWidget {
                 onTap: () {
                   FireBaseProvider firebase =
                       Provider.of<FireBaseProvider>(context, listen: false);
-                  firebase.usersProvider.setPhotoURL(
+                  // firebase.usersProvider.setPhotoURL(
+                  //     "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fdemon$i.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
+                  Navigator.of(context).pop(
                       "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fdemon$i.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
-                  Navigator.of(context).pop();
                 },
                 child: FadeInImage.assetNetwork(
                   placeholder: "assets/LoadingDimonis-unscreen.gif",

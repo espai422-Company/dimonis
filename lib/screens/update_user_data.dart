@@ -1,5 +1,7 @@
 import 'package:app_dimonis/providers/providers.dart';
+import 'package:app_dimonis/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,26 +34,23 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
     setState(() => _loading = true);
 
-    if (displayName != FirebaseAuth.instance.currentUser!.displayName) {
-      var userProvider =
-          Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
-      userProvider.setDisplayName(displayName);
+    var userProvider =
+        Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
+    userProvider.setDisplayName(displayName);
+    userProvider.setPhotoURL(iconUser);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('S\'ha actualitzat el nom d\'usuari correctament.'),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('El nom d\'usuari és el mateix.'),
-        ),
-      );
-    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content:
+            Text('S\'han actualitzat les dades de l\'usuari correctament.'),
+      ),
+    );
 
     setState(() => _loading = false);
   }
+
+  String iconUser = FirebaseAuth.instance.currentUser!.photoURL ??
+      'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fdemon0.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3';
 
   @override
   Widget build(BuildContext context) {
@@ -72,20 +71,37 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 120,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child:
-                            const Image(image: AssetImage("assets/demon.png"))),
+                        child: FadeInImage(
+                            placeholder:
+                                const AssetImage('assets/loadingdimoni.gif'),
+                            image: NetworkImage(iconUser))),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.red),
-                      child: const Icon(Icons.camera_alt_outlined,
-                          color: Colors.black, size: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'icon_picker_user')
+                            .then((value) {
+                          setState(() {
+                            if (value != null) {
+                              iconUser = value.toString();
+                            }
+                          });
+                        });
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.red),
+                        child: const Icon(
+                          Icons.edit,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                      ),
                     ),
                   ),
                 ],

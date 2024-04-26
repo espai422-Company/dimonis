@@ -23,25 +23,18 @@ Future<bool> uploadImage(File image, String nomImage) async {
   }
 }
 
-Future<bool> uploadImageUser(BuildContext context, File image) async {
+Future<String?> uploadImageUser(BuildContext context, File image) async {
   try {
     final String nameFile = '${FirebaseAuth.instance.currentUser!.uid}.png';
 
     final uploadedImage = await uploadImage(image, 'Icons/$nameFile');
 
     if (!uploadedImage) {
-      return false;
+      return null;
     }
-
-    var userProvider =
-        Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
-    userProvider.setPhotoURL(
-        'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F' +
-            nameFile +
-            '?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3');
-    return true;
+    return 'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F$nameFile?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3';
   } catch (e) {
-    return false;
+    return null;
   }
 }
 
