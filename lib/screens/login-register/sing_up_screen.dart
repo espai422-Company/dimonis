@@ -1,5 +1,6 @@
 import 'package:app_dimonis/screens/login-register/components_login.dart';
 import 'package:app_dimonis/services/auth.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -72,11 +73,20 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
       _passController.text = '';
       _userNameController.text = '';
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message!),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'ERROR',
+              message: e.message!,
+              contentType: ContentType.failure,
+            ),
+          ),
+        );
     }
 
     setState(() => _loading = false);

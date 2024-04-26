@@ -1,5 +1,6 @@
 import 'package:app_dimonis/providers/providers.dart';
 import 'package:app_dimonis/screens/screens.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,20 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     userProvider.setDisplayName(displayName);
     userProvider.setPhotoURL(iconUser);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content:
-            Text('S\'han actualitzat les dades de l\'usuari correctament.'),
-      ),
-    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: '',
+            message: 'S\'han actualitzat les dades de l\'usuari correctament.',
+            contentType: ContentType.help,
+          ),
+        ),
+      );
 
     setState(() => _loading = false);
   }

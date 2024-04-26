@@ -6,6 +6,7 @@ import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/global_classification_provider.dart';
 import 'package:app_dimonis/providers/providers.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -300,19 +301,35 @@ class _MapsScreenState extends State<MapsScreen> {
         Provider.of<FireBaseProvider>(context, listen: false);
     if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Resposta correcta'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'ENHORABONA!',
+              message: 'Resposta correcta',
+              contentType: ContentType.success,
+            ),
+          ),
+        );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Resposta incorrecta'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'TORNA A PROVAR...',
+              message: 'Resposta incorrecta',
+              contentType: ContentType.warning,
+            ),
+          ),
+        );
     }
 
     Navigator.of(context).pop();
