@@ -126,22 +126,10 @@ class ProgressProvider {
           progresses[i].discovers.sort((a, b) => a.time.compareTo(b.time));
           progresses[i + 1].discovers.sort((a, b) => a.time.compareTo(b.time));
 
-          print("time $i");
-          print((DateTime.parse(progresses[i].discovers[0].time)
-              .difference(DateTime.now())));
-
-          print("time ${i + 1}");
-          print((DateTime.parse(progresses[i + 1].discovers[0].time)
-              .difference(DateTime.now())));
-
-          if ((DateTime.parse(progresses[i].discovers[0].time).difference(
-                  DateTime.parse(progresses[i]
-                      .discovers[progresses[i].discovers.length - 1]
-                      .time)) <
-              DateTime.parse(progresses[i + 1].discovers[0].time).difference(
-                  DateTime.parse(progresses[i + 1]
-                      .discovers[progresses[i + 1].discovers.length - 1]
-                      .time)))) {
+          if (DateTime.parse(progresses[i].discovers[0].time)
+                  .difference(DateTime.now()) <
+              DateTime.parse(progresses[i + 1].discovers[0].time)
+                  .difference(DateTime.now())) {
             Progress temp = progresses[i];
             progresses[i] = progresses[i + 1];
             progresses[i + 1] = temp;
