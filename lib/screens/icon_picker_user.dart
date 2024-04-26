@@ -35,18 +35,6 @@ class ImagePickerScreen extends StatelessWidget {
             crossAxisCount: 4,
           ),
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop(
-                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
-              },
-              child: FadeInImage.assetNetwork(
-                placeholder: "assets/LoadingDimonis-unscreen.gif",
-                image:
-                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3?timestamp=${DateTime.now().millisecondsSinceEpoch}",
-                height: 100,
-              ),
-            ),
             for (var i = 0; i < 6; i++)
               GestureDetector(
                 onTap: () {

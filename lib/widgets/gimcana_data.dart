@@ -63,20 +63,44 @@ class GimcamaData extends StatelessWidget {
               child: ListTile(
                 leading: index == 0
                     ? Image.asset(
+                        alignment: Alignment.centerLeft,
                         "assets/fotos_clasificacio/Oro.png",
-                        width: 20,
+                        width: 40,
                       )
                     : (index == 1
                         ? Image.asset(
+                            alignment: Alignment.centerLeft,
                             "assets/fotos_clasificacio/Plata.png",
-                            width: 20,
+                            width: 40,
                           )
                         : (index == 2
                             ? Image.asset(
+                                alignment: Alignment.centerLeft,
                                 "assets/fotos_clasificacio/Bronze.png",
-                                width: 20,
+                                width: 40,
                               )
-                            : Container(width: 20))),
+                            : Container(
+                                alignment: Alignment.centerLeft,
+                                width: 40,
+                                child: Text('${index + 1}',
+                                    style: const TextStyle(
+                                      color: Colors.red, // Color rojo
+                                      fontSize: 24, // Tamaño de fuente
+                                      fontWeight: FontWeight.bold, // Negrita
+                                      fontStyle: FontStyle.italic, // Cursiva
+                                      decorationColor: Colors
+                                          .redAccent, // Color de subrayado
+                                      decorationThickness:
+                                          2, // Grosor del subrayado
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.black,
+                                          blurRadius: 2,
+                                          offset: Offset(1, 1),
+                                        ),
+                                      ], // Sombra
+                                    )),
+                              ))),
                 title: Text(user.displayName),
                 subtitle: count,
                 trailing: Text(progress.discovers.length.toString()),
