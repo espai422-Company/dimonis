@@ -175,7 +175,7 @@ Widget _dimonis(context) {
           const Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
-                dimonis = {};
+                dimonis.clear();
                 totaldimonis.setDimoni(dimonis.length);
                 totaldimonis.notify();
               },
