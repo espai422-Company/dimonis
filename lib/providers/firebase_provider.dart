@@ -5,7 +5,6 @@ import 'package:app_dimonis/providers/user_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class FireBaseProvider extends ChangeNotifier {
   String? uid;
   bool loaded = false;
@@ -16,7 +15,6 @@ class FireBaseProvider extends ChangeNotifier {
   late UsersProvider usersProvider;
 
   FireBaseProvider(int tsts) {
-    print('FireBaseProvider');
     FirebaseAuth.instance.authStateChanges().listen((user) => uid = user?.uid);
     _initialize();
   }
@@ -44,6 +42,5 @@ class FireBaseProvider extends ChangeNotifier {
 
     loaded = true;
     notifyListeners();
-    print('All loaded');
   }
 }

@@ -42,8 +42,6 @@ class GlobalClassificationProvider extends ChangeNotifier {
   }
 
   List<Classification> getRanking() {
-    print(users);
-
     List<Classification> ranking = [];
     users.forEach((key, value) {
       ranking.add(Classification(user: key, points: value));

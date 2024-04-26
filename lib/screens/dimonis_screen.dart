@@ -72,8 +72,6 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     var progressProvider =
         Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
-    print('progess');
-    print(progressProvider.getProgressOfCurrentUser().discovers);
     return SizedBox(
       child: Row(
         children: [

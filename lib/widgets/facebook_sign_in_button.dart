@@ -14,9 +14,7 @@ class FacebookSignInButton extends StatelessWidget {
       var user = await signInWithFacebook();
       var ref = SignleDBConn.getDatabase().ref('/users');
       auth.saveUserToRTDB(user.credential?.providerId ?? 'Facebook');
-      print(user.user?.displayName);
       Navigator.pushNamed(context, '/');
-      print('User signed in with Facebook');
       // Perform any actions after successful login
     } catch (error) {
       print('Error signing in with Facebook: $error');

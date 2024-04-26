@@ -24,13 +24,8 @@ class GoogleSignInButton extends StatelessWidget {
         var user = await _auth.signInWithCredential(credential);
         var ref = SignleDBConn.getDatabase().ref('/users');
         auth.saveUserToRTDB(user.credential?.providerId ?? 'Google');
-        print(user.user?.displayName);
         Navigator.pushNamed(context, '/');
-        print('User signed in with Google');
         // Perform any actions after successful login
-      } else {
-        print('Google sign in canceled');
-        // Handle sign-in cancellation
       }
     } catch (error) {
       print('Error signing in with Google: $error');

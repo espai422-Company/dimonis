@@ -44,19 +44,14 @@ class PayPal extends StatelessWidget {
       ],
       note: "Contact us for any questions on your order.",
       onSuccess: (Map params) async {
-        print('onSuccess: $params');
         final usersProvider =
             Provider.of<FireBaseProvider>(context, listen: false).usersProvider;
-        print('update to prime');
         usersProvider.upgradeToPrime();
       },
       onError: (error) {
-        print("onError: $error");
         Navigator.pop(context);
       },
-      onCancel: () {
-        print('cancelled:');
-      },
+      onCancel: () {},
     );
   }
 }

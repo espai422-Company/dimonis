@@ -35,11 +35,9 @@ class GimcanaProvider {
       List<FirebaseGimana> gimcames, DimoniProvider dimoniProvider) {
     List<Gimcama> gimcanes = [];
     for (var gimcama in gimcames) {
-      print('gimcama: ${gimcama.id}');
       List<Ubication> ubications = [];
       for (var dimoniz in gimcama.dimonis.entries) {
         var dimoniId = dimoniz.key;
-        print('dimoniId: $dimoniId');
         var dimoniData = dimoniz.value;
         var dimoni = dimoniProvider.getDimoniById(dimoniId);
         var ubication = Ubication(

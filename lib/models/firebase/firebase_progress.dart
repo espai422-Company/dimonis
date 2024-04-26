@@ -67,7 +67,6 @@ class FirebaseProgress {
     if (snapshot.exists) {
       var a = snapshot.value as Map;
       Map<Object, dynamic> b = a.cast<String, dynamic>();
-      print(b);
       return sortedIds(b);
     } else {
       return [];
