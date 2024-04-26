@@ -6,6 +6,7 @@ import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class GimcamaData extends StatelessWidget {
@@ -24,89 +25,104 @@ class GimcamaData extends StatelessWidget {
         // SizedBox(
         //   height: 300,
         //   child:
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: progressProvider.progressMap.length,
-          itemBuilder: (context, index) {
-            var user = progressProvider.progressMap.keys.elementAt(index);
-            var progress = progressProvider.progressMap[user]!;
-            Widget count;
+        SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - 300,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: progressProvider.progressMap.length,
+              itemBuilder: (context, index) {
+                var user = progressProvider.progressMap.keys.elementAt(index);
+                var progress = progressProvider.progressMap[user]!;
+                Widget count;
 
-            count = getTime(progressProvider, user, progress);
+                count = getTime(progressProvider, user, progress);
 
-            return Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                  color: index == 0
-                      ? const Color.fromARGB(137, 216, 187, 26)
-                      : (index == 1
-                          ? const Color.fromARGB(127, 205, 206, 205)
-                          : (index == 2
-                              ? const Color.fromARGB(123, 187, 121, 0)
-                              : Preferences.isDarkMode
-                                  ? const Color.fromARGB(137, 255, 124, 124)
-                                  : const Color.fromARGB(155, 255, 127, 127))),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    width: index == 0
-                        ? 5
-                        : (index == 1 ? 4 : (index == 2 ? 3 : 3)),
-                    color: index == 0
-                        ? const Color.fromARGB(255, 216, 188, 26)
-                        : (index == 1
-                            ? const Color.fromARGB(255, 205, 206, 205)
-                            : (index == 2
-                                ? const Color.fromARGB(255, 187, 121, 0)
-                                : const Color.fromARGB(0, 255, 255, 255))),
-                  )),
-              child: ListTile(
-                leading: index == 0
-                    ? Image.asset(
-                        alignment: Alignment.centerLeft,
-                        "assets/fotos_clasificacio/Oro.png",
-                        width: 40,
-                      )
-                    : (index == 1
+                return Container(
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                      color: index == 0
+                          ? const Color.fromARGB(137, 216, 187, 26)
+                          : (index == 1
+                              ? const Color.fromARGB(127, 205, 206, 205)
+                              : (index == 2
+                                  ? const Color.fromARGB(123, 187, 121, 0)
+                                  : Preferences.isDarkMode
+                                      ? const Color.fromARGB(137, 255, 124, 124)
+                                      : const Color.fromARGB(
+                                          155, 255, 127, 127))),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: index == 0
+                            ? 5
+                            : (index == 1 ? 4 : (index == 2 ? 3 : 3)),
+                        color: index == 0
+                            ? const Color.fromARGB(255, 216, 188, 26)
+                            : (index == 1
+                                ? const Color.fromARGB(255, 205, 206, 205)
+                                : (index == 2
+                                    ? const Color.fromARGB(255, 187, 121, 0)
+                                    : const Color.fromARGB(0, 255, 255, 255))),
+                      )),
+                  child: ListTile(
+                    leading: index == 0
                         ? Image.asset(
                             alignment: Alignment.centerLeft,
-                            "assets/fotos_clasificacio/Plata.png",
+                            "assets/fotos_clasificacio/Oro.png",
                             width: 40,
                           )
-                        : (index == 2
+                        : (index == 1
                             ? Image.asset(
                                 alignment: Alignment.centerLeft,
-                                "assets/fotos_clasificacio/Bronze.png",
+                                "assets/fotos_clasificacio/Plata.png",
                                 width: 40,
                               )
-                            : Container(
-                                alignment: Alignment.centerLeft,
-                                width: 40,
-                                child: Text('${index + 1}',
-                                    style: const TextStyle(
-                                      color: Colors.red, // Color rojo
-                                      fontSize: 24, // Tamaño de fuente
-                                      fontWeight: FontWeight.bold, // Negrita
-                                      fontStyle: FontStyle.italic, // Cursiva
-                                      decorationColor: Colors
-                                          .redAccent, // Color de subrayado
-                                      decorationThickness:
-                                          2, // Grosor del subrayado
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black,
-                                          blurRadius: 2,
-                                          offset: Offset(1, 1),
-                                        ),
-                                      ], // Sombra
-                                    )),
-                              ))),
-                title: Text(user.displayName),
-                subtitle: count,
-                trailing: Text(progress.discovers.length.toString()),
-              ),
-            );
-          },
+                            : (index == 2
+                                ? Image.asset(
+                                    alignment: Alignment.centerLeft,
+                                    "assets/fotos_clasificacio/Bronze.png",
+                                    width: 40,
+                                  )
+                                : Container(
+                                    alignment: Alignment.centerLeft,
+                                    width: 40,
+                                    child: Text('${index + 1}',
+                                        style: const TextStyle(
+                                          color: Colors.red, // Color rojo
+                                          fontSize: 24, // Tamaño de fuente
+                                          fontWeight:
+                                              FontWeight.bold, // Negrita
+                                          fontStyle:
+                                              FontStyle.italic, // Cursiva
+                                          decorationColor: Colors
+                                              .redAccent, // Color de subrayado
+                                          decorationThickness:
+                                              2, // Grosor del subrayado
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black,
+                                              blurRadius: 2,
+                                              offset: Offset(1, 1),
+                                            ),
+                                          ], // Sombra
+                                        )),
+                                  ))),
+                    title: Text(user.displayName),
+                    subtitle: count,
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text("Dimonis"),
+                        Text("${progress.discovers.length}"),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ),
         // ),
         FloatingActionButton(
@@ -136,7 +152,7 @@ class GimcamaData extends StatelessWidget {
       int minutes = difference.inMinutes.remainder(60) * -1;
       int seconds = difference.inSeconds.remainder(60) * -1;
 
-      return Text("Completat en ${days}d ${hours}h ${minutes}m ${seconds}s");
+      return Text("Completada \n ${days}d ${hours}h ${minutes}m ${seconds}s");
     }
   }
 }
