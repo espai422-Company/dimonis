@@ -82,17 +82,20 @@ class _MapsScreenState extends State<MapsScreen> {
         ),
       );
     } else if (progressProvider.timeToComplete[actualUser] != null) {
+      classification.finishGimcana(progressProvider.gimcanaId!, actualUser.id);
       return Center(
           child: AnimatedTextKit(
         animatedTexts: [
           ScaleAnimatedText(
             'Enhorabona!',
-            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            textStyle:
+                const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
           ),
           ScaleAnimatedText(
             'Has completat la gimcana!',
-            textStyle: const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
+            textStyle:
+                const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
           ),
         ],
