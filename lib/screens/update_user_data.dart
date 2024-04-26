@@ -50,7 +50,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           content: AwesomeSnackbarContent(
             title: '',
             message: 'S\'han actualitzat les dades de l\'usuari correctament.',
-            contentType: ContentType.help,
+            contentType: ContentType.success,
           ),
         ),
       );
