@@ -1,5 +1,6 @@
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
+import 'package:app_dimonis/screens/calendar_screen.dart';
 import 'package:app_dimonis/screens/gimcames_screen.dart';
 import 'package:app_dimonis/screens/screens.dart';
 import 'package:app_dimonis/widgets/widgets.dart';
@@ -98,6 +99,9 @@ class _HomeScreenBody extends StatelessWidget {
 
       case 2:
         return const GimcamaScreen();
+
+      case 3:
+        return const CalendarScreen();
 
       default:
         return const MapsScreen();

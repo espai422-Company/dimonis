@@ -31,6 +31,11 @@ class CustomNavigationBar extends StatelessWidget {
           title: const Text("Gimcanes"),
           selectedColor: Colors.orange,
         ),
+        SalomonBottomBarItem(
+          icon: const Icon(Icons.calendar_month_outlined),
+          title: const Text("Calendari"),
+          selectedColor: Colors.cyan,
+        ),
       ],
     );
   }
