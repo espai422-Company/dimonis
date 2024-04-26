@@ -43,7 +43,7 @@ class ImagePickerScreen extends StatelessWidget {
               child: FadeInImage.assetNetwork(
                 placeholder: "assets/LoadingDimonis-unscreen.gif",
                 image:
-                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3",
+                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3?timestamp=${DateTime.now().millisecondsSinceEpoch}",
                 height: 100,
               ),
             ),

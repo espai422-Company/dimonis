@@ -85,7 +85,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             .then((value) {
                           setState(() {
                             if (value != null) {
-                              iconUser = value.toString();
+                              iconUser =
+                                  '$value?timestamp=${DateTime.now().millisecondsSinceEpoch}';
                             }
                           });
                         });
