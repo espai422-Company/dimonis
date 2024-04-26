@@ -65,7 +65,7 @@ class _GlobalClassificationState extends State<GlobalClassification> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(classificationList[index].user.displayName),
+                    Flexible(child: Text(classificationList[index].user.displayName)),
                   ],
                 ),
                 trailing: Text(classificationList[index].points.toString()),
