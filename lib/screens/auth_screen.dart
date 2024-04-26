@@ -2,6 +2,7 @@ import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:app_dimonis/widgets/facebook_sign_in_button.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,11 +36,20 @@ class _AuthScreenState extends State<AuthScreen> {
       try {
         await Auth().signInWithEmailAndPassword(email, password);
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.message!),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'ERROR',
+                message: e.message!,
+                contentType: ContentType.failure,
+              ),
+            ),
+          );
       }
       // await Auth().signInWithEmailAndPassword(email, password);
     } else {
@@ -47,11 +57,20 @@ class _AuthScreenState extends State<AuthScreen> {
         await Auth()
             .registerWithEmailAndPassword(email, password, 'CUSTOMDISPLAYNAME');
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.message!),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'ERROR',
+                message: e.message!,
+                contentType: ContentType.failure,
+              ),
+            ),
+          );
       }
       // await Auth().registerWithEmailAndPassword(email, password);
     }

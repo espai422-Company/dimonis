@@ -4,6 +4,7 @@ import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/services/select_image.dart';
 import 'package:app_dimonis/services/upload_dimoni_image.dart';
 import 'package:app_dimonis/widgets/widgets.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
 class CrearDimoni extends StatefulWidget {
@@ -118,25 +119,52 @@ class _CrearDimoniState extends State<CrearDimoni> {
                 await uploadDimoni(context, dimoniTemp, imagen_to_upload!);
 
             if (uploadedDimoni) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Dimoni pujat correctament.'),
-                ),
-              );
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    elevation: 0,
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.transparent,
+                    content: AwesomeSnackbarContent(
+                      title: 'ENHORABONA',
+                      message: 'Dimoni pujat correctament.',
+                      contentType: ContentType.success,
+                    ),
+                  ),
+                );
               tornarDefault();
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('ERROR al pujar el dimoni.'),
-                ),
-              );
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    elevation: 0,
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.transparent,
+                    content: AwesomeSnackbarContent(
+                      title: 'ERROR',
+                      message: 'ERROR al pujar el dimoni.',
+                      contentType: ContentType.failure,
+                    ),
+                  ),
+                );
             }
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Ompli tots els camps anteriors.'),
-              ),
-            );
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'ADVERTENCIA',
+                    message: 'Ompli tots els camps anteriors.',
+                    contentType: ContentType.warning,
+                  ),
+                ),
+              );
           }
         },
         child: const Icon(Icons.save),
