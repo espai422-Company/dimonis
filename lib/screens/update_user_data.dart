@@ -72,8 +72,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: FadeInImage(
-                            placeholder:
-                                const AssetImage('assets/loadingdimoni.gif'),
+                            placeholder: const AssetImage(
+                                'assets/LoadingDimonis-unscreen.gif'),
                             image: NetworkImage(iconUser))),
                   ),
                   Positioned(

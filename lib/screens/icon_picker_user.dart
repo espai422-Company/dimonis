@@ -19,34 +19,37 @@ class ImagePickerScreen extends StatelessWidget {
           title: const Text("Canvi d'icona"),
           backgroundColor: Colors.black,
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final imagen = await getImageGallery();
+
+            if (imagen != null) {
+              image = File(imagen.path);
+              Navigator.of(context).pop(uploadImageUser(context, image!));
+            }
+          },
+          child: const Icon(Icons.upload),
+        ),
         body: GridView(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
           ),
           children: [
             GestureDetector(
-              onTap: () async {
-                final imagen = await getImageGallery();
-
-                if (imagen != null) {
-                  image = File(imagen.path);
-                  Navigator.of(context).pop(uploadImageUser(context, image!));
-                }
+              onTap: () {
+                Navigator.of(context).pop(
+                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
               },
               child: FadeInImage.assetNetwork(
                 placeholder: "assets/LoadingDimonis-unscreen.gif",
                 image:
-                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fupload.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3",
+                    "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3",
                 height: 100,
               ),
             ),
             for (var i = 0; i < 6; i++)
               GestureDetector(
                 onTap: () {
-                  FireBaseProvider firebase =
-                      Provider.of<FireBaseProvider>(context, listen: false);
-                  // firebase.usersProvider.setPhotoURL(
-                  //     "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fdemon$i.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
                   Navigator.of(context).pop(
                       "https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2Fdemon$i.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3");
                 },

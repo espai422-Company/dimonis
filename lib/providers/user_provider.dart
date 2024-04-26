@@ -85,6 +85,7 @@ class UsersProvider {
 
     // update in firebase auth
     FirebaseAuth.instance.currentUser!.updatePhotoURL(photoURL);
+    notifyListeners();
   }
 
   void setDisplayName(String displayName) {
