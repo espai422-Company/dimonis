@@ -1,4 +1,6 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
+import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,8 +54,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          const Text('Calendari'),
-          Text(_focusedDay.toString().split(" ")[0]),
+          const Text(
+            'Calendari',
+            style: TextStyle(fontSize: 30),
+          ),
+          Text(
+            _focusedDay.toString().split(" ")[0],
+            style: const TextStyle(fontSize: 17),
+          ),
           TableCalendar(
             firstDay: DateTime.utc(2000, 1, 1),
             lastDay: DateTime.utc(3000, 1, 1),
@@ -63,7 +71,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
             startingDayOfWeek: StartingDayOfWeek.monday,
             onDaySelected: _onDaySelected,
             eventLoader: _getEventsForDay,
-            calendarStyle: const CalendarStyle(outsideDaysVisible: false),
+            calendarStyle: const CalendarStyle(
+                outsideDaysVisible: false,
+                markerDecoration: BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Color.fromARGB(126, 244, 67, 54),
+                  shape: BoxShape.circle,
+                ),
+                selectedDecoration: BoxDecoration(
+                  color: Color.fromARGB(248, 244, 67, 54),
+                  shape: BoxShape.circle,
+                )),
+            daysOfWeekStyle: const DaysOfWeekStyle(
+              weekdayStyle: TextStyle(color: Colors.red),
+              weekendStyle: TextStyle(color: Colors.red),
+            ),
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
                 setState(() {
@@ -74,6 +99,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            headerStyle: HeaderStyle(
+              formatButtonDecoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -84,17 +115,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
               child: ValueListenableBuilder<List<Gimcama>>(
                 valueListenable: _selectedEvents,
                 builder: (context, value, _) {
+                  if (value.isEmpty) {
+                    return Center(
+                        child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'No hi ha gimcanes per el dia seleccionat...',
+                          textAlign: TextAlign.center,
+                          textStyle: const TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          speed: const Duration(milliseconds: 150),
+                        ),
+                      ],
+                      repeatForever: true,
+                      pause: const Duration(milliseconds: 200),
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: true,
+                    ));
+                  }
                   return ListView.builder(
                     itemCount: value.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: Colors.grey,
+                            color: Preferences.isDarkMode
+                                ? const Color.fromARGB(137, 255, 124, 124)
+                                : const Color.fromARGB(155, 255, 127, 127),
                             borderRadius: BorderRadius.circular(12)),
                         child: ListTile(
                           title: Text(value[index].nom),
-                          leading: const Icon(Icons.gamepad_outlined),
+                          leading: const Icon(
+                            Icons.gamepad_outlined,
+                            size: 40,
+                          ),
                           subtitle: Text(
                               '${value[index].start.toString().split(" ")[0]} --> ${value[index].end.toString().split(" ")[0]}'),
                         ),
