@@ -1,3 +1,4 @@
+import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/screens/guia-inicial/page_plantilla.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -13,6 +14,8 @@ class GuiaInicial extends StatefulWidget {
 class _GuiaInicialState extends State<GuiaInicial> {
   final LiquidController controller = LiquidController();
 
+  final Color darkModeColor = const Color.fromARGB(255, 73, 73, 73);
+
   int currentPage = 0;
 
   @override
@@ -23,30 +26,36 @@ class _GuiaInicialState extends State<GuiaInicial> {
         children: [
           LiquidSwipe(
             pages: [
-              const PagePlantilla(
+              PagePlantilla(
                 image: 'assets/guia/foto1.png',
                 title: 'Ves a la caça dels dimonis',
                 subTitle:
                     'Descobreix i troba el major nombre de dimonis possibles.',
                 counterText: '1/3',
-                bgColor: Colors.white,
+                bgColor: Preferences.isDarkMode ? darkModeColor : Colors.white,
               ),
-              const PagePlantilla(
+              PagePlantilla(
                 image: 'assets/guia/foto2.png',
-                title: 'Compateix amb els teus amics',
+                title: 'Compateix amb els amics',
                 subTitle: 'Juga amb els teus amics i competeix en temps real.',
                 counterText: '2/3',
-                bgColor: Color.fromARGB(255, 235, 235, 235),
+                bgColor: Preferences.isDarkMode
+                    ? const Color.fromARGB(255, 116, 116, 116)
+                    : Colors.white,
               ),
-              const PagePlantilla(
+              PagePlantilla(
                 image: 'assets/guia/foto3.png',
                 title: 'Vols crear gincanes?',
                 subTitle:
                     'Uneix-te a la comunitat i crea les teves pròpies gincanes.',
                 counterText: '3/3',
-                bgColor: Colors.white,
+                bgColor: Preferences.isDarkMode ? darkModeColor : Colors.white,
               ),
-              Container(color: Colors.white)
+              Container(
+                color: Preferences.isDarkMode
+                    ? const Color.fromARGB(255, 116, 116, 116)
+                    : Colors.white,
+              )
             ],
             enableSideReveal: true,
             liquidController: controller,

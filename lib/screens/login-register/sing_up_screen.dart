@@ -3,6 +3,8 @@ import 'package:app_dimonis/services/auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_strength_checker/password_strength_checker.dart';
+import 'package:toastification/toastification.dart';
 
 class SingUpScreen extends StatelessWidget {
   const SingUpScreen({super.key, required this.controller});
@@ -58,6 +60,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
+  final passNotifier = ValueNotifier<PasswordStrength?>(null);
+
   handleSubmit() async {
     if (!_formKey.currentState!.validate()) return;
     final email = _emailController.value.text;
@@ -65,6 +69,23 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
     final user = _userNameController.value.text;
 
     setState(() => _loading = true);
+
+    if (passNotifier.value != PasswordStrength.secure) {
+      toastification.show(
+        alignment: Alignment.bottomCenter,
+        style: ToastificationStyle.flatColored,
+        type: ToastificationType.warning,
+        context: context,
+        title: const Text(
+          'Password too weak!',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        description: Text(PasswordStrength.instructions),
+        autoCloseDuration: const Duration(seconds: 6),
+      );
+      setState(() => _loading = false);
+      return;
+    }
 
     try {
       await Auth().registerWithEmailAndPassword(email, password, user);
@@ -102,6 +123,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.name,
               controller: _userNameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -117,6 +140,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
             ),
             const SizedBox(height: 10),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.emailAddress,
               controller: _emailController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -132,6 +157,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
             ),
             const SizedBox(height: 10),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.visiblePassword,
               controller: _passController,
               obscureText: visiblePasswd,
               validator: (value) {
@@ -156,6 +183,13 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
                       : const Icon(Icons.visibility_off_outlined),
                 ),
               ),
+              onChanged: (value) {
+                passNotifier.value = PasswordStrength.calculate(text: value);
+              },
+            ),
+            const SizedBox(height: 10),
+            PasswordStrengthChecker(
+              strength: passNotifier,
             ),
             const SizedBox(height: 10),
             Align(

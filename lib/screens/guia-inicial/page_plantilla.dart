@@ -36,10 +36,9 @@ class PagePlantilla extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w900,
-                  color: Theme.of(context).primaryColor,
                 ),
               ),
               Text(
