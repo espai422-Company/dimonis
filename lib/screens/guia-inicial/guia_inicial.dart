@@ -41,7 +41,7 @@ class _GuiaInicialState extends State<GuiaInicial> {
                 counterText: '2/3',
                 bgColor: Preferences.isDarkMode
                     ? const Color.fromARGB(255, 116, 116, 116)
-                    : Colors.white,
+                    : const Color.fromARGB(255, 223, 223, 223),
               ),
               PagePlantilla(
                 image: 'assets/guia/foto3.png',
@@ -54,7 +54,7 @@ class _GuiaInicialState extends State<GuiaInicial> {
               Container(
                 color: Preferences.isDarkMode
                     ? const Color.fromARGB(255, 116, 116, 116)
-                    : Colors.white,
+                    : const Color.fromARGB(255, 223, 223, 223),
               )
             ],
             enableSideReveal: true,

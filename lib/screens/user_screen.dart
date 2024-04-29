@@ -115,7 +115,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: "Information",
                   icon: Icons.info,
                   color: color,
-                  onPress: () {}),
+                  onPress: () {
+                    Navigator.pushNamed(context, 'info_app_screen');
+                  }),
               ProfileMenuWidget(
                 title: "Logout",
                 icon: Icons.login_rounded,

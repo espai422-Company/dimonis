@@ -58,7 +58,7 @@ class LoginFooterWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GoogleSignInButton(),
-              const SizedBox(width: 30,),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.05),
               FacebookSignInButton(),
             ],
           ),
