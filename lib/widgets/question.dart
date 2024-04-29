@@ -1,13 +1,12 @@
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cool_dropdown/controllers/dropdown_controller.dart';
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:cool_dropdown/models/cool_dropdown_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
-void Question(BuildContext context, _nextDimoni, _submit) {
+void question(BuildContext context, nextDimoni, submit) {
   List<CoolDropdownItem<String>> dimonis = [];
   final dimonisDropdownController = DropdownController();
   String selectedDimoni = '';
@@ -36,7 +35,7 @@ void Question(BuildContext context, _nextDimoni, _submit) {
           FadeInImage(
             height: 200,
             placeholder: const AssetImage('assets/LoadingDimonis-unscreen.gif'),
-            image: NetworkImage(_nextDimoni!.image),
+            image: NetworkImage(nextDimoni!.image),
           ),
           CoolDropdown<String>(
             controller: dimonisDropdownController,
@@ -86,7 +85,7 @@ void Question(BuildContext context, _nextDimoni, _submit) {
     ),
     btnOkOnPress: () {
       if (selectedDimoni.isNotEmpty) {
-        _submit(selectedDimoni, context);
+        submit(selectedDimoni, context);
       } else {
         toastification.show(
           alignment: Alignment.bottomCenter,

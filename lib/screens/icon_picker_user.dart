@@ -1,15 +1,13 @@
 import 'dart:io';
 
-import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/services/select_image.dart';
 import 'package:app_dimonis/services/upload_dimoni_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 class ImagePickerScreen extends StatelessWidget {
-  const ImagePickerScreen({Key? key});
+  const ImagePickerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class ImagePickerScreen extends StatelessWidget {
           'https://firebasestorage.googleapis.com/v0/b/appdimonis.appspot.com/o/Icons%2F${FirebaseAuth.instance.currentUser!.uid}.png?alt=media&token=fd63afe7-b022-4fe4-96ec-5dc6675ad6a3'),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

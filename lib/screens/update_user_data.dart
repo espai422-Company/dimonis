@@ -1,8 +1,6 @@
 import 'package:app_dimonis/providers/providers.dart';
-import 'package:app_dimonis/screens/screens.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

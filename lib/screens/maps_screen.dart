@@ -230,7 +230,7 @@ class _MapsScreenState extends State<MapsScreen> {
         _floatingActionButton = FloatingActionButton(
           elevation: 10,
           onPressed: () {
-            Question(context, _nextDimoni!, _submit);
+            question(context, _nextDimoni!, _submit);
           },
           backgroundColor: const Color.fromARGB(255, 255, 0, 0),
           child: const Icon(Icons.check),
