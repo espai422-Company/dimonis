@@ -6,6 +6,7 @@ import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/global_classification_provider.dart';
 import 'package:app_dimonis/providers/providers.dart';
+import 'package:app_dimonis/widgets/question.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -229,7 +230,7 @@ class _MapsScreenState extends State<MapsScreen> {
         _floatingActionButton = FloatingActionButton(
           elevation: 10,
           onPressed: () {
-            _showDialog(context);
+            Question(context, _nextDimoni!, _submit);
           },
           backgroundColor: const Color.fromARGB(255, 255, 0, 0),
           child: const Icon(Icons.check),
@@ -239,61 +240,6 @@ class _MapsScreenState extends State<MapsScreen> {
       }
     }
     setState(() {});
-  }
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        List<DropdownMenuItem<String>> dimonis = [];
-        Provider.of<FireBaseProvider>(context, listen: false)
-            .dimoniProvider
-            .dimonis
-            .forEach((element) {
-          dimonis.add(DropdownMenuItem<String>(
-            value: element.nom,
-            child: Text(element.nom),
-          ));
-        });
-        var selectedValue = 'Polisso2';
-        return AlertDialog(
-          title: const Text('Resposta'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FadeInImage(
-                    placeholder:
-                        const AssetImage('assets/LoadingDimonis-unscreen.gif'),
-                    image: NetworkImage(_nextDimoni!.image)),
-                DropdownButton<String>(
-                  value: selectedValue,
-                  onChanged: (String? newValue) {
-                    selectedValue = newValue!;
-                    setState(() {});
-                  },
-                  items: dimonis,
-                )
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Enviar resposta'),
-              onPressed: () {
-                _submit(selectedValue, context);
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   void _submit(String resposta, BuildContext context) {
@@ -331,8 +277,6 @@ class _MapsScreenState extends State<MapsScreen> {
           ),
         );
     }
-
-    Navigator.of(context).pop();
   }
 
   double _calculateDistance(LatLng from, LatLng to) {

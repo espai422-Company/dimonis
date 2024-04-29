@@ -62,6 +62,7 @@ dependencies:
   table_calendar: ^3.1.1
   toastification: ^1.2.1
   password_strength_checker: ^1.2.3
+  cool_dropdown: ^2.1.0
 
 
 dev_dependencies:
