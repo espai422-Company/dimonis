@@ -73,7 +73,8 @@ class _LoginFormState extends State<LoginForm> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     } on FirebaseAuthException catch (e) {
-      errorToastification(context, 'Login error', e.message ?? 'ERROR LOGIN');
+      errorToastification(
+          context, 'Login error', e.message ?? 'UNKNOWN LOGIN ERROR');
     }
 
     setState(() => _loading = false);

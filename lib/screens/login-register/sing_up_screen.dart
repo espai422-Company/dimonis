@@ -95,7 +95,7 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
       _userNameController.text = '';
     } on FirebaseAuthException catch (e) {
       errorToastification(
-          context, 'Sing Up error', e.message ?? 'ERROR SING UP');
+          context, 'Sing Up error', e.message ?? 'UNKNOWN SING UP ERROR');
     }
 
     setState(() => _loading = false);
