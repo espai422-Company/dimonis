@@ -58,7 +58,6 @@ dependencies:
   flutter_facebook_auth: ^6.0.0
   flutter_launcher_icons: ^0.13.1
   animated_text_kit: ^4.2.2
-  awesome_snackbar_content: ^0.1.1
   table_calendar: ^3.1.1
   toastification: ^1.2.1
   password_strength_checker: ^1.2.3

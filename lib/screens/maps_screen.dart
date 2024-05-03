@@ -7,7 +7,7 @@ import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/providers/global_classification_provider.dart';
 import 'package:app_dimonis/providers/providers.dart';
 import 'package:app_dimonis/widgets/question.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -247,35 +247,10 @@ class _MapsScreenState extends State<MapsScreen> {
         Provider.of<FireBaseProvider>(context, listen: false);
     if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'ENHORABONA!',
-              message: 'Resposta correcta',
-              contentType: ContentType.success,
-            ),
-          ),
-        );
+      succesToastification(context, 'ENHORABONA!', 'Resposta correcta');
     } else {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'TORNA A PROVAR...',
-              message: 'Resposta incorrecta',
-              contentType: ContentType.warning,
-            ),
-          ),
-        );
+      warningToastification(
+          context, 'TORNA A PROVAR...', 'Resposta incorrecta');
     }
   }
 

@@ -1,10 +1,9 @@
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/screens/login-register/components_login.dart';
 import 'package:app_dimonis/services/auth.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key, required this.controller});
@@ -74,37 +73,7 @@ class _LoginFormState extends State<LoginForm> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     } on FirebaseAuthException catch (e) {
-      // ignore: use_build_context_synchronously
-      toastification.show(
-        // alignment: Alignment.bottomCenter,
-        style: ToastificationStyle.flatColored,
-        type: ToastificationType.error,
-        context: context,
-        title: const Text(
-          'Login error',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        description: Text(e.message!),
-        autoCloseDuration: const Duration(seconds: 5),
-        icon: const Icon(
-          Icons.error_outline,
-          color: Colors.red,
-        ),
-      );
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'ERROR',
-              message: e.message!,
-              contentType: ContentType.failure,
-            ),
-          ),
-        );
+      errorToastification(context, 'Login error', e.message ?? 'ERROR LOGIN');
     }
 
     setState(() => _loading = false);

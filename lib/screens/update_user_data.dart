@@ -1,5 +1,5 @@
 import 'package:app_dimonis/providers/providers.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,20 +38,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     userProvider.setDisplayName(displayName);
     userProvider.setPhotoURL(iconUser);
 
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: '',
-            message: 'S\'han actualitzat les dades de l\'usuari correctament.',
-            contentType: ContentType.success,
-          ),
-        ),
-      );
+    succesToastification(context, 'CANVIS GUARDATS',
+        'S\'han actualitzat les dades de l\'usuari correctament.');
 
     setState(() => _loading = false);
   }
