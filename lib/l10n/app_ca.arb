@@ -1,0 +1,14 @@
+{
+    "welcomeText": "Una aplicació per entretenir-se i jugar amb amics",
+    "appBarSettingsTitle": "Configuració",
+    "menuHome": "Inici",
+    "menuAccount": "Compte",
+    "menuClassification": "Classificació",
+    "menuGetPrime": "Get Prime",
+    "menuSettings": "Configuració",
+    "menuNewScavengerHunt": "Nova gimcana",
+    "menuNewDemon": "Nou dimoni",
+    "menuLogout": "Tanca la sessió",
+    "logoutDialogTitle": "Tanca la sessió",
+    "logoutDialogDescription": "Esteu segurs de tancar la sessió?"
+}

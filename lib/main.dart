@@ -1,8 +1,10 @@
 import 'package:app_dimonis/firebase_options.dart';
+import 'package:app_dimonis/l10n/l10n.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/dimonis_ginkana.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/global_classification_provider.dart';
+import 'package:app_dimonis/providers/language_provider.dart';
 import 'package:app_dimonis/providers/playing_gimcama.dart';
 import 'package:app_dimonis/providers/theme_provider.dart';
 import 'package:app_dimonis/providers/ui_provider.dart';
@@ -13,6 +15,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -30,20 +34,20 @@ void main() async {
     return true;
   };
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => FireBaseProvider(1)),
         ChangeNotifierProvider(create: (_) => TotalDimonisProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
+        ChangeNotifierProvider(
+            create: (_) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
         ChangeNotifierProvider(create: (_) => UIProvider()),
         ChangeNotifierProvider(create: (_) => PlayingGimcanaProvider()),
         ChangeNotifierProvider(create: (_) => GlobalClassificationProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
       ],
       child: const MyApp(),
     ),
@@ -62,6 +66,14 @@ class MyApp extends StatelessWidget {
       theme: Provider.of<ThemeProvider>(context).currentTheme,
       // initialRoute: '/login',
       routes: routes,
+      supportedLocales: L10n.all,
+      locale: Provider.of<LanguageProvider>(context).locale,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

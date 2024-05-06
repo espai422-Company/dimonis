@@ -1,0 +1,14 @@
+{
+    "welcomeText": "An app to entertain and play with friends",
+    "appBarSettingsTitle": "Settings",
+    "menuHome": "Home",
+    "menuAccount": "Account",
+    "menuClassification": "Classification",
+    "menuGetPrime": "Get Prime",
+    "menuSettings": "Settings",
+    "menuNewScavengerHunt": "New Scavenger Hunt",
+    "menuNewDemon": "New Demon",
+    "menuLogout": "Logout",
+    "logoutDialogTitle": "Logout",
+    "logoutDialogDescription": "Are you sure you want to logout?"
+}

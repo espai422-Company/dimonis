@@ -3,6 +3,7 @@ import 'package:app_dimonis/widgets/only_admin_widget.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'element_list.dart';
 
@@ -29,7 +30,8 @@ class _DrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UserAccountsDrawerHeader(
-      accountName: Text(FirebaseAuth.instance.currentUser!.displayName ?? 'NOM COMPLET'),
+      accountName:
+          Text(FirebaseAuth.instance.currentUser!.displayName ?? 'NOM COMPLET'),
       accountEmail: Text(FirebaseAuth.instance.currentUser!.email ?? 'CORREU'),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Colors.transparent,
@@ -40,7 +42,8 @@ class _DrawerHeader extends StatelessWidget {
             fit: BoxFit.cover,
             width: 90,
             height: 90,
-            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+            errorBuilder:
+                (BuildContext context, Object error, StackTrace? stackTrace) {
               return Image.asset(
                 'assets/user.png',
                 fit: BoxFit.cover,
@@ -52,7 +55,8 @@ class _DrawerHeader extends StatelessWidget {
         ),
       ),
       decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/DrawerImage.jpg'), fit: BoxFit.cover),
+        image: DecorationImage(
+            image: AssetImage('assets/DrawerImage.jpg'), fit: BoxFit.cover),
       ),
     );
   }
@@ -68,7 +72,7 @@ class _DrawerBody extends StatelessWidget {
     return Column(
       children: [
         ProfileMenuWidget(
-          title: "Inici",
+          title: AppLocalizations.of(context)!.menuHome,
           icon: Icons.home,
           color: color,
           onPress: () {
@@ -77,7 +81,7 @@ class _DrawerBody extends StatelessWidget {
           },
         ),
         ProfileMenuWidget(
-          title: "Compte",
+          title: AppLocalizations.of(context)!.menuAccount,
           icon: Icons.account_circle,
           color: color,
           onPress: () {
@@ -86,7 +90,7 @@ class _DrawerBody extends StatelessWidget {
           },
         ),
         ProfileMenuWidget(
-          title: "Classificació",
+          title: AppLocalizations.of(context)!.menuClassification,
           icon: Icons.bar_chart,
           color: color,
           onPress: () {
@@ -95,7 +99,7 @@ class _DrawerBody extends StatelessWidget {
           },
         ),
         ProfileMenuWidget(
-          title: "Get Prime",
+          title: AppLocalizations.of(context)!.menuGetPrime,
           icon: Icons.star_border_purple500,
           color: color,
           onPress: () {
@@ -104,7 +108,7 @@ class _DrawerBody extends StatelessWidget {
           },
         ),
         ProfileMenuWidget(
-          title: "Configuració",
+          title: AppLocalizations.of(context)!.menuSettings,
           icon: Icons.settings_outlined,
           color: color,
           onPress: () {
@@ -115,7 +119,7 @@ class _DrawerBody extends StatelessWidget {
         const OnlyAdminWidget(child: Divider()),
         OnlyAdminWidget(
           child: ProfileMenuWidget(
-            title: "Nova gimcana",
+            title: AppLocalizations.of(context)!.menuNewScavengerHunt,
             icon: Icons.add_location_alt_outlined,
             color: color,
             onPress: () {
@@ -133,7 +137,7 @@ class _DrawerBody extends StatelessWidget {
         ),
         OnlyAdminWidget(
           child: ProfileMenuWidget(
-            title: "Nou dimoni",
+            title: AppLocalizations.of(context)!.menuNewDemon,
             icon: Icons.person_add_alt_outlined,
             color: color,
             onPress: () {
@@ -144,7 +148,7 @@ class _DrawerBody extends StatelessWidget {
         ),
         const Divider(),
         ProfileMenuWidget(
-          title: "Logout",
+          title: AppLocalizations.of(context)!.menuLogout,
           icon: Icons.login_rounded,
           textColor: Colors.red,
           endIcon: false,
@@ -160,8 +164,8 @@ class _DrawerBody extends StatelessWidget {
               dismissOnBackKeyPress: false,
               headerAnimationLoop: false,
               animType: AnimType.topSlide,
-              title: 'Tanca la sessió',
-              desc: 'Estau segurs de tancar la sessió?',
+              title: AppLocalizations.of(context)!.logoutDialogTitle,
+              desc: AppLocalizations.of(context)!.logoutDialogDescription,
               showCloseIcon: true,
               btnCancelOnPress: () {},
               btnOkOnPress: () {

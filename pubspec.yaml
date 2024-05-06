@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,11 +56,11 @@ dependencies:
   firebase_crashlytics: ^3.4.9
   liquid_swipe: ^3.1.0
   smooth_page_indicator: ^1.1.0
-  intl: ^0.19.0
+  intl: ^0.18.1
   flutter_facebook_auth: ^6.0.0
   flutter_launcher_icons: ^0.13.1
   animated_text_kit: ^4.2.2
-  table_calendar: ^3.1.1
+  table_calendar: ^3.0.9
   toastification: ^1.2.1
   password_strength_checker: ^1.2.3
   cool_dropdown: ^2.1.0
@@ -102,7 +104,7 @@ flutter_launcher_icons:
 
 # The following section is specific to Flutter packages.
 flutter:
-  
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -116,6 +118,7 @@ flutter:
     - assets/fotos_clasificacio/
     - assets/logo/
     - assets/icons/
+    - assets/banderes/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
