@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app_dimonis/models/state/gimcama.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
+import 'package:app_dimonis/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -63,6 +64,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
             style: const TextStyle(fontSize: 17),
           ),
           TableCalendar(
+            locale: Provider.of<LanguageProvider>(context, listen: false)
+                .locale
+                .languageCode,
             firstDay: DateTime.utc(2000, 1, 1),
             lastDay: DateTime.utc(3000, 1, 1),
             focusedDay: _focusedDay,

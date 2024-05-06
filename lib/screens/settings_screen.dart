@@ -144,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 5,
               ),
               CoolDropdown<Locale>(
-                defaultItem: idiomes[1],
+                // defaultItem: idiomes[1],
                 controller: dimonisDropdownController,
                 dropdownList: idiomes,
                 onChange: (value) {
