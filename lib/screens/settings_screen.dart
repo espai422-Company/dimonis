@@ -144,11 +144,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 5,
               ),
               CoolDropdown<Locale>(
-                // defaultItem: idiomes[1],
+                defaultItem: idiomes.firstWhere((element) =>
+                    element.value.languageCode == Preferences.language),
                 controller: dimonisDropdownController,
                 dropdownList: idiomes,
                 onChange: (value) {
                   languageProvider.locale = value;
+                  Preferences.language = value.languageCode;
                 },
                 resultOptions: const ResultOptions(
                   padding: EdgeInsets.symmetric(horizontal: 10),

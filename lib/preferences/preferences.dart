@@ -5,6 +5,7 @@ class Preferences {
 
   static bool _isDarkMode = false;
   static bool _guiaInicial = true;
+  static String _language = 'ca';
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -26,5 +27,14 @@ class Preferences {
   static set guiaInicial(bool value) {
     _guiaInicial = value;
     _prefs.setBool('guiaInicial', value);
+  }
+
+  static String get language {
+    return _prefs.getString('language') ?? _language;
+  }
+
+  static set language(String value) {
+    _language = value;
+    _prefs.setString('language', value);
   }
 }

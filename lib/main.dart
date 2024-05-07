@@ -47,7 +47,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UIProvider()),
         ChangeNotifierProvider(create: (_) => PlayingGimcanaProvider()),
         ChangeNotifierProvider(create: (_) => GlobalClassificationProvider()),
-        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(
+            create: (_) => LanguageProvider(language: Preferences.language)),
       ],
       child: const MyApp(),
     ),
