@@ -3,6 +3,7 @@ import 'package:app_dimonis/screens/guia-inicial/page_plantilla.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GuiaInicial extends StatefulWidget {
   const GuiaInicial({super.key});
@@ -28,16 +29,15 @@ class _GuiaInicialState extends State<GuiaInicial> {
             pages: [
               PagePlantilla(
                 image: 'assets/guia/foto1.png',
-                title: 'Ves a la caça dels dimonis',
-                subTitle:
-                    'Descobreix i troba el major nombre de dimonis possibles.',
+                title: AppLocalizations.of(context)!.guidePage1Title,
+                subTitle: AppLocalizations.of(context)!.guidePage1Subtitle,
                 counterText: '1/3',
                 bgColor: Preferences.isDarkMode ? darkModeColor : Colors.white,
               ),
               PagePlantilla(
                 image: 'assets/guia/foto2.png',
-                title: 'Compateix amb els amics',
-                subTitle: 'Juga amb els teus amics i competeix en temps real.',
+                title: AppLocalizations.of(context)!.guidePage2Title,
+                subTitle: AppLocalizations.of(context)!.guidePage2Subtitle,
                 counterText: '2/3',
                 bgColor: Preferences.isDarkMode
                     ? const Color.fromARGB(255, 116, 116, 116)
@@ -45,9 +45,8 @@ class _GuiaInicialState extends State<GuiaInicial> {
               ),
               PagePlantilla(
                 image: 'assets/guia/foto3.png',
-                title: 'Vols crear gincanes?',
-                subTitle:
-                    'Uneix-te a la comunitat i crea les teves pròpies gincanes.',
+                title: AppLocalizations.of(context)!.guidePage3Title,
+                subTitle: AppLocalizations.of(context)!.guidePage3Subtitle,
                 counterText: '3/3',
                 bgColor: Preferences.isDarkMode ? darkModeColor : Colors.white,
               ),

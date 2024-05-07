@@ -1,5 +1,6 @@
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountCreated extends StatelessWidget {
   const AccountCreated({super.key});
@@ -16,16 +17,16 @@ class AccountCreated extends StatelessWidget {
               "assets/confirmed.png",
               height: 250,
             ),
-            const Text(
-              'La conta s\'ha creat correctament!',
+            Text(
+              AppLocalizations.of(context)!.accountCreatedTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Enhorabona, el teu compte s'ha verificat correctament. Benvingut a DimonisGo on podras jugar i crear les teves pròpies gimcanes.",
+            Text(
+              AppLocalizations.of(context)!.accountCreatedMessage,
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -42,7 +43,7 @@ class AccountCreated extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed('/');
                   }
                 },
-                child: const Text('Continua'),
+                child: Text(AppLocalizations.of(context)!.continueButton),
               ),
             ),
           ],

@@ -41,5 +41,21 @@
     "billingDetails": "Detalls de facturació",
     "userManagement": "Gestió d'usuaris",
     "information": "Informació",
-    "logout": "Tanca la sessió"
+    "logout": "Tanca la sessió",
+    "guidePage1Title": "Ves a la caça dels dimonis",
+    "guidePage1Subtitle": "Descobreix i troba el major nombre de dimonis possibles.",
+    "guidePage2Title": "Compateix amb els amics",
+    "guidePage2Subtitle": "Juga amb els teus amics i competeix en temps real.",
+    "guidePage3Title": "Vols crear gincanes?",
+    "guidePage3Subtitle": "Uneix-te a la comunitat i crea les teves pròpies gincanes.",
+    "verifyEmailTitle": "Verifica la teva adreça de correu",
+    "congratulationsText": "Enhorabona, el teu compte espera: verifica el teu correu per començar a jugar i crear les teves gimcanes.",
+    "cancelButton": "Cancel·la",
+    "resendEmailButton": "Reenvia correu electrònic",
+    "resetPasswordTitle": "Recupera la contrasenya",
+    "resetPasswordSubtitle": "Introdueix el correu per canviar la contrasenya:",
+    "submitButton": "Envia",
+    "accountCreatedTitle": "El teu compte s'ha creat correctament!",
+    "accountCreatedMessage": "Enhorabona, el teu compte s'ha verificat correctament. Benvingut a DimonisGo on podràs jugar i crear les teves pròpies gimcanes.",
+    "continueButton": "Continua"
 }

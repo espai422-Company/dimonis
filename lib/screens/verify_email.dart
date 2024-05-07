@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_dimonis/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -66,9 +67,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
               "assets/verifyEmail.png",
               height: 250,
             ),
-            const Text(
-              'Verifica la teva adreça de correu',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+            Text(
+              AppLocalizations.of(context)!.verifyEmailTitle,
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               height: 20,
@@ -77,8 +78,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Enhorabona, el teu compte espera: verifica el teu correu per començar a jugar i crear les teves gimcanes.",
+            Text(
+              AppLocalizations.of(context)!.congratulationsText,
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -88,22 +89,23 @@ class _VerifyEmailState extends State<VerifyEmail> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                  onPressed: () {
-                    auth.signOut();
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text('Cancel·la'),
-                    ],
-                  )),
+                onPressed: () {
+                  auth.signOut();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Text(AppLocalizations.of(context)!.cancelButton),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -116,7 +118,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 onPressed: () {
                   auth.resendEmailVerification();
                 },
-                label: const Text("Resend Email"),
+                label: Text(AppLocalizations.of(context)!.resendEmailButton),
               ),
             )
           ],

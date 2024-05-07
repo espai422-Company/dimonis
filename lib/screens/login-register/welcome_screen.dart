@@ -35,8 +35,8 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: 70,
-            right: 10,
+            bottom: 20,
+            left: 20,
             child: SizedBox(
               width: 90,
               child: CoolDropdown<Locale>(

@@ -41,5 +41,21 @@
     "billingDetails": "Detalles de facturación",
     "userManagement": "Gestión de usuarios",
     "information": "Información",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "guidePage1Title": "Ve a la caza de los demonios",
+    "guidePage1Subtitle": "Descubre y encuentra la mayor cantidad de demonios posible.",
+    "guidePage2Title": "Compite con amigos",
+    "guidePage2Subtitle": "Juega con tus amigos y compite en tiempo real.",
+    "guidePage3Title": "¿Quieres crear gincanas?",
+    "guidePage3Subtitle": "Únete a la comunidad y crea tus propias gincanas.",
+    "verifyEmailTitle": "Verifica tu dirección de correo electrónico",
+    "congratulationsText": "¡Enhorabuena, tu cuenta está esperando: verifica tu correo electrónico para empezar a jugar y crear tus gincanas.",
+    "cancelButton": "Cancelar",
+    "resendEmailButton": "Reenviar correo electrónico",
+    "resetPasswordTitle": "Recupera la contraseña",
+    "resetPasswordSubtitle": "Introduce tu correo electrónico para restablecer tu contraseña:",
+    "submitButton": "Enviar",
+    "accountCreatedTitle": "¡Tu cuenta se ha creado correctamente!",
+    "accountCreatedMessage": "Enhorabuena, tu cuenta se ha verificado correctamente. Bienvenido a DimonisGo donde puedes jugar y crear tus propias gincanas.",
+    "continueButton": "Continuar"
 }

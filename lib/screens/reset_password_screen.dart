@@ -1,6 +1,7 @@
 import 'package:app_dimonis/services/auth.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});
@@ -40,7 +41,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recupera la contrassenya'),
+        title: Text(AppLocalizations.of(context)!.resetPasswordTitle),
         backgroundColor: Colors.black,
       ),
       body: Form(
@@ -60,13 +61,14 @@ class ResetPasswordScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Recupera la contrassenya',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                Text(
+                  AppLocalizations.of(context)!.resetPasswordTitle,
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.w800),
                   textAlign: TextAlign.center,
                 ),
-                const Text(
-                  'Introdueix el correu per canviar la contrassenya:',
+                Text(
+                  AppLocalizations.of(context)!.resetPasswordSubtitle,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(
@@ -76,35 +78,39 @@ class ResetPasswordScreen extends StatelessWidget {
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Introdueix el teu correu';
+                      return AppLocalizations.of(context)!.noEmailInput;
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.email_outlined),
-                      labelText: "Email",
-                      hintText: "Email",
-                      border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      labelText: AppLocalizations.of(context)!.email,
+                      hintText: AppLocalizations.of(context)!.email,
+                      border: const OutlineInputBorder()),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    handleSubmit();
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.save),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text('Envia'),
-                    ],
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      handleSubmit();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.save),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(AppLocalizations.of(context)!.submitButton),
+                      ],
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),

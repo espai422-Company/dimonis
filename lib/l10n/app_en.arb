@@ -41,5 +41,21 @@
     "billingDetails": "Billing details",
     "userManagement": "User management",
     "information": "Information",
-    "logout": "Logout"
+    "logout": "Logout",
+    "guidePage1Title": "Go demon hunting",
+    "guidePage1Subtitle": "Discover and find as many demons as possible.",
+    "guidePage2Title": "Compete with friends",
+    "guidePage2Subtitle": "Play with your friends and compete in real-time.",
+    "guidePage3Title": "Want to create scavenger hunts?",
+    "guidePage3Subtitle": "Join the community and create your own scavenger hunts.",
+    "verifyEmailTitle": "Verify your email address",
+    "congratulationsText": "Congratulations, your account is waiting: verify your email to start playing and create your scavenger hunts.",
+    "cancelButton": "Cancel",
+    "resendEmailButton": "Resend Email",
+    "resetPasswordTitle": "Reset Password",
+    "resetPasswordSubtitle": "Enter your email to reset your password:",
+    "submitButton": "Submit",
+    "accountCreatedTitle": "Your account has been successfully created!",
+    "accountCreatedMessage": "Congratulations, your account has been successfully verified. Welcome to DimonisGo where you can play and create your own scavenger hunts.",
+    "continueButton": "Continue"
 }
