@@ -1,51 +1,24 @@
 {
     "@@locale": "es",
     "welcomeText": "Una aplicación para entretenerse i jugar con amigos",
-    "@welcomeText": {
-        "description": "welcomeText"
-    },
     "appBarSettingsTitle": "Configuración",
-    "@appBarSettingsTitle": {
-        "description": "appBarSettingsTitle"
-    },
     "menuHome": "Inicio",
-    "@menuHome": {
-        "description": "Menú de Inicio"
-    },
     "menuAccount": "Cuenta",
-    "@menuAccount": {
-        "description": "Menú de Cuenta"
-    },
     "menuClassification": "Clasificación",
-    "@menuClassification": {
-        "description": "Menú de Clasificación"
-    },
     "menuGetPrime": "Obtener Prime",
-    "@menuGetPrime": {
-        "description": "Menú de Obtener Prime"
-    },
     "menuSettings": "Configuración",
-    "@menuSettings": {
-        "description": "Menú de Configuración"
-    },
     "menuNewScavengerHunt": "Nueva gimcana",
-    "@menuNewScavengerHunt": {
-        "description": "Menú de Nueva gimcana"
-    },
     "menuNewDemon": "Nuevo demonio",
-    "@menuNewDemon": {
-        "description": "Menú de Nuevo demonio"
-    },
     "menuLogout": "Cerrar sesión",
-    "@menuLogout": {
-        "description": "Menú de Cerrar sesión"
-    },
     "logoutDialogTitle": "Cerrar sesión",
-    "@logoutDialogTitle": {
-        "description": "Título del diálogo de cierre de sesión"
-    },
     "logoutDialogDescription": "¿Estás seguro de que deseas cerrar sesión?",
-    "@logoutDialogDescription": {
-        "description": "Descripción del diálogo de cierre de sesión"
-    }
+    "darkMode": "Modo oscuro",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "catalan": "Catalán",
+    "appearance": "Apariencia",
+    "initialGuide": "Guía inicial",
+    "initialGuideDescription": "Activar guia inicial",
+    "selectLanguage": "Selecciona un idioma"
 }

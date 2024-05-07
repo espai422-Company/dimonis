@@ -22,20 +22,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final languageProvider = Provider.of<LanguageProvider>(context);
     const Color color = Color.fromARGB(255, 190, 185, 185);
 
-    final dimonisDropdownController = DropdownController();
+    final languageDropdownController = DropdownController();
 
     List<CoolDropdownItem<Locale>> idiomes = [
       CoolDropdownItem<Locale>(
           value: const Locale('es'),
-          label: "Espanyol",
+          label: AppLocalizations.of(context)!.spanish,
           icon: Image.asset("assets/banderes/es.png")),
       CoolDropdownItem<Locale>(
           value: const Locale('ca'),
-          label: "Catala",
+          label: AppLocalizations.of(context)!.catalan,
           icon: Image.asset("assets/banderes/ca.png")),
       CoolDropdownItem<Locale>(
           value: const Locale('en'),
-          label: "Angles",
+          label: AppLocalizations.of(context)!.english,
           icon: Image.asset("assets/banderes/en.png")),
     ];
 
@@ -51,9 +51,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                'Aparença',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.appearance,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
                 ),
@@ -75,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     SwitchListTile(
                       value: Preferences.isDarkMode,
-                      title: const Text('Mode obscur'),
+                      title: Text(AppLocalizations.of(context)!.darkMode),
                       onChanged: (value) {
                         Preferences.isDarkMode = value;
                         value
@@ -89,9 +89,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                'Guia inicial',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.initialGuide,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
                 ),
@@ -113,7 +113,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     SwitchListTile(
                       value: Preferences.guiaInicial,
-                      title: const Text('Activar guia inicial'),
+                      title: Text(AppLocalizations.of(context)!
+                          .initialGuideDescription),
                       onChanged: (value) {
                         setState(() {
                           Preferences.guiaInicial = value;
@@ -126,9 +127,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                'Idioma',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.language,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
                 ),
@@ -146,16 +147,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               CoolDropdown<Locale>(
                 defaultItem: idiomes.firstWhere((element) =>
                     element.value.languageCode == Preferences.language),
-                controller: dimonisDropdownController,
+                controller: languageDropdownController,
                 dropdownList: idiomes,
                 onChange: (value) {
                   languageProvider.locale = value;
                   Preferences.language = value.languageCode;
+                  languageDropdownController.close();
+                  setState(() {});
                 },
-                resultOptions: const ResultOptions(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                resultOptions: ResultOptions(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   // width: 200,
-                  icon: SizedBox(
+                  icon: const SizedBox(
                     width: 10,
                     height: 10,
                     child: CustomPaint(
@@ -163,7 +166,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   render: ResultRender.all,
-                  placeholder: 'Select language',
+                  placeholder: AppLocalizations.of(context)!.selectLanguage,
                   isMarquee: true,
                 ),
                 dropdownOptions: const DropdownOptions(

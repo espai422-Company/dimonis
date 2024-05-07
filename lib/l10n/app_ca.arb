@@ -1,4 +1,5 @@
 {
+    "@@locale": "ca",
     "welcomeText": "Una aplicació per entretenir-se i jugar amb amics",
     "appBarSettingsTitle": "Configuració",
     "menuHome": "Inici",
@@ -10,5 +11,14 @@
     "menuNewDemon": "Nou dimoni",
     "menuLogout": "Tanca la sessió",
     "logoutDialogTitle": "Tanca la sessió",
-    "logoutDialogDescription": "Esteu segurs de tancar la sessió?"
+    "logoutDialogDescription": "Esteu segurs de tancar la sessió?",
+    "darkMode": "Mode Fosc",
+    "language": "Idioma",
+    "english": "Anglès",
+    "spanish": "Espanyol",
+    "catalan": "Català",
+    "appearance": "Aparença",
+    "initialGuide": "Guia Inicial",
+    "initialGuideDescription": "Activar guia inicial",
+    "selectLanguage": "Selecciona un idioma"
 }

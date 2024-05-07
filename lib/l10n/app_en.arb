@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "welcomeText": "An app to entertain and play with friends",
     "appBarSettingsTitle": "Settings",
     "menuHome": "Home",
@@ -10,5 +11,14 @@
     "menuNewDemon": "New Demon",
     "menuLogout": "Logout",
     "logoutDialogTitle": "Logout",
-    "logoutDialogDescription": "Are you sure you want to logout?"
+    "logoutDialogDescription": "Are you sure you want to logout?",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "catalan": "Catalan",
+    "appearance": "Appearance",
+    "initialGuide": "Initial Guide",
+    "initialGuideDescription": "Activate initial guide",
+    "selectLanguage": "Select a language"
 }
