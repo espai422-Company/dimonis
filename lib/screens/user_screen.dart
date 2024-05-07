@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Informació de l\'usuari'),
+        title: Text(AppLocalizations.of(context)!.infoUsuari),
         backgroundColor: Colors.black,
       ),
       drawer: const SideMenu(),
@@ -85,41 +86,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.pushNamed(context, 'update_user_data_screen')
                         .then((value) => setState(() {}));
                   },
-                  child: const Text('Edit profile',
-                      style: TextStyle(color: Colors.black)),
+                  child: Text(AppLocalizations.of(context)!.editProfile,
+                      style: const TextStyle(color: Colors.black)),
                 ),
               ),
               const SizedBox(height: 30),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(
-                  title: "Settings",
+                  title: AppLocalizations.of(context)!.settings,
                   icon: Icons.settings,
                   color: color,
                   onPress: () {
                     Navigator.pushNamed(context, 'settings_screen');
                   }),
               ProfileMenuWidget(
-                  title: "Billing Details",
+                  title: AppLocalizations.of(context)!.billingDetails,
                   icon: Icons.wallet,
                   color: color,
                   onPress: () {}),
               ProfileMenuWidget(
-                  title: "User Management",
+                  title: AppLocalizations.of(context)!.userManagement,
                   icon: Icons.person,
                   color: color,
                   onPress: () {}),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(
-                  title: "Information",
+                  title: AppLocalizations.of(context)!.information,
                   icon: Icons.info,
                   color: color,
                   onPress: () {
                     Navigator.pushNamed(context, 'info_app_screen');
                   }),
               ProfileMenuWidget(
-                title: "Logout",
+                title: AppLocalizations.of(context)!.logout,
                 icon: Icons.login_rounded,
                 textColor: Colors.red,
                 endIcon: false,
@@ -135,8 +136,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     dismissOnBackKeyPress: false,
                     headerAnimationLoop: false,
                     animType: AnimType.topSlide,
-                    title: 'Tanca la sessió',
-                    desc: 'Estau segurs de tancar la sessió?',
+                    title: AppLocalizations.of(context)!.logoutDialogTitle,
+                    desc: AppLocalizations.of(context)!.logoutDialogDescription,
                     showCloseIcon: true,
                     btnCancelOnPress: () {},
                     btnOkOnPress: () {
