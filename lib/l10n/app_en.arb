@@ -1,6 +1,8 @@
 {
     "@@locale": "en",
     "welcomeText": "An app to entertain and play with friends",
+    "login": "Log In",
+    "signup": "Sign Up",
     "appBarSettingsTitle": "Settings",
     "menuHome": "Home",
     "menuAccount": "Account",

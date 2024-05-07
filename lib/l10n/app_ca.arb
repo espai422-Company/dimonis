@@ -1,6 +1,8 @@
 {
     "@@locale": "ca",
     "welcomeText": "Una aplicació per entretenir-se i jugar amb amics",
+    "login": "Iniciar sessió",
+    "signup": "Registrar-se",
     "appBarSettingsTitle": "Configuració",
     "menuHome": "Inici",
     "menuAccount": "Compte",
