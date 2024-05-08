@@ -18,7 +18,8 @@ class _GimcamaScreenState extends State<GimcamaScreen> {
   @override
   Widget build(BuildContext context) {
     // var playing = Provider.of<PlayingGimcanaProvider>(context, listen: true);
-    var progressProvider = Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
+    var progressProvider =
+        Provider.of<FireBaseProvider>(context, listen: true).progressProvider;
 
     if (progressProvider.gimcanaId == null) {
       return Center(

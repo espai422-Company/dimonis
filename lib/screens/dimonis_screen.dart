@@ -3,6 +3,7 @@ import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dimonis/models/firebase/dimoni.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DimonisScreen extends StatelessWidget {
   const DimonisScreen({super.key});
@@ -31,7 +32,7 @@ class DimonisScreen extends StatelessWidget {
                   //       TextStyle(fontSize: 70.0, fontFamily: 'Canterbury'),
                   // ),
                   TypewriterAnimatedText(
-                    'Unit a una gimcana per començar',
+                    AppLocalizations.of(context)!.startScavengerHunt,
                     textAlign: TextAlign.center,
                     textStyle: const TextStyle(
                       fontSize: 32.0,

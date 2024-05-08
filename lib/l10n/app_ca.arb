@@ -82,5 +82,22 @@
     "rightsReserved": "© 2024 DimonisGo | Tots els drets reservats",
     "errorCoordinates": "ERROR COORDENADES",
     "coordinatesNotSelected": "No s'han seleccionat les coordenades",
-    "mapTitle": "Mapa"
+    "mapTitle": "Mapa",
+    "startScavengerHunt": "Unit a una gimcana per començar",
+    "noScavengerHunts": "No hi ha gimcanes per al dia seleccionat...",
+    "calendar": "Calendari",
+    "all": "Totes",
+    "next": "Properes",
+    "current": "Actuals",
+    "previous": "Anteriors",
+    "cannotPlayTitle": "No es pot jugar",
+    "cannotPlayDesc": "La gimcama no està activa, revisa les dates",
+    "editScavengerHuntTitle": "Edita gimcana",
+    "editScavengerHuntDesc": "Vols editar la gimcana",
+    "dimonis": "Dimonis",
+    "completed": "Completada",
+    "start": "Inici",
+    "end": "Final",
+    "demonsToFind": "Dimonis a trobar",
+    "gimcana": "Gimcanes"
 }

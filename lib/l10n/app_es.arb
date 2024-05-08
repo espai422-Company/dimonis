@@ -82,5 +82,22 @@
     "rightsReserved": "© 2024 DimonisGo | Todos los derechos reservados",
     "errorCoordinates": "ERROR COORDENADAS",
     "coordinatesNotSelected": "No se han seleccionado las coordenadas",
-    "mapTitle": "Mapa"
+    "mapTitle": "Mapa",
+    "startScavengerHunt": "Únete a una gimcana para empezar",
+    "noScavengerHunts": "No hay gincanas para el día seleccionado...",
+    "calendar": "Calendario",
+    "all": "Todas",
+    "next": "Próximas",
+    "current": "Actuals",
+    "previous": "Anteriores",
+    "cannotPlayTitle": "No se puede jugar",
+    "cannotPlayDesc": "La gincana no está activa, revisa las fechas",
+    "editScavengerHuntTitle": "Editar gincana",
+    "editScavengerHuntDesc": "¿Quieres editar la gincana",
+    "dimonis": "Demoneos",
+    "completed": "Completada",
+    "start": "Inicio",
+    "end": "Final",
+    "demonsToFind": "Demoneos a encontrar",
+    "gimcana": "Gincanas"
 }

@@ -6,6 +6,7 @@ import 'package:app_dimonis/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -55,9 +56,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          const Text(
-            'Calendari',
-            style: TextStyle(fontSize: 30),
+          Text(
+            AppLocalizations.of(context)!.calendar,
+            style: const TextStyle(fontSize: 30),
           ),
           Text(
             _focusedDay.toString().split(" ")[0],
@@ -124,7 +125,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         child: AnimatedTextKit(
                       animatedTexts: [
                         TypewriterAnimatedText(
-                          'No hi ha gimcanes per el dia seleccionat...',
+                          AppLocalizations.of(context)!.noScavengerHunts,
                           textAlign: TextAlign.center,
                           textStyle: const TextStyle(
                             fontSize: 25.0,

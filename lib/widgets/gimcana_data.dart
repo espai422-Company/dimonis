@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:app_dimonis/models/firebase/firebase_user.dart';
-import 'package:app_dimonis/models/state/progress.dart';
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:app_dimonis/providers/firebase_provider.dart';
 import 'package:app_dimonis/providers/progress_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class GimcamaData extends StatelessWidget {
@@ -36,7 +34,7 @@ class GimcamaData extends StatelessWidget {
                 var progress = progressProvider.progressMap[user]!;
                 Widget count;
 
-                count = getTime(progressProvider, user, progress);
+                count = getTime(progressProvider, user, progress, context);
 
                 return Container(
                   padding: const EdgeInsets.all(5),
@@ -114,7 +112,7 @@ class GimcamaData extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text("Dimonis"),
+                        Text(AppLocalizations.of(context)!.dimonis),
                         Text("${progress.discovers.length}"),
                       ],
                     ),
@@ -132,7 +130,8 @@ class GimcamaData extends StatelessWidget {
     );
   }
 
-  getTime(ProgressProvider progressProvider, user, progress) {
+  getTime(
+      ProgressProvider progressProvider, user, progress, BuildContext context) {
     if (progressProvider.timeToComplete[user] == null) {
       DateTime primeraCaptura = DateTime.parse(progress.discovers[0].time);
       Duration difference = primeraCaptura.difference(DateTime.now());
@@ -152,7 +151,8 @@ class GimcamaData extends StatelessWidget {
       int minutes = difference.inMinutes.remainder(60) * -1;
       int seconds = difference.inSeconds.remainder(60) * -1;
 
-      return Text("Completada \n ${days}d ${hours}h ${minutes}m ${seconds}s");
+      return Text(
+          "${AppLocalizations.of(context)!.completed} \n ${days}d ${hours}h ${minutes}m ${seconds}s");
     }
   }
 }
