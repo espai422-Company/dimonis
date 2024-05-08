@@ -8,6 +8,7 @@ import 'package:app_dimonis/widgets/side_menu.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 String nom = '';
 DateTime? dataInici;
@@ -35,7 +36,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
     return Scaffold(
       drawer: const SideMenu(),
       appBar: AppBar(
-        title: const Text("Crea una gimcana"),
+        title: Text(AppLocalizations.of(context)!.createScavengerHunt),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.5),
@@ -43,7 +44,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
           Container(
             height: 15,
           ),
-          _nom('Nom de la gimcana'),
+          _nom(AppLocalizations.of(context)!.scavengerHuntName, context),
           Container(
             height: 25,
           ),
@@ -51,7 +52,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Data d\' inici"),
+              Text(AppLocalizations.of(context)!.startDate),
               const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
@@ -78,7 +79,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Data final"),
+              Text(AppLocalizations.of(context)!.endDate),
               const Expanded(child: SizedBox()),
               ElevatedButton(
                   onPressed: () async {
@@ -106,7 +107,7 @@ class _CreateGinkanaState extends State<CreateGinkana> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          List<String> errors = comprovarDades();
+          List<String> errors = comprovarDades(context);
           if (errors.isNotEmpty) {
             AwesomeDialog(
               context: context,
@@ -169,7 +170,7 @@ Widget _dimonis(context) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text("Dimonis"),
+          Text(AppLocalizations.of(context)!.dimonis),
           const Expanded(child: SizedBox()),
           Text("${totaldimonis.totaldimonis}"),
           const Expanded(child: SizedBox()),
@@ -179,7 +180,7 @@ Widget _dimonis(context) {
                 totaldimonis.setDimoni(dimonis.length);
                 totaldimonis.notify();
               },
-              child: const Text("Buidar dimonis")),
+              child: Text(AppLocalizations.of(context)!.clearDemons)),
         ],
       ),
       Container(
@@ -257,7 +258,7 @@ class _Card extends StatelessWidget {
   }
 }
 
-Widget _nom(String text) {
+Widget _nom(String text, BuildContext context) {
   return TextFormField(
     decoration: InputDecoration(
       hintText: text,
@@ -273,7 +274,7 @@ Widget _nom(String text) {
     },
     validator: (value) {
       if (value == null || value.length < 8 || value.length > 15) {
-        return 'El nom és obligatori';
+        return AppLocalizations.of(context)!.nameRequired;
       }
       return null;
     },
@@ -294,24 +295,24 @@ DateTime _updateTime(DateTime date, TimeOfDay time) {
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
 }
 
-List<String> comprovarDades() {
+List<String> comprovarDades(BuildContext context) {
   List<String> errors = [];
 
   if (dimonis.length < 3) {
-    errors.add("El minim de dimonis pera una gincana son ${dimonis.length}/3");
+    errors
+        .add("${AppLocalizations.of(context)!.minDemons} ${dimonis.length}/3");
   }
 
   if (dataFinal!.isBefore(dataInici!)) {
-    errors
-        .add("La data final de la gincana no pot ser menor a la data d'inici");
+    errors.add(AppLocalizations.of(context)!.endDateBeforeStartDate);
   }
 
   if (!RegExp(r'^(.{8,})$').hasMatch(nom)) {
-    errors.add("El nom de la gincana es massa curt ${nom.length}/8");
+    errors.add("${AppLocalizations.of(context)!.nameTooShort} ${nom.length}/8");
   }
 
   if (nom.length > 15) {
-    errors.add("El nom de la gincana es massa llarg ${nom.length}/15");
+    errors.add("${AppLocalizations.of(context)!.nameTooLong} ${nom.length}/15");
   }
 
   return errors;

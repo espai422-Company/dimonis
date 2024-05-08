@@ -14,6 +14,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../models/state/progress.dart';
 
@@ -68,7 +69,7 @@ class _MapsScreenState extends State<MapsScreen> {
         child: AnimatedTextKit(
           animatedTexts: [
             TypewriterAnimatedText(
-              'Unit a una gimcana per començar',
+              AppLocalizations.of(context)!.startScavengerHunt,
               textAlign: TextAlign.center,
               textStyle: const TextStyle(
                 fontSize: 25.0,

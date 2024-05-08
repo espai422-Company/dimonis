@@ -99,5 +99,16 @@
     "start": "Start",
     "end": "End",
     "demonsToFind": "Demons to find",
-    "gimcana": "Gymkhanas"
+    "gimcana": "Gymkhanas",
+    "globalClassification": "Global Classification",
+    "scavengerHuntName": "Gymkhana Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "clearDemons": "Clear demons",
+    "nameRequired": "Name is required",
+    "minDemons": "The minimum number of demons for a gymkhana is",
+    "endDateBeforeStartDate": "The end date of the gymkhana cannot be before the start date",
+    "nameTooShort": "The name of the gymkhana is too short",
+    "nameTooLong": "The name of the gymkhana is too long",
+    "createScavengerHunt": "Create a gymkhana"
 }

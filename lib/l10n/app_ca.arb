@@ -99,5 +99,16 @@
     "start": "Inici",
     "end": "Final",
     "demonsToFind": "Dimonis a trobar",
-    "gimcana": "Gimcanes"
+    "gimcana": "Gimcanes",
+    "globalClassification": "Classificació global",
+    "createScavengerHunt": "Crea una gimcana",
+    "scavengerHuntName": "Nom de la gimcana",
+    "startDate": "Data d'inici",
+    "endDate": "Data final",
+    "clearDemons": "Buidar dimonis",
+    "nameRequired": "El nom és obligatori",
+    "minDemons": "El mínim de dimonis per a una gimcana són",
+    "endDateBeforeStartDate": "La data final de la gimcana no pot ser anterior a la data d'inici",
+    "nameTooShort": "El nom de la gimcana és massa curt",
+    "nameTooLong": "El nom de la gimcana és massa llarg"
 }
