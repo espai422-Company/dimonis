@@ -1,5 +1,6 @@
 import 'package:app_dimonis/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpgradeToPremium extends StatefulWidget {
   const UpgradeToPremium({super.key});
@@ -29,16 +30,16 @@ class _UpgradeToPremiumState extends State<UpgradeToPremium> {
               "assets/pricing_plans.png",
               height: 250,
             ),
-            const Text(
-              'Vols ser PRIME?',
+            Text(
+              AppLocalizations.of(context)!.preguntaPrime,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Amb la subscripció PRIME podràs gaudir de totes les funcionalitats de l'aplicació i a més a més podras crear les teves pròpies gincanes per als teus amics o familiars.",
+            Text(
+              AppLocalizations.of(context)!.textePrime,
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -51,7 +52,7 @@ class _UpgradeToPremiumState extends State<UpgradeToPremium> {
                 onPressed: () {
                   Navigator.of(context).pushNamed('/paypal');
                 },
-                child: const Text('Upgrade to premium'),
+                child: Text(AppLocalizations.of(context)!.upgradePremium),
               ),
             ),
           ],

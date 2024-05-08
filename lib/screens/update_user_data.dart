@@ -3,6 +3,7 @@ import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -51,7 +52,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: Text(AppLocalizations.of(context)!.editProfile),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -113,15 +114,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       controller: _displayNameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Introdueix el nom d\'usuari';
+                          return AppLocalizations.of(context)!.noUsernameInput;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person_outline_outlined),
-                          labelText: "Nom usuari",
-                          hintText: "Nom usuari",
-                          border: OutlineInputBorder()),
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person_outline_outlined),
+                          labelText: AppLocalizations.of(context)!.username,
+                          hintText: AppLocalizations.of(context)!.username,
+                          border: const OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 20,
@@ -135,11 +136,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       //   }
                       //   return null;
                       // },
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person_outline_outlined),
-                          labelText: "Correu",
-                          hintText: "Correu",
-                          border: OutlineInputBorder()),
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person_outline_outlined),
+                          labelText: AppLocalizations.of(context)!.email,
+                          hintText: AppLocalizations.of(context)!.email,
+                          border: const OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 20,
@@ -156,8 +157,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       // },
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.fingerprint),
-                        labelText: "Password",
-                        hintText: "Password",
+                        labelText: AppLocalizations.of(context)!.password,
+                        hintText: AppLocalizations.of(context)!.password,
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           onPressed: () {},
@@ -187,7 +188,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Text("Guardar cambios".toUpperCase()),
+                            : Text(AppLocalizations.of(context)!
+                                .saveChanges
+                                .toUpperCase()),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -198,7 +201,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       children: [
                         Text.rich(
                           TextSpan(
-                            text: 'Joined ',
+                            text: '${AppLocalizations.of(context)!.joined} ',
                             children: [
                               TextSpan(
                                   text:
@@ -218,7 +221,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               foregroundColor: Colors.red,
                               shape: const StadiumBorder(),
                               side: BorderSide.none),
-                          child: const Text('Delete Account'),
+                          child:
+                              Text(AppLocalizations.of(context)!.deleteAccount),
                         ),
                       ],
                     )
@@ -233,19 +237,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   String _getMonth(int month) {
-    const List<String> months = [
-      'gener',
-      'febrer',
-      'març',
-      'abril',
-      'maig',
-      'juny',
-      'juliol',
-      'agost',
-      'setembre',
-      'octubre',
-      'novembre',
-      'desembre',
+    List<String> months = [
+      AppLocalizations.of(context)!.gener,
+      AppLocalizations.of(context)!.febrer,
+      AppLocalizations.of(context)!.marc,
+      AppLocalizations.of(context)!.abril,
+      AppLocalizations.of(context)!.maig,
+      AppLocalizations.of(context)!.juny,
+      AppLocalizations.of(context)!.juliol,
+      AppLocalizations.of(context)!.agost,
+      AppLocalizations.of(context)!.setembre,
+      AppLocalizations.of(context)!.octubre,
+      AppLocalizations.of(context)!.novembre,
+      AppLocalizations.of(context)!.desembre,
     ];
     return months[month - 1];
   }

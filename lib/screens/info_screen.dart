@@ -1,5 +1,6 @@
 import 'package:app_dimonis/preferences/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InfoAppScreen extends StatelessWidget {
   const InfoAppScreen({super.key});
@@ -29,20 +30,20 @@ class InfoAppScreen extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.80,
                 height: 100,
-                child: const Text(
+                child: Text(
                   textAlign: TextAlign.center,
-                  'Make it work, make it right, moke it fast.',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.lema,
+                  style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-            const Positioned(
+            Positioned(
               bottom: 0,
               child: Text(
-                'Make with ❤️ by DimonisGoTeam\nVersió 1.0.0\n© 2024 DimonisGo | All rights reserved',
+                '${AppLocalizations.of(context)!.madeByDimonisGoTeam}\n${AppLocalizations.of(context)!.version}\n${AppLocalizations.of(context)!.rightsReserved}',
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:app_dimonis/models/firebase/dimoni.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapaPickerScreen extends StatefulWidget {
   const MapaPickerScreen({super.key});
@@ -33,7 +35,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     dimoni = ModalRoute.of(context)!.settings.arguments as Map<Dimoni, dynamic>;
 
     if ('0' != dimoni.values.first['x'] && '0' != dimoni.values.first['y']) {
-       coordenadesDimoni = Marker(
+      coordenadesDimoni = Marker(
           markerId: const MarkerId('coordenadesDimoni'),
           infoWindow: InfoWindow(title: dimoni.keys.first.nom),
           position: LatLng(double.parse(dimoni.values.first['x']),
@@ -47,7 +49,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mapa'),
+        title: Text(AppLocalizations.of(context)!.mapTitle),
         actions: [
           IconButton(
             onPressed: () {
@@ -73,7 +75,7 @@ class _MapaScreenState extends State<MapaPickerScreen> {
           _addMarker(coor, dimoni, coordenadesDimoni),
           dimoni.values.first['x'] = coor.latitude.toString(),
           dimoni.values.first['y'] = coor.longitude.toString(),
-          },
+        },
         initialCameraPosition: puntInicial,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
@@ -85,35 +87,31 @@ class _MapaScreenState extends State<MapaPickerScreen> {
         padding: const EdgeInsets.all(10),
         child: FloatingActionButton(
           elevation: 0,
-          child: const Icon(Icons.save),
           backgroundColor: Colors.red,
           onPressed: () {
             if ('0' != dimoni.values.first['x'] &&
                 '0' != dimoni.values.first['y']) {
               Navigator.pop(context, dimoni);
             } else {
-              showDialog(
-                barrierDismissible: false,
+              AwesomeDialog(
                 context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    icon: const Icon(Icons.error_outline_outlined),
-                    title: const Text('ERROR COORDENADES'),
-                    content:
-                        const Text('No s\'han seleccionat les coordenades'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  );
-                },
-              );
+                dialogType: DialogType.warning,
+                buttonsBorderRadius: const BorderRadius.all(
+                  Radius.circular(2),
+                ),
+                dismissOnTouchOutside: true,
+                dismissOnBackKeyPress: false,
+                headerAnimationLoop: false,
+                animType: AnimType.topSlide,
+                title: AppLocalizations.of(context)!.errorCoordinates,
+                desc: AppLocalizations.of(context)!.coordinatesNotSelected,
+                showCloseIcon: true,
+                // btnCancelOnPress: () {},
+                btnOkOnPress: () {},
+              ).show();
             }
           },
+          child: const Icon(Icons.save),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -141,7 +139,8 @@ class _MapaScreenState extends State<MapaPickerScreen> {
     return LatLng(latitude, longitude);
   }
 
-  void _addMarker(LatLng pos, Map<Dimoni, dynamic> dimoni, Marker coordenadesDimoni) {
+  void _addMarker(
+      LatLng pos, Map<Dimoni, dynamic> dimoni, Marker coordenadesDimoni) {
     setState(() {
       coordenadesDimoni = Marker(
           markerId: const MarkerId('coordenadesDimoni'),
