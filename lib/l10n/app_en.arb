@@ -131,5 +131,7 @@
     "passwordRequirements": "Enter a password that contains:\n\n• At least 12 characters\n• At least 1 lowercase letter\n• At least 1 uppercase letter\n• At least 1 digit\n• At least 1 special character",
     "o": "OR",
     "googleError": "Google Error",
-    "googleSignInCancelled": "The Google sign in method cancelled."
+    "googleSignInCancelled": "The Google sign in method cancelled.",
+    "changesSavedTitle": "Changes Saved",
+    "changesSavedMessage": "User data has been updated successfully."
 }

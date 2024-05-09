@@ -39,8 +39,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     userProvider.setDisplayName(displayName);
     userProvider.setPhotoURL(iconUser);
 
-    succesToastification(context, 'CANVIS GUARDATS',
-        'S\'han actualitzat les dades de l\'usuari correctament.');
+    succesToastification(
+        context,
+        AppLocalizations.of(context)!.changesSavedTitle,
+        AppLocalizations.of(context)!.changesSavedMessage);
 
     setState(() => _loading = false);
   }

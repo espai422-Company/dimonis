@@ -131,5 +131,7 @@
     "passwordRequirements": "Introdueix una contrasenya que contingui:\n\n• Com a mínim 12 caràcters\n• Com a mínim 1 lletra minúscula\n• Com a mínim 1 lletra majúscula\n• Com a mínim 1 dígit\n• Com a mínim 1 caràcter especial",
     "o": "O",
     "googleError": "Error de Google",
-    "googleSignInCancelled": "El mètode d'inici de sessió de Google s'ha cancel·lat."
+    "googleSignInCancelled": "El mètode d'inici de sessió de Google s'ha cancel·lat.",
+    "changesSavedTitle": "Canvis Guardats",
+    "changesSavedMessage": "S'han actualitzat les dades de l'usuari correctament."
 }

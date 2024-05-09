@@ -59,7 +59,7 @@
     "accountCreatedMessage": "Enhorabuena, tu cuenta se ha verificado correctamente. Bienvenido a DimonisGo donde puedes jugar y crear tus propias gincanas.",
     "continueButton": "Continuar",
     "preguntaPrime": "¿Quieres ser PRIME?",
-    "textePrime": "Con la suscripción PRIME, disfrutarás de todas las funciones de la aplicación y además podrás crear tus propias búsquedas del tesoro para tus amigos o familiares.",
+    "textePrime": "Con la suscripción PRIME, disfrutarás de todas las funciones de la aplicación y además podrás crear tus propias gincanas para tus amigos o familiares.",
     "upgradePremium": "Actualizar a premium",
     "noUsernameInput": "Introduce tu nombre de usuario",
     "saveChanges": "Guardar cambios",
@@ -131,5 +131,7 @@
     "passwordRequirements": "Ingresa una contraseña que contenga:\n\n• Al menos 12 caracteres\n• Al menos 1 letra minúscula\n• Al menos 1 letra mayúscula\n• Al menos 1 dígito\n• Al menos 1 carácter especial",
     "o": "O",
     "googleError": "Error de Google",
-    "googleSignInCancelled": "El método de inicio de sesión de Google se canceló."
+    "googleSignInCancelled": "El método de inicio de sesión de Google se canceló.",
+    "changesSavedTitle": "Cambios Guardados",
+    "changesSavedMessage": "Se han actualizado los datos del usuario correctamente."
 }
