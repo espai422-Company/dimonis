@@ -33,7 +33,7 @@
     "forgetPassword": "Has oblidat la contrasenya?",
     "getOnBoard": "¡Uneix-te!",
     "newProfile": "Crea el teu perfil per començar.",
-    "yesAccount": "Ja tens un compte?",
+    "yesAccount": "Ja tens un compte? ",
     "noUsernameInput": "Introdueix el teu nom d'usuari",
     "username": "Nom d'usuari",
     "infoUsuari": "Informació de l'usuari",
@@ -122,5 +122,12 @@
     "incorrectAnswer": "Resposta incorrecta",
     "answer": "Resposta",
     "selectDemon": "Selecciona un dimoni",
-    "selectDemonToCheckResult": "S'ha de seleccionar un dimoni per comprovar el resultat"
+    "selectDemonToCheckResult": "S'ha de seleccionar un dimoni per comprovar el resultat",
+    "signupJunt": "Registra't",
+    "loginJunt": "Inicia sessió",
+    "loginError": "Error d'inici de sessió",
+    "registerError": "Error de registre",
+    "passwordTooWeak": "Contrasenya massa fàcil!",
+    "passwordRequirements": "Introdueix una contrasenya que contingui:\n\n• Com a mínim 12 caràcters\n• Com a mínim 1 lletra minúscula\n• Com a mínim 1 lletra majúscula\n• Com a mínim 1 dígit\n• Com a mínim 1 caràcter especial",
+    "o": "O"
 }

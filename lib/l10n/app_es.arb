@@ -33,7 +33,7 @@
     "forgetPassword": "¿Olvidaste la contraseña?",
     "getOnBoard": "¡Únete!",
     "newProfile": "Crea tu perfil para empezar.",
-    "yesAccount": "¿Ya tienes una cuenta?",
+    "yesAccount": "¿Ya tienes una cuenta? ",
     "username": "Nombre de usuario",
     "infoUsuari": "Información del usuario",
     "editProfile": "Editar perfil",
@@ -122,5 +122,12 @@
     "incorrectAnswer": "Respuesta incorrecta",
     "answer": "Respuesta",
     "selectDemon": "Selecciona un demonio",
-    "selectDemonToCheckResult": "Debe seleccionarse un dimoni para comprobar el resultado"
+    "selectDemonToCheckResult": "Debe seleccionarse un dimoni para comprobar el resultado",
+    "signupJunt": "Registrarse",
+    "loginJunt": "Iniciar sesión",
+    "loginError": "Error de inicio de sesión",
+    "registerError": "Error de registro",
+    "passwordTooWeak": "¡Contraseña demasiado débil!",
+    "passwordRequirements": "Ingresa una contraseña que contenga:\n\n• Al menos 12 caracteres\n• Al menos 1 letra minúscula\n• Al menos 1 letra mayúscula\n• Al menos 1 dígito\n• Al menos 1 carácter especial",
+    "o": "O"
 }

@@ -4,7 +4,7 @@ import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
-import 'package:toastification/toastification.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SingUpScreen extends StatelessWidget {
   const SingUpScreen({super.key, required this.controller});
@@ -21,15 +21,15 @@ class SingUpScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginHeaderWidget(
-                  title: "Get on board,",
-                  subtitle: "Create your profile to start.",
+                LoginHeaderWidget(
+                  title: AppLocalizations.of(context)!.getOnBoard,
+                  subtitle: AppLocalizations.of(context)!.newProfile,
                 ),
                 const SignUpFormWidget(),
                 LoginFooterWidget(
                   controller: controller,
-                  textAccount: "Already have an account? ",
-                  textFunction: "Login",
+                  textAccount: AppLocalizations.of(context)!.yesAccount,
+                  textFunction: AppLocalizations.of(context)!.loginJunt,
                   page: 0,
                 ),
               ],
@@ -71,18 +71,10 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
     setState(() => _loading = true);
 
     if (passNotifier.value != PasswordStrength.secure) {
-      toastification.show(
-        alignment: Alignment.bottomCenter,
-        style: ToastificationStyle.flatColored,
-        type: ToastificationType.warning,
-        context: context,
-        title: const Text(
-          'Password too weak!',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        description: Text(PasswordStrength.instructions),
-        autoCloseDuration: const Duration(seconds: 6),
-      );
+      warningToastification(
+          context,
+          AppLocalizations.of(context)!.passwordTooWeak,
+          AppLocalizations.of(context)!.passwordRequirements);
       setState(() => _loading = false);
       return;
     }
@@ -94,8 +86,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
       _passController.text = '';
       _userNameController.text = '';
     } on FirebaseAuthException catch (e) {
-      errorToastification(
-          context, 'Sing Up error', e.message ?? 'UNKNOWN SING UP ERROR');
+      errorToastification(context, AppLocalizations.of(context)!.registerError,
+          e.message ?? 'UNKNOWN SING UP ERROR');
     }
 
     setState(() => _loading = false);
@@ -116,15 +108,15 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
               controller: _userNameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Introdueix el nom d\'usuari';
+                  return AppLocalizations.of(context)!.noUsernameInput;
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person_outline_outlined),
-                  labelText: "Nom d'usuari",
-                  hintText: "Nom d'usuari",
-                  border: OutlineInputBorder()),
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person_outline_outlined),
+                  labelText: AppLocalizations.of(context)!.username,
+                  hintText: AppLocalizations.of(context)!.username,
+                  border: const OutlineInputBorder()),
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -133,15 +125,15 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
               controller: _emailController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Introdueix el teu correu';
+                  return AppLocalizations.of(context)!.noEmailInput;
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person_outline_outlined),
-                  labelText: "Email",
-                  hintText: "Email",
-                  border: OutlineInputBorder()),
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person_outline_outlined),
+                  labelText: AppLocalizations.of(context)!.email,
+                  hintText: AppLocalizations.of(context)!.email,
+                  border: const OutlineInputBorder()),
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -151,14 +143,14 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
               obscureText: visiblePasswd,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Introdueix la teva contrassenya';
+                  return AppLocalizations.of(context)!.noPasswordInput;
                 }
                 return null;
               },
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.fingerprint),
-                labelText: "Password",
-                hintText: "Password",
+                labelText: AppLocalizations.of(context)!.password,
+                hintText: AppLocalizations.of(context)!.password,
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: () {
@@ -180,14 +172,6 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
               strength: passNotifier,
             ),
             const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'reset_password_screen');
-                  },
-                  child: const Text("Forget password?")),
-            ),
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -202,7 +186,8 @@ class _SignUpFormWidget extends State<SignUpFormWidget> {
                           strokeWidth: 2,
                         ),
                       )
-                    : Text("Signup".toUpperCase()),
+                    : Text(
+                        AppLocalizations.of(context)!.signupJunt.toUpperCase()),
               ),
             ),
           ],

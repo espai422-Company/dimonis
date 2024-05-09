@@ -4,6 +4,7 @@ import 'package:app_dimonis/services/auth.dart';
 import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key, required this.controller});
@@ -20,15 +21,15 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LoginHeaderWidget(
-                  title: "Welcome Back,",
-                  subtitle: "Make it work, make it right, moke it fast.",
+                LoginHeaderWidget(
+                  title: AppLocalizations.of(context)!.welcomeBack,
+                  subtitle: AppLocalizations.of(context)!.lema,
                 ),
                 const LoginForm(),
                 LoginFooterWidget(
                   controller: controller,
-                  textAccount: "Don't have an account? ",
-                  textFunction: "Signup",
+                  textAccount: AppLocalizations.of(context)!.noAccount,
+                  textFunction: AppLocalizations.of(context)!.signupJunt,
                   page: 1,
                 ),
               ],
@@ -73,8 +74,8 @@ class _LoginFormState extends State<LoginForm> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     } on FirebaseAuthException catch (e) {
-      errorToastification(
-          context, 'Login error', e.message ?? 'UNKNOWN LOGIN ERROR');
+      errorToastification(context, AppLocalizations.of(context)!.loginError,
+          e.message ?? 'UNKNOWN LOGIN ERROR');
     }
 
     setState(() => _loading = false);
@@ -96,15 +97,15 @@ class _LoginFormState extends State<LoginForm> {
               controller: _emailController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Introdueix el teu correu';
+                  return AppLocalizations.of(context)!.noEmailInput;
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person_outline_outlined),
-                  labelText: "Email",
-                  hintText: "Email",
-                  border: OutlineInputBorder()),
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person_outline_outlined),
+                  labelText: AppLocalizations.of(context)!.email,
+                  hintText: AppLocalizations.of(context)!.email,
+                  border: const OutlineInputBorder()),
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -114,14 +115,14 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: visiblePasswd,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Introdueix la teva contrassenya';
+                  return AppLocalizations.of(context)!.noPasswordInput;
                 }
                 return null;
               },
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.fingerprint),
-                labelText: "Password",
-                hintText: "Password",
+                labelText: AppLocalizations.of(context)!.password,
+                hintText: AppLocalizations.of(context)!.password,
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: () {
@@ -142,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.pushNamed(context, 'reset_password_screen');
                   },
-                  child: const Text("Forget password?")),
+                  child: Text(AppLocalizations.of(context)!.forgetPassword)),
             ),
             SizedBox(
               width: double.infinity,
@@ -158,7 +159,8 @@ class _LoginFormState extends State<LoginForm> {
                           strokeWidth: 2,
                         ),
                       )
-                    : Text("Login".toUpperCase()),
+                    : Text(
+                        AppLocalizations.of(context)!.loginJunt.toUpperCase()),
               ),
             ),
           ],

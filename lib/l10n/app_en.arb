@@ -33,7 +33,7 @@
     "forgetPassword": "Forget password?",
     "getOnBoard": "Get on board!",
     "newProfile": "Create your profile to start.",
-    "yesAccount": "Already have an account?",
+    "yesAccount": "Already have an account? ",
     "username": "Username",
     "infoUsuari": "User information",
     "editProfile": "Edit profile",
@@ -122,5 +122,12 @@
     "incorrectAnswer": "Incorrect answer",
     "answer": "Answer",
     "selectDemon": "Select Demon",
-    "selectDemonToCheckResult": "A demon must be selected to check the result"
+    "selectDemonToCheckResult": "A demon must be selected to check the result",
+    "signupJunt": "Signup",
+    "loginJunt": "Login",
+    "loginError": "Login error",
+    "registerError": "Register error",
+    "passwordTooWeak": "Password too weak!",
+    "passwordRequirements": "Enter a password that contains:\n\n• At least 12 characters\n• At least 1 lowercase letter\n• At least 1 uppercase letter\n• At least 1 digit\n• At least 1 special character",
+    "o": "OR"
 }
