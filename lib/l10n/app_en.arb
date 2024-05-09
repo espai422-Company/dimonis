@@ -110,5 +110,17 @@
     "endDateBeforeStartDate": "The end date of the gymkhana cannot be before the start date",
     "nameTooShort": "The name of the gymkhana is too short",
     "nameTooLong": "The name of the gymkhana is too long",
-    "createScavengerHunt": "Create a gymkhana"
+    "createScavengerHunt": "Create a gymkhana",
+    "congratulations": "Congratulations!",
+    "scavengerHuntCompleted": "You have completed the gymkhana!",
+    "locationPermissionDenied": "We don't have permission to access your location",
+    "locationServiceDisabled": "You don't have location services enabled",
+    "you": "You",
+    "demon": "Demon",
+    "correctAnswer": "Correct answer",
+    "tryAgain": "TRY AGAIN...",
+    "incorrectAnswer": "Incorrect answer",
+    "answer": "Answer",
+    "selectDemon": "Select Demon",
+    "selectDemonToCheckResult": "A demon must be selected to check the result"
 }

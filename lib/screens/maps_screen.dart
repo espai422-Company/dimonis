@@ -90,13 +90,14 @@ class _MapsScreenState extends State<MapsScreen> {
           child: AnimatedTextKit(
         animatedTexts: [
           ScaleAnimatedText(
-            'Enhorabona!',
+            AppLocalizations.of(context)!.congratulations,
             textStyle:
                 const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
           ),
           ScaleAnimatedText(
-            'Has completat la gimcana!',
+            AppLocalizations.of(context)!.scavengerHuntCompleted,
+            textAlign: TextAlign.center,
             textStyle:
                 const TextStyle(fontSize: 25.0, fontFamily: 'Canterbury'),
             duration: const Duration(milliseconds: 5000),
@@ -108,12 +109,12 @@ class _MapsScreenState extends State<MapsScreen> {
         stopPauseOnTap: true,
       ));
     } else if (!hasLocationPermission) {
-      return const Center(
-        child: Text('No tenim permís per accedir a la localització'),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.locationPermissionDenied),
       );
     } else if (!locationServiceEnabled) {
-      return const Center(
-        child: Text('No tens el servei de localització activat'),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.locationServiceDisabled),
       );
     }
 
@@ -135,14 +136,15 @@ class _MapsScreenState extends State<MapsScreen> {
             Marker(
               markerId: const MarkerId('current'),
               position: _currentLocation!,
-              infoWindow: const InfoWindow(title: 'Tu'),
+              infoWindow: InfoWindow(title: AppLocalizations.of(context)!.you),
               icon: _currentLocationIcon,
             ),
           if (_nextLocation != null)
             Marker(
               markerId: const MarkerId('next'),
               position: _nextLocation!,
-              infoWindow: const InfoWindow(title: 'Dimoni'),
+              infoWindow:
+                  InfoWindow(title: AppLocalizations.of(context)!.demon),
               icon: _nextLocationIcon,
             ),
         },
@@ -248,10 +250,13 @@ class _MapsScreenState extends State<MapsScreen> {
         Provider.of<FireBaseProvider>(context, listen: false);
     if (resposta.toLowerCase() == _nextDimoni!.nom.toLowerCase()) {
       fireBaseProvider.progressProvider.addDiscover(_nextDimoni!);
-      succesToastification(context, 'ENHORABONA!', 'Resposta correcta');
+      succesToastification(
+          context,
+          AppLocalizations.of(context)!.congratulations.toUpperCase(),
+          AppLocalizations.of(context)!.correctAnswer);
     } else {
-      warningToastification(
-          context, 'TORNA A PROVAR...', 'Resposta incorrecta');
+      warningToastification(context, AppLocalizations.of(context)!.tryAgain,
+          AppLocalizations.of(context)!.incorrectAnswer);
     }
   }
 

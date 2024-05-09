@@ -77,6 +77,9 @@ class _CrearDimoniState extends State<CrearDimoni> {
               ElevatedButton(
                 onPressed: () async {
                   final imagen = await getImageGallery();
+                  if (imagen == null) {
+                    return;
+                  }
                   setState(() {
                     imagen_to_upload = File(imagen!.path);
                   });

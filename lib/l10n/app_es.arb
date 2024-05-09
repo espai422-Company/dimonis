@@ -110,5 +110,17 @@
     "endDateBeforeStartDate": "La fecha final de la gincana no puede ser anterior a la fecha de inicio",
     "nameTooShort": "El nombre de la gincana es demasiado corto",
     "nameTooLong": "El nombre de la gincana es demasiado largo",
-    "createScavengerHunt": "Crea una gincana"
+    "createScavengerHunt": "Crea una gincana",
+    "congratulations": "¡Enhorabuena!",
+    "scavengerHuntCompleted": "¡Has completado la gincana!",
+    "locationPermissionDenied": "No tenemos permiso para acceder a tu ubicación",
+    "locationServiceDisabled": "No tienes el servicio de localización activado",
+    "you": "Tu",
+    "demon": "Demonio",
+    "correctAnswer": "Respuesta correcta",
+    "tryAgain": "VUELVE A INTENTARLO...",
+    "incorrectAnswer": "Respuesta incorrecta",
+    "answer": "Respuesta",
+    "selectDemon": "Selecciona un demonio",
+    "selectDemonToCheckResult": "Debe seleccionarse un dimoni para comprobar el resultado"
 }

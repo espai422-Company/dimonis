@@ -110,5 +110,17 @@
     "minDemons": "El mínim de dimonis per a una gimcana són",
     "endDateBeforeStartDate": "La data final de la gimcana no pot ser anterior a la data d'inici",
     "nameTooShort": "El nom de la gimcana és massa curt",
-    "nameTooLong": "El nom de la gimcana és massa llarg"
+    "nameTooLong": "El nom de la gimcana és massa llarg",
+    "congratulations": "Enhorabona!",
+    "scavengerHuntCompleted": "Has completat la gimcana!",
+    "locationPermissionDenied": "No tenim permís per accedir a la localització",
+    "locationServiceDisabled": "No tens el servei de localització activat",
+    "you": "Tu",
+    "demon": "Dimoni",
+    "correctAnswer": "Resposta correcta",
+    "tryAgain": "TORNA A PROVAR...",
+    "incorrectAnswer": "Resposta incorrecta",
+    "answer": "Resposta",
+    "selectDemon": "Selecciona un dimoni",
+    "selectDemonToCheckResult": "S'ha de seleccionar un dimoni per comprovar el resultat"
 }
