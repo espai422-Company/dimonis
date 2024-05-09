@@ -1,17 +1,13 @@
-import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class GithubSignInButton extends StatelessWidget {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  GithubSignInButton({super.key});
+  const GithubSignInButton({super.key});
 
   Future<void> _signInWithGithub(BuildContext context) async {
     try {
       var user = await signInWithGithub();
-      var ref = SignleDBConn.getDatabase().ref('/users');
       auth.saveUserToRTDB(user.credential?.providerId ?? 'Github');
       Navigator.pushNamed(context, '/');
       // Perform any actions after successful login

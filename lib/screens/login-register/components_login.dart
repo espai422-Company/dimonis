@@ -1,7 +1,7 @@
 import 'package:app_dimonis/widgets/github_sign_in_button.dart';
 import 'package:app_dimonis/widgets/google_sign_in_button.dart';
+import 'package:app_dimonis/widgets/microsoft_sign_in_button.dart';
 import 'package:flutter/material.dart';
-import 'package:app_dimonis/widgets/facebook_sign_in_button.dart';
 
 class LoginHeaderWidget extends StatelessWidget {
   const LoginHeaderWidget(
@@ -59,11 +59,11 @@ class LoginFooterWidget extends StatelessWidget {
             children: [
               GoogleSignInButton(),
               SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-              FacebookSignInButton(),
+              const MicrosoftSignInButton(),
             ],
           ),
           const SizedBox(height: 10),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GithubSignInButton(),
