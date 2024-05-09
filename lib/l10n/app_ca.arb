@@ -129,5 +129,7 @@
     "registerError": "Error de registre",
     "passwordTooWeak": "Contrasenya massa fàcil!",
     "passwordRequirements": "Introdueix una contrasenya que contingui:\n\n• Com a mínim 12 caràcters\n• Com a mínim 1 lletra minúscula\n• Com a mínim 1 lletra majúscula\n• Com a mínim 1 dígit\n• Com a mínim 1 caràcter especial",
-    "o": "O"
+    "o": "O",
+    "googleError": "Error de Google",
+    "googleSignInCancelled": "El mètode d'inici de sessió de Google s'ha cancel·lat."
 }

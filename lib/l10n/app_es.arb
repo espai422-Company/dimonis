@@ -129,5 +129,7 @@
     "registerError": "Error de registro",
     "passwordTooWeak": "¡Contraseña demasiado débil!",
     "passwordRequirements": "Ingresa una contraseña que contenga:\n\n• Al menos 12 caracteres\n• Al menos 1 letra minúscula\n• Al menos 1 letra mayúscula\n• Al menos 1 dígito\n• Al menos 1 carácter especial",
-    "o": "O"
+    "o": "O",
+    "googleError": "Error de Google",
+    "googleSignInCancelled": "El método de inicio de sesión de Google se canceló."
 }

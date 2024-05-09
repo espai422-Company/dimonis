@@ -1,8 +1,10 @@
 import 'package:app_dimonis/api/db_connection.dart';
 import 'package:app_dimonis/services/auth.dart';
+import 'package:app_dimonis/widgets/show_toastification.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +28,11 @@ class GoogleSignInButton extends StatelessWidget {
         auth.saveUserToRTDB(user.credential?.providerId ?? 'Google');
         Navigator.pushNamed(context, '/');
         // Perform any actions after successful login
+      } else {
+        warningToastification(
+            context,
+            AppLocalizations.of(context)!.googleError,
+            AppLocalizations.of(context)!.googleSignInCancelled);
       }
     } catch (error) {
       print('Error signing in with Google: $error');
